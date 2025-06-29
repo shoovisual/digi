@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'LG EI Headline', sans-serif;
+    --color-digi-orange: #EA6911;
+    --color-digi-orange-dark: #D45C0F;
+    --color-digi-blue: #0174BA;
+    --color-digi-dark: #1B1917;
+    --color-off-white: #F9F9F9;
+}
