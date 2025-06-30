@@ -42,28 +42,10 @@
                         <img src="{{ asset('img/' . $product->image) }}" alt="{{ $product->name }}"
                             class="w-full h-48 object-contain my-4">
                     </div>
-
                     <!-- Rating and Actions -->
                     <div class="flex flex-col space-y-3">
-                        <div class="flex items-center gap-2">
-                            <!-- Stars -->
-                            <div class="flex text-orange-400 text-sm">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    @if ($i <= 4) <!-- Replace 4 with dynamic rating if available -->
-                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                                            <path d="M12 .587l3.668 7.568L24 9.75l-6 5.823L19.335 24 12 19.897 4.665 24 6 15.573 0 9.75l8.332-1.595z"/>
-                                        </svg>
-                                    @else
-                                        <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M12 .587l3.668 7.568L24 9.75l-6 5.823L19.335 24 12 19.897 4.665 24 6 15.573 0 9.75l8.332-1.595z"/>
-                                        </svg>
-                                    @endif
-                                @endfor
-                            </div>
+                    @include('shopping.sections.rating')
 
-                            <!-- Ratings Count -->
-                            <span class="text-sm text-blue-600 hover:underline cursor-pointer">43 Ratings</span>
-                        </div>
 
                         <!-- Buttons -->
                         <div class="flex items-center justify-start font-medium gap-4 mt-1">
