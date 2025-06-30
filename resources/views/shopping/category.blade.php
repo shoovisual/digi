@@ -3,7 +3,7 @@
 @section('title', $category->name)
 
 @section('content')
-    <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="w-full mx-auto py-8">
         <!-- Categories Bar -->
         <div class="flex justify-center space-x-8 mb-12">
             @foreach ($categories as $cat)
@@ -16,6 +16,18 @@
                     <span class="text-sm font-medium text-gray-600 group-hover:text-orange-500 transition-colors duration-300">{{ $cat->name }}</span>
                 </a>
             @endforeach
+        </div>
+
+        <!-- Category Header -->
+        <div class="text-center relative mb-12">
+            @if ($category->cover_image)
+                <img src="{{ asset('img/' . $category->cover_image) }}" alt="{{ $category->name }} cover image" class="w-full h-[50vh] object-cover mt-4">
+            @endif
+            {{-- <div class="absolute z-20 inset-0 overlay bg-gradient-to-r from-black/80 to-transparent"></div>
+            <div class="absolute z-30 inset-0 flex flex-col items-center justify-center text-white">
+                <h1 class="text-4xl font-bold text-white mb-2">{{ $category->name }}</h1>
+                <p class="text-lg text-white">{{ $category->description }}</p>
+            </div> --}}
         </div>
 
         <!-- Products Grid -->

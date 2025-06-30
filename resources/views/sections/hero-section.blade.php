@@ -1,3 +1,35 @@
+@php
+    /*
+     |-------------------------------------------------------------------------
+     | Slider data.
+     |-------------------------------------------------------------------------
+     */
+    $slides = [
+        [
+            'image'  => '/img/tv-cover.png',
+            'title'  => 'Enjoy the Best in Every Pixel',
+            'subtitle' => 'With our affordable UHD Smart TV',
+            'primary' => ['label' => 'Buy now',  'url' => '#'],
+            'secondary' => ['label' => 'View More', 'url' => '#'],
+        ],
+        [
+            'image'  => '/img/tv-slider-2.jpg',
+            'title'  => 'Experience True Colors In Every Scene',
+            'subtitle' => 'Immerse yourself in vibrant and lifelike visuals',
+            'primary' => ['label' => 'Shop TVs',   'url' => '#'],
+            'secondary' => ['label' => 'Learn More', 'url' => '#'],
+        ],
+        [
+            'image'  => '/img/tv-slider-3.png',
+            'title'  => 'Smart Features, Seamless Entertainment',
+            'subtitle' => 'Access your favourite apps and content with ease',
+            'primary' => ['label' => 'Explore Smart TVs', 'url' => '#'],
+            'secondary' => ['label' => 'Discover More',   'url' => '#'],
+        ],
+    ];
+@endphp
+
+
 <section class="relative overflow-hidden h-screen">
     <div class="hero-slider h-full">
         {{-- one slide --}}
@@ -9,14 +41,14 @@
                 <h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
                     Enjoy the Best in<br>Every Pixel
                 </h1>
-                <p class="text-white text-lg md:text-xl mb-8">
+                <p class="text-white text-lg font-semibold md:text-xl mb-8">
                     With our affordable UHD Smart TV
                 </p>
                 <div class="flex space-x-4">
-                    <a href="#" class="bg-digi-orange text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-digi-orange-dark transition-colors duration-300">
+                    <a href="#" class="bg-digi-orange text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-digi-orange-dark transition-colors duration-300">
                         Buy now
                     </a>
-                    <a href="#" class="border-2 border-white text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-digi-dark transition-colors duration-300">
+                    <a href="#" class="border-2 border-white text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-white hover:text-digi-dark transition-colors duration-300">
                         View More
                     </a>
                 </div>
@@ -35,10 +67,10 @@
                     Immerse yourself in vibrant and lifelike visuals
                 </p>
                 <div class="flex space-x-4">
-                    <a href="#" class="bg-digi-orange text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-digi-orange-dark transition-colors duration-300">
+                    <a href="#" class="bg-digi-orange text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-digi-orange-dark transition-colors duration-300">
                         Shop TVs
                     </a>
-                    <a href="#" class="border-2 border-white text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-digi-dark transition-colors duration-300">
+                    <a href="#" class="border-2 border-white text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-white hover:text-digi-dark transition-colors duration-300">
                         Learn More
                     </a>
                 </div>
@@ -56,10 +88,10 @@
                     Access your favorite apps and content with ease
                 </p>
                 <div class="flex space-x-4">
-                    <a href="#" class="bg-digi-orange text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-digi-orange-dark transition-colors duration-300">
+                    <a href="#" class="bg-digi-orange text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-digi-orange-dark transition-colors duration-300">
                         Explore Smart TVs
                     </a>
-                    <a href="#" class="border-2 border-white text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-digi-dark transition-colors duration-300">
+                    <a href="#" class="border-2 border-white text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-white hover:text-digi-dark transition-colors duration-300">
                         Discover More
                     </a>
                 </div>
@@ -85,22 +117,7 @@ $(function () {
         dots: true,
         pauseOnHover: false,
         pauseOnDotsHover: true,
-        prevArrow:
-            `<button type="button"
-                     class="slick-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-300 hover:scale-110">
-                 <svg class="h-6 w-6" fill="none" stroke="currentColor"
-                      stroke-width="2" viewBox="0 0 24 24">
-                     <polyline points="15 18 9 12 15 6"></polyline>
-                 </svg>
-             </button>`,
-        nextArrow:
-            `<button type="button"
-                     class="slick-next absolute right-4 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-300 hover:scale-110">
-                 <svg class="h-6 w-6" fill="none" stroke="currentColor"
-                      stroke-width="2" viewBox="0 0 24 24">
-                     <polyline points="9 18 15 12 9 6"></polyline>
-                 </svg>
-             </button>`
+
     });
 });
 </script>

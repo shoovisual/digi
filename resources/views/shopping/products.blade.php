@@ -4,19 +4,8 @@
 
 @section('content')
     <div class="max-w-7xl mx-auto px-4 py-8">
-        <!-- Categories Bar -->
-        <div class="flex justify-center space-x-8 mb-12">
-            @foreach ($categories as $category)
-                <a href="{{ $category->name == 'All Products' ? route('products.index') : route('categories.show', $category->id) }}" class="flex flex-col items-center group">
-                    <div class="flex p-8 items-center justify-center rounded-lg border-2 {{ request()->routeIs('products.index') && $category->name == 'All Products' ? 'border-orange-500' : 'border-gray-200' }} group-hover:border-orange-500 transition-colors duration-300 mb-2">
-                        @if ($category->icon)
-                            <img src="{{ asset('img/' . $category->icon) }}" alt="{{ $category->name }} icon" class="w-20 h-20">
-                        @endif
-                    </div>
-                    <span class="text-sm font-medium text-gray-600 group-hover:text-orange-500 transition-colors duration-300">{{ $category->name }}</span>
-                </a>
-            @endforeach
-        </div>
+
+        @include('shopping.sections.product-categories')
 
         <!-- Products Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">

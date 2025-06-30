@@ -4,11 +4,16 @@
 @section('content')
 
     @include('sections.hero-section')
+
+    @include('shopping.sections.product-categories')
+
     @include('sections.banner-slider')
 
     @include('shopping.sections.most-shopped')
 
     @include('sections.learn')
+
+    @include('sections.need-help')
 
 
     @if (Route::has('login'))
