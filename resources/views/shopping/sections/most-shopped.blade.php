@@ -4,10 +4,14 @@
         @foreach ($products as $product)
             <div class="bg-off-white border border-[#939393] mx-2 rounded-lg slide shadow-md overflow-hidden">
                 <img src="{{ asset('img/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-48 object-contain p-4">
-                <div class="p-4 text-center">
-                    <h3 class="text-lg font-semibold text-gray-800">{{ $product->name }}</h3>
+                <div class="p-4">
+                    <h3 class="text-xl mb-3 font-semibold text-gray-800">{{ $product->name }}</h3>
+                    @include('shopping.sections.rating', ['rating' => $product->rating, 'ratingsCount' => $product->ratings_count])
                     <p class="text-sm text-gray-500">{{ $product->category }}</p>
-                    <a href="#" class="mt-4 inline-block px-4 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100 transition duration-300">View Product</a>
+                    <div class="buttons flex gap-x-3 mt-4 font-medium text-sm">
+                        <a href="#" class="inline-block px-4 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100 transition duration-300">View Product</a>
+                        <a href="#" class="inline-block px-4 py-2 bg-digi-orange text-white rounded-full hover:bg-digi-orange-dark transition duration-300">Where to Buy</a>
+                    </div>
                 </div>
             </div>
         @endforeach

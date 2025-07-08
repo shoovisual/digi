@@ -13,3 +13,7 @@
     --color-digi-dark: #1B1917;
     --color-off-white: #F9F9F9;
 }
+
+.shopped-slider .slide {
+    margin: 10px;
+}

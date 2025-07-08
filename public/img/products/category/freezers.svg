@@ -1,6 +1,26 @@
-<svg width="107" height="64" viewBox="0 0 107 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M100.987 2H6.01327C4.28464 2 2.8833 3.40134 2.8833 5.12997V55.0636C2.8833 56.7922 4.28464 58.1936 6.01327 58.1936H100.987C102.715 58.1936 104.117 56.7922 104.117 55.0636V5.12997C104.117 3.40134 102.715 2 100.987 2Z" stroke="#1B1917" stroke-width="4" stroke-miterlimit="133.33" stroke-linecap="round"/>
-<path d="M37.0874 15.1298H69.899" stroke="#EA6911" stroke-width="3" stroke-miterlimit="133.33" stroke-linecap="round"/>
-<path d="M12.512 62H28.1751" stroke="#1B1917" stroke-width="4" stroke-miterlimit="133.33" stroke-linecap="round"/>
-<path d="M79.4614 62H95.1245" stroke="#1B1917" stroke-width="4" stroke-miterlimit="133.33" stroke-linecap="round"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 108.3 70.7">
+  <!-- Generator: Adobe Illustrator 29.0.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 186)  -->
+  <defs>
+    <style>
+      .st0 {
+        stroke: #ea6911;
+      }
+
+      .st0, .st1 {
+        fill: none;
+        stroke-linecap: round;
+        stroke-miterlimit: 133.3;
+        stroke-width: 5.5px;
+      }
+
+      .st1 {
+        stroke: #1b1917;
+      }
+    </style>
+  </defs>
+  <path class="st1" d="M101.6,3.6H6.6c-1.7,0-3.1,1.4-3.1,3.2v51c0,1.8,1.4,3.2,3.1,3.2h95c1.7,0,3.1-1.4,3.1-3.2V6.8c0-1.8-1.4-3.2-3.1-3.2Z"/>
+  <path class="st0" d="M41.4,17.9h25.4"/>
+  <path class="st1" d="M13.1,66.7h15.7"/>
+  <path class="st1" d="M80.1,66.7h15.7"/>
 </svg>

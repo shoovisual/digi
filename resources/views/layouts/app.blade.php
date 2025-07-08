@@ -14,7 +14,34 @@
     </head>
     <body>
         @include('layouts.navbar')
+        @if (!request()->is('/'))
+            <div class="breadcrumb bg-white border border-[#d6eefc] px-6 py-4">
+                <ul class="flex items-center font-medium breadcrumb-links text-[13px] sm:text-[14px]">
+                    <li><a href="/" class="text-digi-orange">Home</a></li>
+
+                    @php
+                        $link = url('/');
+                    @endphp
+
+                    @for($i = 1; $i <= count(Request::segments()); $i++)
+                        @php
+                            $link .= '/' . Request::segment($i);
+                        @endphp
+
+                        &nbsp; &nbsp;<i class="bi bi-chevron-right text-digi-orange"></i>&nbsp; &nbsp;
+                        <li>
+                            <a href="{{ $link }}" class="text-gray-400">
+                                {{ str_replace('-', ' ', ucfirst(Request::segment($i))) }}
+                            </a>
+                        </li>
+                    @endfor
+                </ul>
+            </div>
+        @endif
+
+
         @yield('content')
+        @include('shopping.sections.where-to-buy')
         @include('layouts.footer')
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 

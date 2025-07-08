@@ -28,7 +28,11 @@ class ProductController extends Controller
 
     public function productsByCategory(Category $category)
     {
-        $products = Product::with('categoryRelation')->where('category_id', $category->id)->get();
+        if ($category->slug === 'products') {
+            $products = Product::with('categoryRelation')->get();
+        } else {
+            $products = Product::with('categoryRelation')->where('category_id', $category->id)->get();
+        }
         $categories = Category::all();
         return view('shopping.category', compact('products', 'category', 'categories'));
     }
