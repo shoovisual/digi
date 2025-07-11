@@ -55,9 +55,16 @@
             <a href="{{ route('products.show', $product->slug) }}" class="px-4 py-2 border border-gray-300 rounded-full text-sm text-black hover:bg-gray-100">
                 View Product
             </a>
-            <button onclick="openBuyModal()" class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-sm">
+            <button
+                onclick="openBuyModal(
+                    '{{ addslashes($product->name) }}',
+                    '{{ asset('img/' . $product->image) }}',
+                    '{{ $product->slug }}'
+                )"
+                class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-sm">
                 Where to Buy
             </button>
+
             <button id="wishlist-icon-{{ $product->id }}" onclick="addToWishlist('{{ $product->id }}', '{{ $product->name }}', '{{ $product->image }}', '{{ $product->slug }}')"
                 class="text-gray-500 text-2xl cursor-pointer hover:text-orange-500">
                 <i class=""></i>
@@ -66,12 +73,38 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div id="buyModal" class="fixed inset-0 z-50 hidden bg-black/50 items-center justify-center" >
+    <div class="bg-white rounded-xl overflow-hidden w-full max-w-5xl mx-4 flex flex-col md:flex-row shadow-xl">
+        <!-- Product Info -->
+        <div class="w-full md:w-1/2 p-6 border-b md:border-b-0 md:border-r space-y-4">
+            <h2 id="modalProductName" class="text-xl font-semibold">Product Name</h2>
+            <img id="modalProductImage" src="" alt="" class="rounded" />
+            <p class="text-md font-medium text-gray-600">*In-store and other retailers' prices will vary.</p>
+        </div>
 
+
+        <!-- Google Map + Store Info -->
+        <div class="w-full md:w-1/2 p-6">
+            <div id="map" class="h-64 w-full rounded mb-4"></div>
+            <div id="storeList" class="text-sm border-b border-gray-200 text-gray-800"></div>
+        </div>
+    </div>
+</div>
 <script>
-  function openBuyModal() {
-    document.getElementById("buyModal").classList.remove("hidden");
-    document.getElementById("buyModal").classList.add("flex");
+  function openBuyModal(name, image, slug) {
+    const modal = document.getElementById("buyModal");
 
+    // Show modal
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+
+    // Set product details
+    document.getElementById("modalProductName").textContent = name;
+    document.getElementById("modalProductImage").src = image;
+    document.getElementById("modalProductImage").alt = name;
+
+    // Load map
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showMapWithStores, function () {
         alert("Location blocked or not available.");
@@ -89,15 +122,12 @@
 
     const map = L.map('map').setView(userLatLng, 12);
 
-    // Set tile layer (OpenStreetMap, no API key needed)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // User location marker
     L.marker(userLatLng).addTo(map).bindPopup("You are here").openPopup();
 
-    // Manually listed store locations
     const stores = [
       {
         name: 'Jaden Home Store',
@@ -117,23 +147,24 @@
       },
     ];
 
-    // Add store markers
     stores.forEach(store => {
       L.marker([store.lat, store.lng])
         .addTo(map)
         .bindPopup(`<strong>${store.name}</strong><br>${store.address}`);
     });
 
+    // ESC or click outside to close
     window.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') document.getElementById("buyModal").classList.add("hidden");
-  });
-  document.getElementById("buyModal").addEventListener('click', function (e) {
-    if (e.target.id === 'buyModal') this.classList.add("hidden");
-  });
+      if (e.key === 'Escape') document.getElementById("buyModal").classList.add("hidden");
+    });
 
-    // Store list under map
+    document.getElementById("buyModal").addEventListener('click', function (e) {
+      if (e.target.id === 'buyModal') this.classList.add("hidden");
+    });
+
     document.getElementById("storeList").innerHTML = stores.map(store =>
       `<div class="mb-2"><strong>${store.name}</strong><br><span>${store.address}</span></div>`
     ).join('');
   }
 </script>
+

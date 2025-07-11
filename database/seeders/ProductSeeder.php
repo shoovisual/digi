@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
         Product::create([
             'name' => 'Smart TV 55-inch UHD',
             'slug' => 'smart-tv-55-inch-uhd',
-            'image' => 'products/tvs/tv-01.png',
+            'image' => 'products/tvs/55/tv-01.png',
             'product_short' => 'DIGI TV 55 Frameless Smart TV',
             'serial' => 'HSDJAS6550B',
             'description' => 'Experience stunning 4K UHD resolution with vibrant colors and incredible detail.',
@@ -39,16 +39,17 @@ class ProductSeeder extends Seeder
                 '2-Year Warranty – Peace of mind guaranteed',
             ]),
             'product_images' => json_encode([
-                'products/tvs/tv-02.png',
-                'products/tvs/tv-03.png',
-                'products/tvs/tv-04.png',
+                'products/tvs/55/tv-01.png',
+                'products/tvs/55/tv-02.png',
+                'products/tvs/55/tv-03.png',
+                'products/tvs/55/tv-04.png',
             ]),
         ]);
 
         Product::create([
             'name' => 'Smart TV 43-inch Smart',
             'slug' => 'smart-tv-43-inch-smart',
-            'image' => 'products/tvs/tv-02.png',
+            'image' => 'products/tvs/43-smart/tv-02.png',
             'product_short' => 'DIGI TV 43 Frameless Smart TV',
             'serial' => 'HSDJAS4350B',
             'description' => 'Experience stunning High resolution with vibrant colors and incredible detail.',
@@ -71,16 +72,17 @@ class ProductSeeder extends Seeder
 
             ]),
             'product_images' => json_encode([
-                'products/tvs/tv-01.png',
-                'products/tvs/tv-03.png',
-                'products/tvs/tv-04.png',
+                'products/tvs/43-smart/tv-02.png',
+                'products/tvs/43-smart/tv-01.png',
+                'products/tvs/43-smart/tv-03.png',
+                'products/tvs/43-smart/tv-04.png',
             ]),
         ]);
 
         Product::create([
             'name' => 'TV 43-inch LED',
             'slug' => 'tv-43-inch-led',
-            'image' => 'products/tvs/tv-04.png',
+            'image' => 'products/tvs/43-led/tv-04.png',
             'product_short' => 'DIGI TV 43 Frameless LED TV',
             'serial' => 'HBDJAS4340B',
             'description' => 'Experience stunning High resolution with vibrant colors and incredible detail.',
@@ -102,16 +104,17 @@ class ProductSeeder extends Seeder
                 '2-Year Warranty – Peace of mind guaranteed',
             ]),
             'product_images' => json_encode([
-                'products/tvs/tv-01.png',
-                'products/tvs/tv-02.png',
-                'products/tvs/tv-03.png',
+                'products/tvs/43-led/tv-04.png',
+                'products/tvs/43-led/tv-01.png',
+                'products/tvs/43-led/tv-02.png',
+                'products/tvs/43-led/tv-03.png',
             ]),
         ]);
 
         Product::create([
             'name' => 'TV 32-inch LED',
             'slug' => 'tv-32-inch-led',
-            'image' => 'products/tvs/tv-03.png',
+            'image' => 'products/tvs/32/tv-03.png',
             'product_short' => 'DIGI TV 32 Frameless LED TV',
             'serial' => 'HBDJAS3240B',
             'description' => 'Experience stunning High resolution with vibrant colors and incredible detail.',
@@ -133,9 +136,10 @@ class ProductSeeder extends Seeder
                 '2-Year Warranty – Peace of mind guaranteed',
             ]),
             'product_images' => json_encode([
-                'products/tvs/tv-01.png',
-                'products/tvs/tv-02.png',
-                'products/tvs/tv-04.png',
+                'products/tvs/32/tv-03.png',
+                'products/tvs/32/tv-01.png',
+                'products/tvs/32/tv-02.png',
+                'products/tvs/32/tv-04.png',
             ]),
         ]);
 

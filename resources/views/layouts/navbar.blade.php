@@ -63,7 +63,7 @@
             Order Now
         </a>
 
-        <a href="#contact"
+        <a href="{{ route('contact') }}"
         @class([
             'hover:text-digi-orange',
             'text-digi-orange' => request()->is('contact')
