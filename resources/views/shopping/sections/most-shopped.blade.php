@@ -61,6 +61,7 @@
                         <a href="{{ route('products.show', $product->slug) }}" class="px-4 py-2 border border-gray-300 rounded-full text-sm text-black hover:bg-gray-100">
                             View Product
                         </a>
+
                         <button
                             onclick="openBuyModal(
                                 '{{ addslashes($product->name) }}',
