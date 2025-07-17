@@ -18,7 +18,7 @@
             <span x-show="copied" class="text-green-500 text-xs font-medium">Copied!</span>
         </div>
 
-        <h2 class="text-2xl font-semibold text-black leading-snug">{{ $product->name }}</h2>
+        <h2 class="text-2xl font-regular text-black leading-snug" title="{{ $product->name }}">{{ Str::limit($product->name, 65) }}</h2>
         <p class="text-sm font-medium text-gray-500 mt-1">{{ $product->product_short }}</p>
 
         <!-- IMAGE CAROUSEL -->
@@ -48,11 +48,11 @@
     </div>
 
     <!-- RATING + ACTIONS -->
-    <div class="flex flex-col space-y-3">
+    <div class="flex flex-col space-y-2">
         @include('shopping.sections.rating')
 
-        <div class="flex items-center justify-start font-medium gap-4 mt-1">
-            <a href="{{ route('products.show', $product->slug) }}" class="px-4 py-2 border border-gray-300 rounded-full text-sm text-black hover:bg-gray-100">
+        <div class="flex items-center justify-start font-medium gap-1 mt-1">
+            <a href="{{ route('products.show', $product->slug) }}" class="px-4 py-2 border border-gray-300 rounded-full text-[16px] text-black hover:bg-gray-100">
                 View Product
             </a>
             <button
@@ -61,12 +61,12 @@
                     '{{ asset('img/' . $product->image) }}',
                     '{{ $product->slug }}'
                 )"
-                class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-sm">
+                class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-[16px]">
                 Where to Buy
             </button>
 
             <button id="wishlist-icon-{{ $product->id }}" onclick="addToWishlist('{{ $product->id }}', '{{ $product->name }}', '{{ $product->image }}', '{{ $product->slug }}')"
-                class="text-gray-500 text-2xl cursor-pointer hover:text-orange-500">
+                class="text-gray-500 text-3xl cursor-pointer hover:text-orange-500">
                 <i class=""></i>
             </button>
         </div>
@@ -82,7 +82,6 @@
             <img id="modalProductImage" src="" alt="" class="rounded" />
             <p class="text-md font-medium text-gray-600">*In-store and other retailers' prices will vary.</p>
         </div>
-
 
         <!-- Google Map + Store Info -->
         <div class="w-full md:w-1/2 p-6">

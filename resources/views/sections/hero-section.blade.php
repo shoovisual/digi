@@ -42,10 +42,10 @@ $slides = [
 
                 {{-- Copy --}}
                 <div class="relative z-10 flex flex-col justify-center h-full p-10 md:p-20 lg:p-32">
-                    <h1 class="text-white text-4xl md:text-5xl lg:text-6xl md:w-lg font-bold leading-tight mb-4">
+                    <h1 class="text-white text-4xl md:text-5xl lg:text-6xl md:w-lg font-regular leading-tight mb-4">
                         {!! nl2br(e($slide['title'])) !!}
                     </h1>
-                    <p class="text-white text-lg font-semibold md:text-xl mb-8">
+                    <p class="text-white text-lg font-light md:text-xl mb-8">
                         {{ $slide['subtitle'] }}
                     </p>
                     <div class="flex space-x-4">

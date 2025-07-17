@@ -1,7 +1,11 @@
 <header class="border-b border-[#EDEDED]" x-data="{ mobileMenuOpen: false }">
   <!-- Top slim bar -->
-  <div class="bg-off-white flex border-b border-[#C7C7C7] justify-between text-sm font-medium text-black px-4 md:px-6 py-3 border-t-4 ">
-    <span>For Business</span>
+  <div class="bg-off-white flex border-b border-[#C7C7C7] justify-between text-sm font-medium text-black px-4 md:px-6 py-4">
+    <div class="flex">
+        <a href="#" class="font-semibold">For Consumer</a>
+        <span class="mx-4">|</span>
+        <a href="/">For Business</a>
+    </div>
     <div class="space-x-4 md:space-x-6 hidden sm:flex">
       <a href="#">Career</a>
       <a href="#">Supports</a>
@@ -22,7 +26,7 @@
     </div>
 
     <!-- Desktop menu -->
-    <nav class="hidden lg:flex space-x-6 text-sm font-medium">
+    <nav class="hidden lg:flex text-black space-x-6 text-lg font-[400]">
         <a href="/"
         @class([
             'hover:text-digi-orange',

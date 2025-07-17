@@ -434,33 +434,65 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
-            'name' => 'air Conditioner 1.5 Ton',
-            'slug' => 'air-conditioner-1-5-ton',
-            'product_short' => 'DIGI Smart Air Conditioner 1.5 Ton',
+            'name' => 'DIGI InverterCool Pro 18K – Smart Temp Control, Hidden Display, 3m Pipe Kit, 2025',
+            'slug' => 'invertercool-pro-18k',
+            'product_short' => 'DIGI Smart Air Conditioner 18,000 BTU',
             'serial' => 'AC1.5T123456',
             'description' => 'Energy-efficient air conditioner with smart features for optimal cooling.',
             'category_id' => Category::where('name', 'Air Conditioner')->first()->id,
             'image' => 'products/ac/1.png',
+            'specifications' => json_encode([
+                'capacity' => '18,000 BTU',
+                'energy_rating' => 'A+',
+            ]),
+            'features' => json_encode([
+                '18 K BTU:',
+                'Inverter Compressor™',
+                'Warranty on compressor',
+                'Energy saving ',
+                'Faster Cooling',
+                'Low noise level',
+                'Precise temperature control',
+                'Simple and Modern Design with Hidden display',
+                '3m refrigerant pipes +  electric cable',
+                'W:910   D:294   H:206'
+            ]),
+            'product_images' => json_encode([
+                'products/ac/1.png',
+                'products/ac/2.png',
+                'products/ac/3.png',
+            ]),
         ]);
 
         Product::create([
-            'name' => 'air Conditioner 2 Ton',
-            'slug' => 'air-conditioner-2-ton',
-            'product_short' => 'DIGI Smart Air Conditioner 2 Ton',
-            'serial' => 'AC2T123456',
+            'name' => 'DIGI InverterCool Pro 12K – Smart Temp Control, Hidden Display, 3m Pipe Kit, 2025',
+            'slug' => 'invertercool-pro-12k',
+            'product_short' => 'DIGI Smart Air Conditioner 12,000 BTU',
+            'serial' => 'IR4TABS1250W',
             'description' => 'Energy-efficient air conditioner with smart features for optimal cooling.',
             'category_id' => Category::where('name', 'Air Conditioner')->first()->id,
-            'image' => 'products/ac/2.png',
-        ]);
-
-        Product::create([
-            'name' => 'air Conditioner 2 Ton',
-            'slug' => 'air-conditioner-2-tone',
-            'product_short' => 'DIGI Smart Air Conditioner 2 Ton',
-            'serial' => 'AC2T123456-2',
-            'description' => 'Energy-efficient air conditioner with smart features for optimal cooling.',
-            'category_id' => Category::where('name', 'Air Conditioner')->first()->id,
-            'image' => 'products/ac/3.png',
+            'image' => 'products/ac/4.png',
+            'specifications' => json_encode([
+                'capacity' => '12,000 BTU',
+                'energy_rating' => 'A+',
+            ]),
+            'features' => json_encode([
+                '12 K BTU:',
+                'Inverter Compressor™',
+                'Warranty on compressor',
+                'Energy saving ',
+                'Faster Cooling',
+                'Low noise level',
+                'Precise temperature control',
+                'Simple and Modern Design with Hidden display',
+                '3m refrigerant pipes +  electric cable',
+                'W:777    D:250    H:201 ',
+            ]),
+            'product_images' => json_encode([
+                'products/ac/4.png',
+                'products/ac/2.png',
+                'products/ac/3.png',
+            ]),
         ]);
 
         Product::create([

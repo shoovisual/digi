@@ -7,7 +7,7 @@
                     <img src="{{ asset('img/' . $category->icon) }}" alt="{{ $category->name }} icon" class="w-18 h-18 group-hover:scale-110 transition-transform duration-300">
                 @endif
             </div>
-            <span class="text-sm font-medium text-gray-600 group-hover:text-orange-500 transition-colors duration-300">{{ $category->name }}</span>
+            <span class="text-md font-medium text-gray-600 group-hover:text-orange-500 transition-colors duration-300">{{ $category->name }}</span>
         </a>
     @endforeach
 </div>

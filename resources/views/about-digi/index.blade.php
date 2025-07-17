@@ -18,7 +18,6 @@
     <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto font-medium text-lg px-4 md:px-8">
             <h2 class="text-3xl font-bold mb-6">About DIGI</h2>
-
             <p class="mb-4 text-gray-700">
                 DIGI is a home appliance brand committed to delivering high-quality, affordable, and reliable products that meet the needs of African households. We source products from trusted manufacturers worldwide, including China, Turkey, and other reputable regions. DIGI focuses on offering modern, durable, and functional appliances tailored to the unique needs of Africa.
             </p>
@@ -37,7 +36,7 @@
     </section>
 
     <!-- Vision -->
-    <section class="py-16 max-w-7xl mx-auto mt-6 rounded-2xl px-4 md:px-16 relative flex flex-col md:flex-row items-center" style="background-image:url('img/about-digi-featured.webp'); background-size: cover; background-position: center;">
+    <section class="py-16 max-w-7xl mx-auto mt-6 rounded-2xl px-4 md:px-16 relative flex flex-col md:flex-row items-center" style="background-image:url('img/about-slide-cover.png'); background-size: cover; background-position: center;">
         <div class="overlay absolute z-10 inset-0  bg-black/50 rounded-2xl"></div>
         <div class="text-white mb-12 text-lg font-medium vision z-20 w-full md:w-1/2">
             <h2 class="text-6xl font-normal mb-4">Summary & Commitment</h2>
@@ -49,10 +48,10 @@
 
     <!-- Core Values -->
     <section class="py-16">
-        <div class="container mx-auto px-4 md:px-8">
-            <h2 class="text-3xl font-bold mb-10 text-center">Our Core Values</h2>
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <h2 class="text-3xl font-bold mb-10">Our Core Values</h2>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid grid-col-1 md:grid-cols-3 gap-8">
 
                 @php
                     $values = [
@@ -72,9 +71,9 @@
                 @endphp
 
                 @foreach ($values as $v)
-                    <div class="p-6 bg-gray-100 rounded-lg shadow-sm">
-                        <h3 class="text-xl font-semibold mb-2">{{ $v['title'] }}</h3>
-                        <p class="text-gray-700 text-sm">{{ $v['text'] }}</p>
+                    <div class="px-6 py-10 bg-gray-100 border border-digi-orange/20 font-medium rounded-lg">
+                        <h3 class="text-2xl font-medium mb-4">{{ $v['title'] }}</h3>
+                        <p class="text-gray-700 text-md">{{ $v['text'] }}</p>
                     </div>
                 @endforeach
 
@@ -82,12 +81,27 @@
         </div>
     </section>
 
+    <!-- Product Categories -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <h2 class="text-3xl font-bold mb-10">Our Product Categories</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                @foreach ($categories as $category)
+                    <a href="{{ route('categories.show', $category) }}" class="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                        <i class="bi {{ $category->icon }} text-5xl text-digi-orange mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-800">{{ $category->name }}</h3>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
     <!-- Timeline -->
     <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4 md:px-8">
-            <h2 class="text-3xl font-bold mb-10 text-center">A Timeline of Progress</h2>
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <h2 class="text-3xl font-bold mb-10">A Timeline of Progress</h2>
 
-            <ol class="relative border-l-4 border-digi-orange">
+            <div class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
                 @php
                     $timeline = [
@@ -103,25 +117,19 @@
                 @endphp
 
                 @foreach ($timeline as $item)
-                    <li class="mb-10 ml-4">
-                        <div class="absolute w-3 h-3 bg-digi-orange rounded-full -left-1.5 border-2 border-white"></div>
-                        <time class="mb-1 text-sm font-medium text-digi-orange">{{ $item['year'] }}</time>
-                        <h3 class="text-lg font-semibold text-gray-900">{{ $item['event'] }}</h3>
-                    </li>
+                    <div class="mb-5 border border-digi-orange rounded-lg p-4">
+                        <time class="mb-3 text-3xl font-medium text-digi-orange">{{ $item['year'] }}</time>
+                        <h3 class="text-md font-medium text-gray-900">{{ $item['event'] }}</h3>
+                    </div>
                 @endforeach
 
-            </ol>
+            </div>
         </div>
     </section>
 
-    <!-- Call‑to‑Action -->
-    <section class="py-20 bg-digi-orange text-white text-center">
-        <h2 class="text-3xl font-bold mb-4">Ready to experience the DIGI difference?</h2>
-        <a href="{{ route('products.index') }}"
-           class="inline-block px-8 py-4 bg-white text-digi-orange font-semibold rounded-full
-                  hover:bg-gray-100 transition">
-            Explore Our Products
-        </a>
-    </section>
+    @include('sections.need-help')
+
+    @include('sections.about-cta')
+
 
 @endsection

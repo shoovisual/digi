@@ -15,7 +15,7 @@
 
                     <!-- Reason -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Reason*</label>
+                        <label class="block text-md font-medium text-gray-700 mb-1">Reason*</label>
                         <select name="reason" id="reason" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring focus:ring-teal-300" onchange="toggleWarrantyCheck()">
                             <option selected value="Select Reason" disabled>Select Reason</option>
                             <option>Customer Service – Products</option>
@@ -67,7 +67,7 @@
                     <!-- Product Type & Model -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Product Type*</label>
+                            <label class="block text-md font-medium text-gray-700 mb-1">Product Type*</label>
                             <select name="product_type" id="product_type" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring focus:ring-teal-300">
                                 <option>Please select</option>
                                 @foreach ($categories as $category)
@@ -76,7 +76,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Product Model*</label>
+                            <label class="block text-md font-medium text-gray-700 mb-1">Product Model*</label>
                             <select name="product_model" id="product_model" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring focus:ring-teal-300">
                                 <option>Please select</option>
                             </select>
@@ -90,7 +90,7 @@
                                 @foreach ($categories as $category)
                                     if (productTypeId == {{ $category->id }}) {
                                         @foreach ($category->products as $product)
-                                            productModelSelect.innerHTML += '<option value="{{ $product->id }}">{{ $product->name }}</option>';
+                                            productModelSelect.innerHTML += '<option value="{{ $product->id }}">{{ $product->name }} - SN: {{ $product->serial }}</option>';
                                         @endforeach
                                     }
                                 @endforeach
@@ -100,25 +100,25 @@
 
                     <!-- Name -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Name*</label>
+                        <label class="block text-md font-medium text-gray-700 mb-1">Name*</label>
                         <input type="text" name="name" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring focus:ring-teal-300">
                     </div>
 
                     <!-- Phone & Email -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone*</label>
+                            <label class="block text-md font-medium text-gray-700 mb-1">Phone*</label>
                             <input type="text" name="phone" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring focus:ring-teal-300">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email (Optional)</label>
+                            <label class="block text-md font-medium text-gray-700 mb-1">Email (Optional)</label>
                             <input type="email" name="email" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring focus:ring-teal-300">
                         </div>
                     </div>
 
                     <!-- Country -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Country*</label>
+                        <label class="block text-md font-medium text-gray-700 mb-1">Country*</label>
                         <select name="country" required class="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring focus:ring-teal-300">
                             <option>Please select</option>
                             <option>Tanzania</option>
@@ -130,18 +130,18 @@
 
                     <!-- Address -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Address (Optional)</label>
+                        <label class="block text-md font-medium text-gray-700 mb-1">Address (Optional)</label>
                         <input type="text" name="address" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring focus:ring-teal-300">
                     </div>
 
                     <!-- Message -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">How can we help?*</label>
+                        <label class="block text-md font-medium text-gray-700 mb-1">How can we help?*</label>
                         <textarea name="message" required rows="5" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring focus:ring-teal-300"></textarea>
                     </div>
 
                     <!-- Checkboxes -->
-                    <div class="space-y-4 text-sm text-gray-600">
+                    <div class="space-y-4 text-md text-gray-600">
                         <label class="flex items-start space-x-2">
                             <input type="checkbox" required id="privacy-policy-checkbox" class="mt-1" onchange="toggleSubmitButton()">
                             <span>I have read and agreed to the <a href="#" class="text-teal-600 underline">Privacy Policy</a>.</span>
