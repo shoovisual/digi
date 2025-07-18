@@ -17,6 +17,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        $product = Product::where('slug', $product->slug)->with('categoryRelation')->firstOrFail();
         $relatedProducts = Product::with('categoryRelation')
             ->where('id', '!=', $product->id)
             ->where('category_id', $product->category_id)

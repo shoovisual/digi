@@ -22,7 +22,7 @@
             class="bg-off-white flex items-center justify-between px-4 md:px-6 py-6 transition-all duration-300 z-50" >
     <!-- Logo -->
     <div class="flex items-center space-x-2">
-      <img src="{{ asset('img/digi-logo.svg') }}" alt="DIGI Logo" class="h-8 w-auto" />
+      <a href="/"><img src="{{ asset('img/digi-logo.svg') }}" alt="DIGI Logo" class="h-8 w-auto" /></a>
     </div>
 
     <!-- Desktop menu -->
