@@ -21,7 +21,7 @@ class ProductController extends Controller
         $relatedProducts = Product::with('categoryRelation')
             ->where('id', '!=', $product->id)
             ->where('category_id', $product->category_id)
-            ->take(3)
+            ->take(5)
             ->get();
 
         return view('shopping.product', compact('product', 'relatedProducts'));

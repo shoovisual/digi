@@ -41,7 +41,7 @@
         <!-- Product Info -->
         <div class="md:w-1/2 pr-8">
             <!-- Product Title -->
-            <h1 class="text-3xl sm:text-4xl font-bold text-black leading-snug mb-2">
+            <h1 id="product-name" class="text-3xl sm:text-4xl font-bold text-black leading-snug mb-2">
                 {{ $product->name }}
             </h1>
 
@@ -66,7 +66,7 @@
 
                 <a href="https://wa.me/255748504676" id="wa-btn" target="_blank" class="text-digi-orange font-medium hover:underline flex items-center gap-1">
                     Chat with an expert
-                    <img src="{{ asset('img/icons/ico-chat-red-72-72.gif') }}" alt="WhatsApp Icon" class="w-6 ml-1 h-6">
+                    <img src="{{ asset('img/icons/ico-chat-red-72-72-2.gif') }}" alt="WhatsApp Icon" class="w-6 ml-1 h-6">
                     {{-- <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M18 10c0 3.866-3.582 7-8 7a8.22 8.22 0 01-3.946-1.011L2 17l1.302-3.717A7.763 7.763 0 012 10c0-3.866 3.582-7 8-7s8 3.134 8 7z"/>
                     </svg> --}}
@@ -120,11 +120,11 @@
 
             <!-- Buttons -->
             <div class="buttons flex items-center justify-start font-medium gap-4">
-                <div class="basic-btn">
-                    <button class="bg-orange-500 hover:bg-digi-orange cursor-pointer text-white text-sm px-6 py-3 rounded-full font-medium transition">
+                <div class="flex basic-btn space-x-2">
+                    <a href="#" id="wa-btn-2" target="_blank" class="bg-orange-500 hover:bg-digi-orange cursor-pointer text-white text-[16px] px-6 py-3 rounded-full font-medium transition">
                         Contact Sales
-                    </button>
-                    <button onclick="openBuyModal()" class="bg-gray-200 cursor-pointer hover:bg-gray-300 text-gray-700 text-sm px-6 py-3 rounded-full font-medium transition">
+                    </a>
+                    <button onclick="openBuyModal()" class="bg-gray-200 cursor-pointer hover:bg-gray-300 text-gray-700 text-[16px] px-6 py-3 rounded-full font-medium transition">
                         Where to Buy
                     </button>
                 </div>
@@ -246,24 +246,25 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // 1. Grab the product name
-  const productName = document.getElementById('product-name')?.textContent.trim() || 'Awesome product';
+    document.addEventListener('DOMContentLoaded', () => {
+    // 1. Grab the product name
+    const productName = document.getElementById('product-name')?.textContent.trim() || 'Awesome product';
 
-  // 2. Grab the page URL (you can also use a canonical URL if you prefer)
-  const productLink = window.location.href;
+    // 2. Grab the page URL (you can also use a canonical URL if you prefer)
+    const productLink = window.location.href;
 
-  // 3. Compose the WhatsApp message
-  const message = `Hello 👋, I'm interested in *${productName}*.\n${productLink}`;
+    // 3. Compose the WhatsApp message
+    const message = `Hello 👋, I'm interested in *${productName}*.\n${productLink}`;
 
-  // 4. Encode the message for a URL
-  const encodedMsg = encodeURIComponent(message);
+    // 4. Encode the message for a URL
+    const encodedMsg = encodeURIComponent(message);
 
-  // 5. Build the full WhatsApp link
-  const waNumber = '255748504676';                // your number, no +
-  const waUrl = `https://wa.me/${waNumber}?text=${encodedMsg}`;
+    // 5. Build the full WhatsApp link
+    const waNumber = '255748504676';
+    const waUrl = `https://wa.me/${waNumber}?text=${encodedMsg}`;
 
-  // 6. Inject into the button
-  document.getElementById('wa-btn').setAttribute('href', waUrl);
-});
+    // 6. Inject into the button
+    document.getElementById('wa-btn').setAttribute('href', waUrl);
+    document.getElementById('wa-btn-2').setAttribute('href', waUrl);
+    });
 </script>

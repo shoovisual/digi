@@ -52,7 +52,7 @@
         @include('shopping.sections.rating')
 
         <div class="flex items-center justify-start font-medium gap-1 mt-1">
-            <a href="{{ route('products.show', $product->id) }}" class="px-4 py-2 border border-gray-300 rounded-full text-[16px] text-black hover:bg-gray-100">
+            <a href="{{ route('products.show', $product->slug) }}" class="px-4 py-2 border border-gray-300 rounded-full text-[16px] text-black hover:bg-gray-100">
                 View Product
             </a>
             <button
