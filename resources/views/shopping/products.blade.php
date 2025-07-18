@@ -28,22 +28,6 @@
             </div>
         </div>
     </div>
-    <div id="buyModal" class="fixed inset-0 z-50 hidden bg-black/50 items-center justify-center">
-        <div class="bg-white rounded-xl overflow-hidden w-full max-w-5xl mx-4 flex flex-col md:flex-row shadow-xl">
-            <!-- Product Info -->
-            <div class="w-full md:w-1/2 p-6 border-b md:border-b-0 md:border-r space-y-4">
-            <h2 class="text-xl font-semibold">{{ $product->name }}</h2>
-            <img src="{{ asset('img/' . $product->image) }}" alt="{{ $product->name }}" class="rounded" />
-            <p class="text-md font-medium text-gray-600">*In-store and other retailers' prices will vary.</p>
-            </div>
-
-            <!-- Google Map + Store Info -->
-            <div class="w-full md:w-1/2 p-6">
-                <div id="map" class="h-64 w-full rounded mb-4"></div>
-                <div id="storeList" class="text-sm border-b border-gray-200 text-gray-800"></div>
-            </div>
-        </div>
-    </div>
     @include('sections.need-help')
 @endsection
 

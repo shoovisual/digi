@@ -81,20 +81,18 @@
         </div>
     </section>
 
-    <!-- Product Categories -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <h2 class="text-3xl font-bold mb-10">Our Product Categories</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                @foreach ($categories as $category)
-                    <a href="{{ route('categories.show', $category) }}" class="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <i class="bi {{ $category->icon }} text-5xl text-digi-orange mb-4"></i>
-                        <h3 class="text-xl font-semibold text-gray-800">{{ $category->name }}</h3>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-    </section>
+    <div class="flex justify-center space-x-8 py-6">
+        @foreach ($categories as $category)
+            <a href="{{ route('categories.show', $category->slug) }}" class="flex group flex-col items-center group">
+                <div class="flex p-8 items-center justify-center rounded-lg border-2 {{ request()->routeIs('products.index') && $category->name == 'All Products' ? 'border-orange-500' : 'border-gray-200' }} group-hover:border-orange-500 transition-colors duration-300 mb-2">
+                    @if ($category->icon)
+                        <img src="{{ asset('img/' . $category->icon) }}" alt="{{ $category->name }} icon" class="w-18 h-18 group-hover:scale-110 transition-transform duration-300">
+                    @endif
+                </div>
+                <span class="text-md font-medium text-gray-600 group-hover:text-orange-500 transition-colors duration-300">{{ $category->name }}</span>
+            </a>
+        @endforeach
+    </div>
 
     <!-- Timeline -->
     <section class="py-16 bg-gray-50">
