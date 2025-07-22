@@ -52,7 +52,7 @@
         @include('shopping.sections.rating')
 
         <div class="flex items-center justify-start font-medium gap-1 mt-1">
-            {{-- @if(isset($product) && !empty($product->slug))
+            @if(isset($product) && !empty($product->slug))
                  <a href="{{ route('products.show', $product->slug) }}" class="px-4 py-2 border border-gray-300 rounded-full text-[16px] text-black hover:bg-gray-100">
                      View Product
                  </a>
@@ -60,8 +60,7 @@
                  <span class="px-4 py-2 border border-gray-300 rounded-full text-[16px] text-gray-400 cursor-not-allowed">
                      View Product
                  </span>
-             @endif --}}
-             <a href="{{ route('products.show', $product) }}" class="px-4 py-2 border border-gray-300 rounded-full text-[16px] text-black hover:bg-gray-100"></a>
+             @endif
             <button
                 onclick="openBuyModal(
                     '{{ addslashes($product->name) }}',
