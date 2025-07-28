@@ -5,21 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         @yield('meta')
-        <meta property="og:url" content="https://digi.com">
         <meta property="og:type" content="website">
-        <meta property="og:site_name" content="Digi">
+        <<meta property="og:image" content="{{ asset('img/favicon.png') }}">
+        <meta property="og:title" content="@yield('title') | {{ config('app.name') ? config('app.name') : '' }}">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:site_name" content="{{ config('app.name') ? config('app.name') : '' }}">
+        <meta property="og:type" content="website">
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Digi - Your One-Stop Shop for Digital Appliances">
+        <meta name="twitter:title" content="@yield('title') | {{ config('app.name') ? config('app.name') : '' }}">
         <meta name="twitter:description" content="Explore our extensive range of digital appliances and electronics. From UHD Smart TVs to washing machines, find everything you need at Digi.">
-        <meta name="twitter:image" content="https://digi.com/img/digi-logo.png">
-        <meta name="twitter:url" content="https://digi.com">
-        <meta name="twitter:site" content="Digi">
-        <meta name="twitter:creator" content="Digi">
-        <meta name="twitter:domain" content="digi.com">
-        <meta name="twitter:label1" content="Written by">
-        <meta name="twitter:data1" content="Digi">
-        <meta name="twitter:label2" content="Time to read">
-        <meta name="twitter:data2" content="5 minutes">
+        <meta name="twitter:image" content="{{ asset('img/favicon.png') }}">
         <meta name="robots" content="index, follow">
         <title>@yield('title') | {{ config('app.name') ? config('app.name') : '' }}</title>
         <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/png">
