@@ -4,26 +4,31 @@
                 'title' => 'Enjoy the Best in Every Pixel',
                 'subtitle' => 'With our affordable UHD Smart TV',
                 'image' => 'img/digi-washing-machine-featured.jpg',
+                'url' => '/categories/digi-washing-machine',
             ],
             [
                 'title' => 'Enjoy the Best in Every Pixel',
                 'subtitle' => 'With our affordable UHD Smart TV',
                 'image' => 'img/tv-cover.png',
+                'url' => '/categories/digi-tvs',
             ],
             [
                 'title' => 'Enjoy the Best in Every Pixel',
                 'subtitle' => 'With our affordable UHD Smart TV',
                 'image' => 'img/digi-fridge-featured.jpg',
+                'url' => '/categories/digi-refrigerators',
             ],
             [
                 'title' => 'Enjoy the Best in Every Pixel',
                 'subtitle' => 'With our affordable UHD Smart TV',
                 'image' => 'img/digi-fridge-featured.jpg',
+                'url' => '/categories/digi-gas-cookers',
             ],
             [
                 'title' => 'Enjoy the Best in Every Pixel',
                 'subtitle' => 'With our affordable UHD Smart TV',
                 'image' => 'img/digi-fridge-featured.jpg',
+                'url' => '/categories/digi-acs',
             ],
         ];
 @endphp
@@ -41,7 +46,7 @@
                             <h3 class="text-lg font-bold mb-1">{{ $image['title'] }}</h3>
                             <p class="text-sm font-medium mb-3">{{ $image['subtitle'] }}</p>
                             <div class="flex gap-2 justify-center">
-                                <a href="#"
+                                <a href="{{ $image['url'] }}"
                                 class="text-sm px-4 py-3 border border-orange-500 hover:bg-orange-600 rounded-full text-white font-medium transition">
                                     View Products
                                 </a>
@@ -65,7 +70,7 @@
             slidesToShow: 3,
             slidesToScroll: 1,
             infinite: true,
-            autoplay: false,
+            autoplay: true,
             autoplaySpeed: 5000,
             speed: 500,
             arrows: true,

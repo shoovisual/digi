@@ -242,7 +242,7 @@ class ProductSeeder extends Seeder
             'product_short' => 'DIGI Refrigerator 128L',
             'serial' => 'TD2HAB126S',
             'description' => 'Modern refrigerator with smart features, ample storage, and energy efficiency.',
-            'category_id' => Category::where('name', 'Refrigerator')->first()->id,
+            'category_id' => Category::where('name', 'Refrigerators')->first()->id,
             'image' => 'products/fridges/DG-RF-TD2HAB126S/close.png',
             'specifications' => json_encode([
                 'capacity' => '128 L',
@@ -274,7 +274,7 @@ class ProductSeeder extends Seeder
             'product_short' => 'DIGI Refrigerator 151L',
             'serial' => 'TD2HAB222S',
             'description' => 'Modern refrigerator with smart features, ample storage, and energy efficiency.',
-            'category_id' => Category::where('name', 'Refrigerator')->first()->id,
+            'category_id' => Category::where('name', 'Refrigerators')->first()->id,
             'image' => 'products/fridges/DG-RF-TD2HAB222S/close.png',
             'specifications' => json_encode([
                 'capacity' => '151 L',
@@ -307,7 +307,7 @@ class ProductSeeder extends Seeder
             'product_short' => 'DIGI Refrigerator 182L',
             'serial' => 'TD2HAB228S',
             'description' => 'Modern refrigerator with smart features, ample storage, and energy efficiency.',
-            'category_id' => Category::where('name', 'Refrigerator')->first()->id,
+            'category_id' => Category::where('name', 'Refrigerators')->first()->id,
             'image' => 'products/fridges/DG-RF-TD2HAB228S/close.png',
             'specifications' => json_encode([
                 'capacity' => '182 L',
@@ -340,7 +340,7 @@ class ProductSeeder extends Seeder
             'product_short' => 'DIGI Refrigerator 205L',
             'serial' => 'TD2HAB322S',
             'description' => 'Modern refrigerator with smart features, ample storage, and energy efficiency.',
-            'category_id' => Category::where('name', 'Refrigerator')->first()->id,
+            'category_id' => Category::where('name', 'Refrigerators')->first()->id,
             'image' => 'products/fridges/DG-RF-TD2HAB322S/close.png',
             'specifications' => json_encode([
                 'capacity' => '205 L',
@@ -373,7 +373,7 @@ class ProductSeeder extends Seeder
             'product_short' => 'DIGI Refrigerator 248L',
             'serial' => 'TD2HAB412S',
             'description' => 'Modern refrigerator with smart features, ample storage, and energy efficiency.',
-            'category_id' => Category::where('name', 'Refrigerator')->first()->id,
+            'category_id' => Category::where('name', 'Refrigerators')->first()->id,
             'image' => 'products/fridges/DG-RF-TD2HAB412S/close.png',
             'specifications' => json_encode([
                 'capacity' => '248 L',
@@ -406,7 +406,7 @@ class ProductSeeder extends Seeder
             'product_short' => 'DIGI Refrigerator 204L',
             'serial' => 'CF2HAB374S',
             'description' => 'Modern refrigerator with smart features, ample storage, and energy efficiency.',
-            'category_id' => Category::where('name', 'Refrigerator')->first()->id,
+            'category_id' => Category::where('name', 'Refrigerators')->first()->id,
             'image' => 'products/fridges/DG-RF-CF2HAB374S/close.png',
             'specifications' => json_encode([
                 'capacity' => '204 L',
@@ -501,7 +501,7 @@ class ProductSeeder extends Seeder
             'product_short' => 'DIGI Smart Gas Cooker 4 Burner (Black)',
             'serial' => 'EMKABF550B',
             'description' => 'High-efficiency gas cooker with 4 burners and smart features.',
-            'category_id' => Category::where('name', 'Gas Cooker')->first()->id,
+            'category_id' => Category::where('name', 'Gas Cookers')->first()->id,
             'image' => 'products/gas-cooker/DIGI-DG-GC-EMKABF550B-50x50_siyah.png',
         ]);
 
@@ -511,7 +511,7 @@ class ProductSeeder extends Seeder
             'product_short' => 'DIGI Smart Gas Cooker 4 Burner (Inox)',
             'serial' => 'EMKABF552S',
             'description' => 'High-efficiency gas cooker with 4 burners and smart features.',
-            'category_id' => Category::where('name', 'Gas Cooker')->first()->id,
+            'category_id' => Category::where('name', 'Gas Cookers')->first()->id,
             'image' => 'products/gas-cooker/DIGI-DG-GC-EMKABF552S-50x50_inox.png',
         ]);
 
@@ -521,7 +521,7 @@ class ProductSeeder extends Seeder
             'product_short' => 'DIGI Smart Gas Cooker 4 Burner (Black)',
             'serial' => 'EMKABF651B',
             'description' => 'High-efficiency gas cooker with 4 burners and smart features.',
-            'category_id' => Category::where('name', 'Gas Cooker')->first()->id,
+            'category_id' => Category::where('name', 'Gas Cookers')->first()->id,
             'image' => 'products/gas-cooker/DIGI-DG-GC-EMKABF651B-60x60_siyah.png',
         ]);
 
@@ -531,7 +531,7 @@ class ProductSeeder extends Seeder
             'product_short' => 'DIGI Smart Gas Cooker 4 Burner (Inox)',
             'serial' => 'EMKABF650S',
             'description' => 'High-efficiency gas cooker with 4 burners and smart features.',
-            'category_id' => Category::where('name', 'Gas Cooker')->first()->id,
+            'category_id' => Category::where('name', 'Gas Cookers')->first()->id,
             'image' => 'products/gas-cooker/DIGI-DG-GC-EMKABF650S-60x60_inox.png',
         ]);
     }

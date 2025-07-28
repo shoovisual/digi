@@ -31,8 +31,8 @@ class CategorySeeder extends Seeder
             ],
 
             [
-                'name' => 'Refrigerator',
-                'slug' => 'digi-refrigerator',
+                'name' => 'Refrigerators',
+                'slug' => 'digi-refrigerators',
                 'description' => 'Keep your food fresh with our range of refrigerators',
                 'cover_image' => 'products/category/tv-cover.png',
                 'icon' => 'products/category/refrigerator.svg'
@@ -55,8 +55,8 @@ class CategorySeeder extends Seeder
             ],
 
             [
-                'name' => 'Gas Cooker',
-                'slug' => 'digi-gas-cooker',
+                'name' => 'Gas Cookers',
+                'slug' => 'digi-gas-cookers',
                 'cover_image' => 'products/category/tv-cover.png',
                 'icon' => 'products/category/gas-cooker.svg'
             ],

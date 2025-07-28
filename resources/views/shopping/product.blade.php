@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('title', $product->name)
 
 @section('content')
@@ -7,34 +6,38 @@
     <!-- Product Details Section -->
     <div class="flex flex-col md:flex-row gap-8 mb-16">
         @php
-            $gallery = array_merge(
-                [$product->image],
-                json_decode($product->product_images, true) ?? []
-            );
+            $gallery = collect([$product->image])
+                ->merge(json_decode($product->product_images, true) ?? [])
+                ->filter(fn($img) => !empty($img) && file_exists(public_path('img/' . $img)))
+                ->unique()
+                ->values();
         @endphp
 
-        <div
-            x-data="{ active: '{{ asset('img/'.$gallery[0]) }}' }"
-            class="w-full md:w-1/2" >
-            <!-- Main product image -->
-            <div class="bg-white rounded-lg overflow-hidden flex items-center justify-center">
-                <img :src="active" alt="{{ $product->name }}" class="w-full max-h-[500px] object-contain transition-all duration-300">
+        <div class="w-full mx-auto md:w-1/2">
+            <!-- Main Image -->
+            <div class="bg-white rounded-lg overflow-hidden flex items-center justify-center mb-6">
+                <img id="mainImage" src="{{ asset('img/' . $gallery[0]) }}"
+                    alt="{{ $product->name }}"
+                    class="w-full max-h-[500px] object-contain transition-all duration-300" />
             </div>
 
-            <!-- Thumbnail grid -->
-            <div class="mt-6 grid grid-cols-3 md:grid-cols-4 gap-4">
-                @foreach($gallery as $img)
-                    <div
-                        @click="active = '{{ asset('img/'.$img) }}'"
-                        class="w-full aspect-[1/1] bg-white rounded-md overflow-hidden
-                            cursor-pointer transition
-                            hover:ring-2 hover:ring-gray-300"
-                        :class="active === '{{ asset('img/'.$img) }}' ? 'ring-2 ring-ark-brown' : ''" >
-                        <img src="{{ asset('img/'.$img) }}" class="w-full h-full object-cover" alt="">
-                    </div>
-                @endforeach
+            <!-- Thumbnail Slider -->
+            <div class="swiper mx-auto justify-center thumbnailSwiper">
+                <div class="swiper-wrapper">
+                    @foreach($gallery as $img)
+                        <div class="swiper-slide cursor-pointer">
+                            <img
+                                onclick="document.getElementById('mainImage').src = '{{ asset('img/' . $img) }}'"
+                                src="{{ asset('img/' . $img) }}"
+                                class="aspect-square w-full object-cover rounded-md border hover:ring-2 hover:ring-ark-brown transition-all duration-200"
+                                alt="{{ $product->name }} thumbnail" />
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
+
+
 
 
 
@@ -173,6 +176,24 @@
 @endsection
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Swiper('.thumbnailSwiper', {
+            slidesPerView: 3,
+            spaceBetween: 16,
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            breakpoints: {
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 }
+            }
+        });
+    });
+</script>
+
+<script>
   function openBuyModal() {
     document.getElementById("buyModal").classList.remove("hidden");
     document.getElementById("buyModal").classList.add("flex");
@@ -242,7 +263,6 @@
     ).join('');
   }
 </script>
-
 
 
 <script>
