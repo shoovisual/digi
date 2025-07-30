@@ -1,4 +1,12 @@
 @extends('layouts.app')
+@section('meta')
+    <meta name="description" content="Explore our wide range of products for better living.">
+    <meta name="keywords" content="products, appliances, electronics">
+    <meta property="og:title" content="Products">
+    <meta property="og:description" content="Explore our wide range of products for better living.">
+    <meta property="og:keywords" content="products, appliances, electronics">
+    <meta property="og:image" content="{{ asset('img/products/products-cover.webp') }}">
+@endsection
 
 @section('title', 'Products')
 
