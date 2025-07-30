@@ -13,21 +13,21 @@
                 'url' => '/categories/digi-tvs',
             ],
             [
-                'title' => 'Enjoy the Best in Every Pixel',
-                'subtitle' => 'With our affordable UHD Smart TV',
+                'title' => 'Keep Your it Fresher, Longer',
+                'subtitle' => 'With our affordable Digi Fridges',
                 'image' => 'img/digi-fridge-featured.jpg',
                 'url' => '/categories/digi-refrigerators',
             ],
             [
-                'title' => 'Enjoy the Best in Every Pixel',
-                'subtitle' => 'With our affordable UHD Smart TV',
+                'title' => 'Cook Like a Chef',
+                'subtitle' => 'Control Every Flame With Digi Gas Cookers',
                 'image' => 'img/products/gas-cooker/gas-cooker-cover-2.webp',
                 'url' => '/categories/digi-gas-cookers',
             ],
             [
-                'title' => 'Enjoy the Best in Every Pixel',
-                'subtitle' => 'With our affordable UHD Smart TV',
-                'image' => 'img/digi-fridge-featured.jpg',
+                'title' => 'Stay Cool Always',
+                'subtitle' => 'With our affordable Digi Air Conditioners',
+                'image' => 'img/products/ac/ac-cover.webp',
                 'url' => '/categories/digi-acs',
             ],
         ];
