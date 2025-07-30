@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('icon')->nullable();
             $table->string('slug')->unique();
             $table->string('cover_image')->nullable();
+            $table->string('cover_image_2')->nullable();
+            $table->string('cover_image_3')->nullable();
+            $table->string('cover_image_4')->nullable();
             $table->timestamps();
         });
     }

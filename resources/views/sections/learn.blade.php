@@ -22,7 +22,7 @@
                 'title' => 'Cook with Precision',
                 'subtitle' => 'Introducing Our Gas Cooker',
                 'description' => 'Presenting Our Gas Cooker with advanced features',
-                'image' => 'img/tv-cover.png',
+                'image' => 'img/products/gas-cooker/gas-cooker-cover-2.webp',
             ],
         ];
 @endphp
