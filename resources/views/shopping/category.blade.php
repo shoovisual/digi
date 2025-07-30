@@ -40,8 +40,8 @@
         <div class="max-w-7xl mx-auto px-4 py-8">
             <!-- Category Header -->
             <div class="text-center relative">
-                @if ($category->cover_image)
-                    <img src="{{ asset('img/' . $category->cover_image) }}" alt="{{ $category->name }} cover image" class="w-full rounded-2xl h-[50vh] object-cover">
+                @if ($category->cover_image_2)
+                    <img src="{{ asset('img/' . $category->cover_image_2) }}" alt="{{ $category->name }} cover image" class="w-full rounded-2xl h-[50vh] object-cover">
                 @endif
             </div>
         </div>

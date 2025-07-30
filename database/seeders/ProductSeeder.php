@@ -15,7 +15,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         Product::create([
-            'name' => 'Smart TV 55-inch UHD',
+            'name' => 'DIGI 55 Inches Smart – 4K UHD, WebOS, Dolby Audio, Frameless, Built-in Apps, Game Optimiser, 2Y Warranty (2025)',
             'slug' => 'smart-tv-55-inch-uhd',
             'image' => 'products/tvs/55/tv-01.png',
             'product_short' => 'DIGI TV 55 Frameless Smart TV',
@@ -47,7 +47,7 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
-            'name' => 'Smart TV 43-inch Smart',
+            'name' => 'DIGI 43 Inches Smart – FHD Smart TV, Android OS, Wi-Fi, Frameless, Netflix & YouTube, 2Y Warranty (2025)',
             'slug' => 'smart-tv-43-inch-smart',
             'image' => 'products/tvs/43-smart/tv-02.png',
             'product_short' => 'DIGI TV 43 Frameless Smart TV',
@@ -80,7 +80,7 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
-            'name' => 'TV 43-inch LED',
+            'name' => 'DIGI 43 Inches – FHD LED, Frameless Design, Dynamic Contrast, Built-in Receiver, HDMI/USB, 2Y Warranty (2025)',
             'slug' => 'tv-43-inch-led',
             'image' => 'products/tvs/43-led/tv-04.png',
             'product_short' => 'DIGI TV 43 Frameless LED TV',
@@ -112,7 +112,7 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
-            'name' => 'TV 32-inch LED',
+            'name' => 'DIGI 32 inches – HD LED, Frameless Design, AC/DC, Built-in Receiver, HDMI/USB, 2Y Warranty (2025)',
             'slug' => 'tv-32-inch-led',
             'image' => 'products/tvs/32/tv-03.png',
             'product_short' => 'DIGI TV 32 Frameless LED TV',
@@ -143,8 +143,10 @@ class ProductSeeder extends Seeder
             ]),
         ]);
 
+        // Washing Machine Start
+
         Product::create([
-            'name' => 'Washing Machine 8kg',
+            'name' => 'DIGI Washing Machine 8kg – Twin Tub, High-Efficiency Motor, Durable Body, Elegant White, 2Y Warranty (2025)',
             'slug' => 'washing-machine-8kg',
             'product_short' => 'DIGI Washing Machine 8kg',
             'serial' => 'TTSKAB440W',
@@ -169,13 +171,12 @@ class ProductSeeder extends Seeder
             ]),
             'product_images' => json_encode([
                 'products/washing-machine/wm-8.png',
-                'products/washing-machine/wm-8-2.png',
-                'products/washing-machine/wm-8-3.png',
+                'products/washing-machine/wm-10.png',
             ]),
         ]);
 
         Product::create([
-            'name' => 'Washing Machine 10kg',
+            'name' => 'DIGI Washing Machine 10kg – Twin Tub, High-Efficiency Motor, Durable Body, Elegant White, 2Y Warranty (2025)',
             'slug' => 'washing-machine-10kg',
             'product_short' => 'DIGI Washing Machine 10kg',
             'serial' => 'TTSKAB640W',
@@ -200,13 +201,12 @@ class ProductSeeder extends Seeder
             ]),
             'product_images' => json_encode([
                 'products/washing-machine/wm-10.png',
-                'products/washing-machine/wm-10-2.png',
-                'products/washing-machine/wm-10-3.png',
+                'products/washing-machine/wm-8.png',
             ]),
         ]);
 
         Product::create([
-            'name' => 'Washing Machine 12kg',
+            'name' => 'DIGI Washing Machine 12kg – Twin Tub, High-Efficiency Motor, Durable Body, Elegant White, 2Y Warranty (2025)',
             'slug' => 'washing-machine-12kg',
             'product_short' => 'DIGI Washing Machine 12kg',
             'serial' => 'TTSKAB740W',
@@ -231,15 +231,16 @@ class ProductSeeder extends Seeder
             ]),
             'product_images' => json_encode([
                 'products/washing-machine/wm-12.png',
-                'products/washing-machine/wm-12-2.png',
-                'products/washing-machine/wm-12-3.png',
+                'products/washing-machine/wm-8.png',
             ]),
         ]);
 
+        // Fridges start
+
         Product::create([
-            'name' => 'Refrigerator 128L',
-            'slug' => 'refrigerator-128l',
-            'product_short' => 'DIGI Refrigerator 128L',
+            'name' => 'DIGI 126 Liters Refrigerator – Fast Cooling, Tempered Shelves, Lock & LED, 5Y Compressor (2025)',
+            'slug' => 'refrigerator-126l',
+            'product_short' => 'DIGI Refrigerator 126L',
             'serial' => 'TD2HAB126S',
             'description' => 'Modern refrigerator with smart features, ample storage, and energy efficiency.',
             'category_id' => Category::where('name', 'Refrigerators')->first()->id,
@@ -269,7 +270,7 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
-            'name' => 'Refrigerator 151L',
+            'name' => 'DIGI Fridge 151 Liters – Fast Cooling, Tempered Glass Shelves, LED Light, Lock & Key, 5Y Compressor Warranty (2025)',
             'slug' => 'refrigerator-151l',
             'product_short' => 'DIGI Refrigerator 151L',
             'serial' => 'TD2HAB222S',
@@ -302,7 +303,7 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
-            'name' => 'Refrigerator 182L',
+            'name' => 'DIGI Fridge 187 Liters – Fast Cooling, Tempered Glass Shelves, LED Light, Lock & Key, 5Y Compressor Warranty (2025)',
             'slug' => 'refrigerator-182l',
             'product_short' => 'DIGI Refrigerator 182L',
             'serial' => 'TD2HAB228S',
@@ -335,7 +336,7 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
-            'name' => 'Refrigerator 205L',
+            'name' => 'DIGI Fridge 205 Liters – Fast Cooling, Tempered Glass Shelves, LED Light, Lock & Key, 5Y Compressor Warranty (2025)',
             'slug' => 'refrigerator-205l',
             'product_short' => 'DIGI Refrigerator 205L',
             'serial' => 'TD2HAB322S',
@@ -368,7 +369,7 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
-            'name' => 'Refrigerator 248L',
+            'name' => 'DIGI Fridge 248 Liters – Fast Cooling, Tempered Glass Shelves, LED Light, Lock & Key, 5Y Compressor Warranty (2025)',
             'slug' => 'refrigerator-248l',
             'product_short' => 'DIGI Refrigerator 248L',
             'serial' => 'TD2HAB412S',
@@ -401,7 +402,7 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::create([
-            'name' => 'Refrigerator 204L',
+            'name' => 'DIGI Fridge 204 Liters – Bottom Freezer, Fast Cooling, Tempered Glass Shelves, LED Light, Lock & Key, 5Y Compressor Warranty (2025)',
             'slug' => 'refrigerator-204l',
             'product_short' => 'DIGI Refrigerator 204L',
             'serial' => 'CF2HAB374S',
@@ -430,6 +431,107 @@ class ProductSeeder extends Seeder
             'product_images' => json_encode([
                 'products/fridges/DG-RF-CF2HAB374S/close.png',
                 'products/fridges/DG-RF-CF2HAB374S/open.png',
+            ]),
+        ]);
+
+
+        // Freezer Start
+
+        Product::create([
+            'name' => 'DIGI 200L Freezer with Sliding Glass Top, Fast Freeze, LED Light, Lock & Key, 5Y Warranty (2025)',
+            'slug' => 'digi-200l-freezer',
+            'product_short' => 'DIGI 200L Freezer',
+            'serial' => 'FG2HAB374S',
+            'description' => 'Modern freezer with smart features, ample storage, and energy efficiency.',
+            'category_id' => Category::where('name', 'Freezers')->first()->id,
+            'image' => 'products/freezers/DG-FZ-CD1HAB315S/closed.png',
+            'specifications' => json_encode([
+                'capacity' => '200 L',
+                'energy_rating' => 'A+',
+            ]),
+            'features' => json_encode([
+                'Chest Freezer',
+                'Sliding glass top',
+                'Fast freezing',
+                'Dual handles',
+                '5 Year Warranty',
+                'Frost Type',
+                'Inox Color',
+                'Net Capacity : 200 L',
+                'Aluminum Cavity',
+                '1 Basket',
+                'LED Light',
+                'Lock & Key',
+                'Dimension (W x D x H): 905 x 545 x 845',
+            ]),
+            'product_images' => json_encode([
+                'products/freezers/DG-FZ-CD1HAB315S/closed.png',
+                'products/freezers/DG-FZ-CD1HAB315S/open.png',
+            ]),
+        ]);
+
+        Product::create([
+            'name' => 'DIGI Freezer 145L With Glass Top, Fast Freeze, LED, Lock & Key, 5Y Warranty (2025)',
+            'slug' => 'digi-145l-freezer',
+            'product_short' => 'DIGI 145L Freezer',
+            'serial' => 'DG-FZ-CD1HAB215S',
+            'description' => 'Modern freezer with smart features, ample storage, and energy efficiency.',
+            'category_id' => Category::where('name', 'Freezers')->first()->id,
+            'image' => 'products/freezers/DG-FZ-CD1HAB215S/closed.png',
+            'specifications' => json_encode([
+                'capacity' => '145 L',
+                'energy_rating' => 'A+',
+            ]),
+            'features' => json_encode([
+                'Chest Freezer',
+                'Sliding glass top',
+                'Fast freezing',
+                'Dual handles',
+                '5 Year Warranty',
+                'Frost Type',
+                'Inox Color',
+                'Net Capacity : 145 L',
+                'Aluminum Cavity',
+                '1 Basket',
+                'LED Light',
+                'Lock & Key',
+                'Dimension (W x D x H): 705 x 545 x 845',
+            ]),
+            'product_images' => json_encode([
+                'products/freezers/DG-FZ-CD1HAB215S/closed.png',
+                'products/freezers/DG-FZ-CD1HAB215S/open.png',
+            ]),
+        ]);
+
+        Product::create([
+            'name' => 'DIGI Freezer 100L With, Fast Freeze, LED Light, Lock & Key, 5Y Warranty (2025)',
+            'slug' => 'digi-100l-freezer',
+            'product_short' => 'DIGI 100L Freezer',
+            'serial' => 'DG-RF-TD2HAB126S',
+            'description' => 'Modern freezer with smart features, ample storage, and energy efficiency.',
+            'category_id' => Category::where('name', 'Freezers')->first()->id,
+            'image' => 'products/freezers/DG-RF-TD2HAB126S/closed.png',
+            'specifications' => json_encode([
+                'capacity' => '100 L',
+                'energy_rating' => 'A+',
+            ]),
+            'features' => json_encode([
+                'Chest Freezer',
+                'Fast freezing',
+                'Dual handles',
+                '5 Year Warranty',
+                'Frost Type',
+                'Inox Color',
+                'Net Capacity : 100 L',
+                'Aluminum Cavity',
+                '1 Basket',
+                'LED Light',
+                'Lock & Key',
+                'Dimension (W x D x H): 545 x 550 x 845',
+            ]),
+            'product_images' => json_encode([
+                'products/freezers/DG-RF-TD2HAB126S/closed.png',
+                'products/freezers/DG-RF-TD2HAB126S/open.png',
             ]),
         ]);
 
@@ -495,44 +597,131 @@ class ProductSeeder extends Seeder
             ]),
         ]);
 
+        // Gas Cooker Start
+
         Product::create([
-            'name' => '50x50 cm  Gas Cooker 4 Burner (Black)',
+            'name' => 'DIGI Cooker 50x50 Black – 3 Gas + 1 Hot Plate, Electric Oven, Thermostat, Push Ignition, 2Y Warranty (2025)',
             'slug' => 'gas-cooker-50x50-black',
             'product_short' => 'DIGI Smart Gas Cooker 4 Burner (Black)',
             'serial' => 'EMKABF550B',
             'description' => 'High-efficiency gas cooker with 4 burners and smart features.',
             'category_id' => Category::where('name', 'Gas Cookers')->first()->id,
             'image' => 'products/gas-cooker/DIGI-DG-GC-EMKABF550B-50x50_siyah.png',
+            'specifications' => json_encode([
+                'burners' => '3 Gas + 1 Hot Plate',
+                'oven_type' => 'Electric',
+                'push_ignition' => 'Yes',
+            ]),
+            'features' => json_encode([
+                'Freestanding Gas Cocker 50 cm x 50 cm Black Color',
+                '3 Gas Burner + 1 Hot Plate (1000 W)',
+                'Electric Oven',
+                'Oven Thermostat',
+                'Mechanical Timer',
+                'Double Removable Glass Oven Door',
+                'LPG GAS',
+                '1 Tray',
+                '1 Grid',
+                'Push Ignition',
+                'Oven Lamp',
+                'Metal Cover',
+                '2-Year Warranty',
+            ]),
+
         ]);
 
         Product::create([
-            'name' => '50x50 cm  Gas Cooker 4 Burner (Inox)',
-            'slug' => 'gas-cooker-50x50-inox',
-            'product_short' => 'DIGI Smart Gas Cooker 4 Burner (Inox)',
+            'name' => 'DIGI Cooker 50x50 Steel – 3 Gas + 1 Hot Plate, Electric Oven, Thermostat, Glass Cover, 2Y Warranty (2025)',
+            'slug' => 'gas-cooker-50x50-steel',
+            'product_short' => 'DIGI Smart Gas Cooker 4 Burner (Steel)',
             'serial' => 'EMKABF552S',
             'description' => 'High-efficiency gas cooker with 4 burners and smart features.',
             'category_id' => Category::where('name', 'Gas Cookers')->first()->id,
             'image' => 'products/gas-cooker/DIGI-DG-GC-EMKABF552S-50x50_inox.png',
+            'specifications' => json_encode([
+                'burners' => '3 Gas + 1 Hot Plate',
+                'oven_type' => 'Electric',
+                'push_ignition' => 'Yes',
+            ]),
+            'features' => json_encode([
+                'Freestanding Gas Cocker',
+                '50 cm x 50 cm Steel Color',
+                '3 Gas Burner + 1 Hot Plate (1000 W)',
+                'Electric Oven',
+                'Oven Thermostat',
+                'Mechanical Timer',
+                'Double Removable Glass Oven Door',
+                'LPG GAS',
+                '1 Tray',
+                '1 Grid',
+                'Push Ignition',
+                'Oven Lamp',
+                'Glass Cover',
+                '2-Year Warranty',
+            ]),
+
         ]);
 
         Product::create([
-            'name' => '60x60 cm  Gas Cooker 4 Burner (Black)',
+            'name' => 'DIGI Cooker 60x60 Black – 3 Gas + 1 Hot Plate, Electric Oven, Thermostat, Metal Cover, 2Y Warranty (2025)',
             'slug' => 'gas-cooker-60x60-black',
             'product_short' => 'DIGI Smart Gas Cooker 4 Burner (Black)',
             'serial' => 'EMKABF651B',
             'description' => 'High-efficiency gas cooker with 4 burners and smart features.',
             'category_id' => Category::where('name', 'Gas Cookers')->first()->id,
             'image' => 'products/gas-cooker/DIGI-DG-GC-EMKABF651B-60x60_siyah.png',
+            'specifications' => json_encode([
+                'burners' => '3 Gas + 1 Hot Plate',
+                'oven_type' => 'Electric',
+                'push_ignition' => 'Yes',
+            ]),
+            'features' => json_encode([
+                'Freestanding Gas Cocker',
+                '60 cm x 60 cm Black Color',
+                '3 Gas Burner + 1 Hot Plate (1000 W)',
+                'Electric Oven',
+                'Oven Thermostat',
+                'Mechanical Timer',
+                'Double Removable Glass Oven Door',
+                'LPG GAS',
+                '1 Tray',
+                '1 Grid',
+                'Push Ignition',
+                'Oven Lamp',
+                'Metal Cover',
+                '2-Year Warranty',
+            ]),
         ]);
 
         Product::create([
-            'name' => '60x60 cm  Gas Cooker 4 Burner (Inox)',
-            'slug' => 'gas-cooker-60x60-inox',
-            'product_short' => 'DIGI Smart Gas Cooker 4 Burner (Inox)',
+            'name' => 'DIGI Cooker 60x60 Steel – 3 Gas + 1 Hot Plate, Electric Oven, Thermostat, Glass Cover, 2Y Warranty (2025)',
+            'slug' => 'gas-cooker-60x60-steel',
+            'product_short' => 'DIGI Smart Gas Cooker 4 Burner (Steel)',
             'serial' => 'EMKABF650S',
             'description' => 'High-efficiency gas cooker with 4 burners and smart features.',
             'category_id' => Category::where('name', 'Gas Cookers')->first()->id,
             'image' => 'products/gas-cooker/DIGI-DG-GC-EMKABF650S-60x60_inox.png',
+            'specifications' => json_encode([
+                'burners' => '3 Gas + 1 Hot Plate',
+                'oven_type' => 'Electric',
+                'push_ignition' => 'Yes',
+            ]),
+            'features' => json_encode([
+                'Freestanding Gas Cocker',
+                '60 cm x 60 cm Steel Color',
+                '3 Gas Burner + 1 Hot Plate (1000 W)',
+                'Electric Oven',
+                'Oven Thermostat',
+                'Mechanical Timer',
+                'Double Removable Glass Oven Door',
+                'LPG GAS',
+                '1 Tray',
+                '1 Grid',
+                'Push Ignition',
+                'Oven Lamp',
+                'Glass Cover',
+                '2-Year Warranty',
+            ]),
         ]);
     }
 }

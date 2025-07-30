@@ -18,7 +18,7 @@ class CategorySeeder extends Seeder
                 'name' => 'All Products',
                 'slug' => 'all-products',
                 'description' => 'All electronic products',
-                'cover_image' => 'products/products/products-cover.webp',
+                'cover_image' => 'products/products-cover.webp',
                 'cover_image_2' => 'products/fridges/fridge-cover-2.webp',
                 'cover_image_3' => 'products/fridges/fridge-cover-3.webp',
                 'cover_image_4' => 'products/fridges/fridge-cover-4.webp',
@@ -47,7 +47,7 @@ class CategorySeeder extends Seeder
                 'name' => 'Freezers',
                 'slug' => 'digi-freezers',
                 'description' => 'Explore our selection of freezers for all your storage needs',
-                'cover_image' => 'products/category/tv-cover.png',
+                'cover_image' => 'products/freezers/freezer-cover-2.webp',
                 'icon' => 'products/category/freezers.svg'
             ],
 

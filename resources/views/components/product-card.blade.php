@@ -18,7 +18,7 @@
             <span x-show="copied" class="text-green-500 text-xs font-medium">Copied!</span>
         </div>
 
-        <h2 class="text-2xl font-regular text-black leading-snug" title="{{ $product->name }}">{{ Str::limit($product->name, 65) }}</h2>
+        <h2 class="text-2xl font-regular text-black leading-snug" title="{{ $product->name }}">{{ Str::limit($product->name, 63) }}</h2>
         <p class="text-sm font-medium text-gray-500 mt-1">{{ $product->product_short }}</p>
 
         <!-- IMAGE CAROUSEL -->
@@ -26,7 +26,7 @@
             @if(count($images) > 0)
                 <template x-for="(img, index) in {{ json_encode($images) }}" :key="index">
                     <img x-show="activeImage === index" :src="'/img/' + img" :alt="'{{ $product->name }} - Image ' + (index + 1)"
-                        class="absolute top-0 left-0 w-full h-full object-contain transition duration-300 ease-in-out">
+                        class="absolute top-0 left-0 w-full group-hover:scale-110 h-full object-contain transition duration-300 ease-in-out">
                 </template>
 
                 <!-- Carousel Controls -->

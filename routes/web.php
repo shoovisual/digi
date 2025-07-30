@@ -12,6 +12,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/contact/send', [ContactController::class, 'send'])->name('contact.send');
+Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/categories/{category}', [ProductController::class, 'productsByCategory'])->name('categories.show');

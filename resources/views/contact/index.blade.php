@@ -10,6 +10,11 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <!-- Contact Form -->
             <div class="lg:col-span-2">
+                @if(session('success'))
+                    <div class="p-4 mb-4 text-green-700 bg-green-100 rounded-md">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <form method="POST" action="{{ route('contact.send') }}" class="font-medium space-y-6">
                     @csrf
 
@@ -71,7 +76,7 @@
                             <select name="product_type" id="product_type" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:ring focus:ring-teal-300">
                                 <option>Please select</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->name }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -88,9 +93,9 @@
                                 var productModelSelect = document.getElementById('product_model');
                                 productModelSelect.innerHTML = '<option>Please select</option>';
                                 @foreach ($categories as $category)
-                                    if (productTypeId == {{ $category->id }}) {
+                                    if (productTypeId == '{{ $category->name }}') {
                                         @foreach ($category->products as $product)
-                                            productModelSelect.innerHTML += '<option value="{{ $product->id }}">{{ $product->name }} - SN: {{ $product->serial }}</option>';
+                                            productModelSelect.innerHTML += '<option value="{{ $product->name }}">{{ $product->name }} - SN: {{ $product->serial }}</option>';
                                         @endforeach
                                     }
                                 @endforeach

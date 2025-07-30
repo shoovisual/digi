@@ -2,14 +2,14 @@
     $bannerImage = [
             [
                 'title' => 'wash fast and with easy',
-                'subtitle' => 'With our affordable UHD Smart TV',
+                'subtitle' => 'With our affordable washing machines',
                 'image' => 'img/digi-washing-machine-featured.jpg',
                 'url' => '/categories/digi-washing-machine',
             ],
             [
                 'title' => 'Enjoy the Best in Every Pixel',
                 'subtitle' => 'With our affordable UHD Smart TV',
-                'image' => 'img/tv-cover.png',
+                'image' => 'img/products/tvs/tv-featured.jpg',
                 'url' => '/categories/digi-tvs',
             ],
             [
@@ -17,6 +17,12 @@
                 'subtitle' => 'With our affordable Digi Fridges',
                 'image' => 'img/digi-fridge-featured.jpg',
                 'url' => '/categories/digi-refrigerators',
+            ],
+            [
+                'title' => 'Stay Fresh, Stay Frozen!',
+                'subtitle' => 'With our affordable Digi Freezer',
+                'image' => 'img/products/freezers/freezer-featured.webp',
+                'url' => '/categories/digi-freezers',
             ],
             [
                 'title' => 'Cook Like a Chef',
