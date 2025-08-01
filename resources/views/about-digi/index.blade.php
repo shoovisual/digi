@@ -25,7 +25,7 @@
     </section>
 
     <!-- Vision -->
-    <section class="py-16 max-w-7xl mx-auto rounded-2xl px-4 md:px-16 relative flex flex-col md:flex-row items-center" style="background-image:url('img/about-digi-featured.webp'); background-size: cover; background-position: center;">
+    <section class="py-16 max-w-7xl lg:mx-auto mx-4 rounded-2xl px-4 md:px-16 relative flex flex-col md:flex-row items-center" style="background-image:url('img/about-digi-featured.webp'); background-size: cover; background-position: center;">
         <div class="overlay absolute z-10 inset-0  bg-black/50 rounded-2xl"></div>
         <div class="text-white mb-12 text-lg font-medium vision z-20 w-full md:w-1/2">
             <h2 class="text-6xl font-normal mb-4">Our Vision for Africa & approach</h2>
@@ -36,7 +36,7 @@
     </section>
 
     <!-- Vision -->
-    <section class="py-16 max-w-7xl mx-auto mt-6 rounded-2xl px-4 md:px-16 relative flex flex-col md:flex-row items-center" style="background-image:url('img/about-slide-cover.png'); background-size: cover; background-position: center;">
+    <section class="py-16 max-w-7xl lg:mx-auto mt-6 rounded-2xl px-4 mx-3 md:px-16 relative flex flex-col md:flex-row items-center" style="background-image:url('img/about-slide-cover.png'); background-size: cover; background-position: center;">
         <div class="overlay absolute z-10 inset-0  bg-black/50 rounded-2xl"></div>
         <div class="text-white mb-12 text-lg font-medium vision z-20 w-full md:w-1/2">
             <h2 class="text-6xl font-normal mb-4">Summary & Commitment</h2>
@@ -51,7 +51,7 @@
         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <h2 class="text-3xl font-bold mb-10">Our Core Values</h2>
 
-            <div class="grid grid-col-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
                 @php
                     $values = [
@@ -81,19 +81,12 @@
         </div>
     </section>
 
-    <div class="flex justify-center space-x-8 py-6">
-        @foreach ($categories as $category)
-            <a href="{{ route('categories.show', $category->slug) }}" class="flex group flex-col items-center group">
-                <div class="flex p-8 items-center justify-center rounded-lg border-2 {{ request()->routeIs('products.index') && $category->name == 'All Products' ? 'border-orange-500' : 'border-gray-200' }} group-hover:border-orange-500 transition-colors duration-300 mb-2">
-                    @if ($category->icon)
-                        <img src="{{ asset('img/' . $category->icon) }}" alt="{{ $category->name }} icon" class="w-18 h-18 group-hover:scale-110 transition-transform duration-300">
-                    @endif
-                </div>
-                <span class="text-md font-medium text-gray-600 group-hover:text-orange-500 transition-colors duration-300">{{ $category->name }}</span>
-            </a>
-        @endforeach
-    </div>
-
+    <section class="py-16">
+        <div class="md:max-w-7xl mx-auto px-2 md:px-8">
+            <h2 class="text-3xl font-bold mb-10">Our Products</h2>
+            @include('shopping.sections.product-categories')
+        </div>
+    </section>
     <!-- Timeline -->
     <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 md:px-8">
@@ -115,7 +108,7 @@
                 @endphp
 
                 @foreach ($timeline as $item)
-                    <div class="mb-5 border border-digi-orange rounded-lg p-4">
+                    <div class="md:mb-5 mb-0 border border-digi-orange rounded-lg p-4">
                         <time class="mb-3 text-3xl font-medium text-digi-orange">{{ $item['year'] }}</time>
                         <h3 class="text-md font-medium text-gray-900">{{ $item['event'] }}</h3>
                     </div>

@@ -5,7 +5,7 @@
 @section('content')
     <div class="w-full mx-auto">
         <!-- Categories Bar -->
-        <div class="flex bg-off-white justify-center space-x-8 py-5">
+        <div class="lg:flex grid md:grid-cols-5 grid-cols-2 justify-center lg:space-x-8 gap-y-4 py-5">
             @foreach ($categories as $cat)
                 <a href="{{ route('categories.show', $cat->slug) }}" class="flex flex-col items-center group">
                     <div class="flex p-8 items-center justify-center rounded-lg border-2 {{ $cat->id == $category->id ? 'border-orange-500' : 'border-gray-200' }} group-hover:border-orange-500 transition-colors duration-300 mb-2">
@@ -27,7 +27,7 @@
     </div>
 
     <div class="w-full bg-[#F2F0EC] mx-auto py-8">
-        <div class="max-w-7xl mx-auto flex">
+        <div class="max-w-7xl mx-auto px-4 flex">
             <div class="products-container flex justify-center mx-auto">
                 <!-- Products Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
