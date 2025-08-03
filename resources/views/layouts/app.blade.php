@@ -73,6 +73,7 @@
         @include('shopping.sections.where-to-buy')
         @include('layouts.footer')
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+        @verbatim
         <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
@@ -82,6 +83,7 @@
                 "logo": "https://digiappliances.com/img/digi-logo.svg"
             }
         </script>
+        @endverbatim
 
     </body>
 </html>
