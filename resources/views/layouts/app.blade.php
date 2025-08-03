@@ -73,6 +73,15 @@
         @include('shopping.sections.where-to-buy')
         @include('layouts.footer')
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Digi Appliances",
+                "url": "https://digiappliances.com",
+                "logo": "https://digiappliances.com/img/digi-logo.svg"
+            }
+        </script>
 
     </body>
 </html>

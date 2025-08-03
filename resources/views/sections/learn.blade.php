@@ -5,24 +5,28 @@
                 'subtitle' => 'Introducing Our UHD Smart TV',
                 'description' => 'Presenting Our 43” UHD Smart TV with WebOS inside',
                 'image' => 'img/tv-cover.png',
+                'url' => '/products/smart-tv-43-inch-smart'
             ],
             [
                 'title' => 'Wash and Rinse with Ease',
                 'subtitle' => ' Our New 12kg Washing Machine',
                 'description' => 'Presenting Our 12kg Washing Machine with advanced features',
                 'image' => 'img/digi-washing-machine-featured.jpg',
+                'url' => '/products/washing-machine-12kg'
             ],
             [
                 'title' => 'Eat Fresh, Live Fresh',
-                'subtitle' => 'Introducing Our 120L fridge',
-                'description' => 'Presenting Our 120L fridge with advanced cooling technology',
+                'subtitle' => 'Introducing Our 204L fridge',
+                'description' => 'Presenting Our 204L fridge with advanced cooling technology',
                 'image' => 'img/digi-fridge-featured.jpg',
+                'url' => '/products/refrigerator-204l'
             ],
             [
                 'title' => 'Cook with Precision',
                 'subtitle' => 'Introducing Our Gas Cooker',
                 'description' => 'Presenting Our Gas Cooker with advanced features',
                 'image' => 'img/products/gas-cooker/gas-cooker-cover-2.webp',
+                'url' => '/products/gas-cooker-50x50-black'
             ],
         ];
 @endphp
@@ -38,7 +42,7 @@
           <h3 class="text-xl font-bold mt-2">{{ $lesson['title'] }}</h3>
           <p class="text-gray-600 font-medium mt-2">{{ $lesson['description'] }}</p>
           <button class="mt-4 px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-sm font-medium">
-            Watch Video
+            View more
           </button>
         </div>
       </div>

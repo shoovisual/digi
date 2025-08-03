@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('meta')
     <meta name="description" content="Explore our wide range of products for better living.">
-    <meta name="keywords" content="products, appliances, electronics">
+    <meta name="keywords" content="DIGI Products, Home Appliances, Tridge Tanzania, Freezer Tanzania, Home Appliance Near Me, Home Appliance Dar es Salaam, appliances, electronics">
     <meta property="og:title" content="Products">
     <meta property="og:description" content="Explore our wide range of products for better living.">
-    <meta property="og:keywords" content="products, appliances, electronics">
+    <meta property="og:keywords" content="DIGI Products, Home Appliances, Tridge Tanzania, Freezer Tanzania, Home Appliance Near Me, Home Appliance Dar es Salaam, appliances, electronics">
     <meta property="og:image" content="{{ asset('img/products/products-cover.webp') }}">
 @endsection
 
@@ -19,13 +19,14 @@
         <div class="max-w-7xl mx-auto px-4 py-8">
 
             <!-- Banner Section -->
-            <div class="relative rounded-xl mb-6 overflow-hidden">
-                <img src="{{ asset('img/products/products-cover-2.webp') }}" alt="Fridge Banner" class="w-full h-100 object-cover" style="background-image: url('{{ asset('img/products/products-cover.webp') }}'); background-size: cover; ">
-                <div class="absolute inset-0 bg-gradient-to-r2 from-white to-transparent flex items-center">
-                    <div class="text-black p-12">
-                        <h2 class="text-5xl font-bold mb-4">Welcome to <br> Better Living.</h2>
+            <div class="relative rounded-xl flex mb-6 overflow-hidden">
+                <img src="{{ asset('img/products/products-cover-2.webp') }}" alt="Fridge Banner" class="w-full h-100 object-cover hidden md:block">
+                <img src="{{ asset('img/products/products-cover-mobile.webp') }}" alt="Fridge Banner" class="w-full h-[60vh] object-cover md:hidden">
+                <div class="absolute inset-0 bg-gradient-to-r2 from-white to-transparent flex items-start">
+                    <div class="text-black p-6 md:p-8">
+                        <h2 class="md:text-5xl text-3xl font-bold mb-4">Welcome to <br> Better Living.</h2>
                         <p class="text-lg mb-6">Upgrade your home with the best appliances</p>
-                        <a href="#" class="inline-block bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors duration-300">View Product</a>
+                        <a href="#" class="inline-block bg-orange-500 text-white px-3 py-2 md:px-8 md:py-3 rounded-full hover:bg-orange-600 transition-colors duration-300">View Product</a>
                     </div>
                 </div>
             </div>
