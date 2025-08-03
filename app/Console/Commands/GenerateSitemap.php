@@ -37,5 +37,13 @@ class GenerateSitemap extends Command
             ->add(Url::create('/products/{product}'))
             ->add(Url::create('/wishlist'))
             ->add(Url::create('/about-digi'));
+
+            foreach (\App\Models\Product::all() as $product) {
+                $sitemap->add(Url::create("/products/{$product->slug}"));
+            }
+
+            $sitemap->writeToFile(public_path('sitemap.xml'));
+            $this->info('Sitemap generated successfully.');
+
     }
 }
