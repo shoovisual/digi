@@ -9,9 +9,9 @@
 @endsection
 
 @section('title', 'Products')
-@include('shopping.sections.schema')
 
 @section('content')
+    @include('shopping.sections.schema')
     <div class="w-full bg-off-white py-3">
         @include('shopping.sections.product-categories')
     </div>
