@@ -286,17 +286,6 @@
       "@type": "Brand",
       "logo": "https://digiappliances.com/img/digi-logo.svg"
     }
-  },
-  {
-    "@context": "http://schema.org",
-    "@type": "Product",
-    "name": "DIGI Cooker 60x60 Steel – 3 Gas + 1 Hot Plate, Electric Oven, T...",
-    "image": "https://digiappliances.com/img/products/gas-cooker/DIGI-DG-GC-EMKABF650S-60x60_inox.png",
-    "url": "https://digiappliances.com/products/gas-cooker-60x60-steel",
-    "brand": {
-      "@type": "Brand",
-      "logo": "https://digiappliances.com/img/digi-logo.svg"
-    }
   }
 ]
 </script>
