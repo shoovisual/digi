@@ -7,6 +7,17 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\aboutDigiController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\ContactController;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
+
+Route::get('/sitemap.xml', function () {
+    $sitemap = Sitemap::create()
+        ->add(Url::create('/'))
+        ->add(Url::create('/services'))
+        ->add(Url::create('/contact'));
+
+    return $sitemap->toResponse(request());
+});
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class aboutDigiController extends Controller
+class AboutDigiController extends Controller
 {
     public function index()
     {
