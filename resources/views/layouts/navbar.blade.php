@@ -119,10 +119,10 @@
   <!-- Mobile Menu -->
   <nav x-show="mobileMenuOpen" x-transition class="lg:hidden px-4 pb-4 space-y-2 text-sm font-medium">
     <a href="/" class="block hover:text-digi-orange">Home</a>
-    <a href="#" class="block hover:text-digi-orange">What is DIGI</a>
+    <a href="{{ route('about-digi.index') }}" class="block hover:text-digi-orange">What is DIGI</a>
     <a href="{{ route('products.index') }}" class="block hover:text-digi-orange">Our Products</a>
-    <a href="#" class="block hover:text-digi-orange">About CTC DIGI-Venture</a>
+    <a href="{{ route('about') }}" class="block hover:text-digi-orange">About CTC DIGI-Venture</a>
     <a href="#" class="block hover:text-digi-orange">Order Now</a>
-    <a href="#" class="block hover:text-digi-orange">Contact us</a>
+    <a href="{{ route('contact') }}" class="block hover:text-digi-orange">Contact us</a>
   </nav>
 </header>
