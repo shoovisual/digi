@@ -239,7 +239,7 @@
     "image": "https://digiappliances.com/img/products/gas-cooker/DIGI-DG-GC-EMKABF650S-60x60_inox.png",
     "url": "https://digiappliances.com/products/gas-cooker-60x60-steel",
     "brand": {
-      "@type": "Brand",
+      {{-- "@type": "Brand", --}}
       "logo": "https://digiappliances.com/img/digi-logo.svg"
     }
   }
