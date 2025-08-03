@@ -9,7 +9,7 @@
 @endsection
 
 @section('title', 'Products')
-@include('shopping.sections.schema')
+{{-- @include('shopping.sections.schema') --}}
 
 @section('content')
     <div class="w-full bg-off-white py-3">
