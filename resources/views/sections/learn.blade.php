@@ -40,10 +40,10 @@
         <div class="py-6">
           <p class="text-sm font-medium">{{ $lesson['subtitle'] }}</p>
           <h3 class="text-xl font-bold mt-2">{{ $lesson['title'] }}</h3>
-          <p class="text-gray-600 font-medium mt-2">{{ $lesson['description'] }}</p>
-          <button class="mt-4 px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-sm font-medium">
+          <p class="text-gray-600 font-medium mt-2 mb-4">{{ $lesson['description'] }}</p>
+          <a href="{{ $lesson['url'] }}" class="px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-sm font-medium">
             View more
-          </button>
+          </a>
         </div>
       </div>
       @endforeach
