@@ -1,19 +1,18 @@
 @import 'tailwindcss';
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
 @theme {
-    --font-digi-font: 'LG EI Headline', sans-serif;
     --color-digi-orange: #EA6911;
     --color-digi-orange-dark: #D45C0F;
     --color-digi-blue: #0174BA;
     --color-digi-dark: #1B1917;
     --color-off-white: #F9F9F9;
 }
-
+/*
 @font-face {
     font-family: 'CustomFont';
     src: url('./fonts/LGEIHeadline-Bold.woff2') format('woff2');
@@ -47,7 +46,7 @@
     src: url('./fonts/LGEIHeadline-Thin.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
-}
+} */
 
 
 .shopped-slider .slide {
@@ -55,6 +54,6 @@
 }
 
 body {
-    font-family: 'LG Smart_global', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 18px;
 }

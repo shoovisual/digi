@@ -18,7 +18,7 @@
             <span x-show="copied" class="text-green-500 text-xs font-medium">Copied!</span>
         </div>
 
-        <h2 class="text-2xl font-regular text-black leading-snug" title="{{ $product->name }}">{{ Str::limit($product->name, 63) }}</h2>
+        <h2 class="text-2xl font-regular text-black leading-snug" title="{{ $product->name }}">{{ Str::limit($product->name, 50) }}</h2>
         <p class="text-sm font-medium text-gray-500 mt-1">{{ $product->product_short }}</p>
 
         <!-- IMAGE CAROUSEL -->
