@@ -1,4 +1,15 @@
 @extends('layouts.app')
+@section('meta')
+    <meta name="description" content="{{ $category->meta_description ?? 'Explore our range of ' . $category->name . ' products.' }}">
+    <meta name="keywords" content="{{ $category->meta_keywords ?? 'Digi, Appliances, ' . $category->name }}">
+    <meta property="og:description" content="{{ $category->meta_description ?? 'Explore our range of ' . $category->name . ' products.' }}">
+    <meta property="og:image" content="{{ asset('img/' . ($category->cover_image ?? 'default-category.jpg')) }}">
+    <meta property="og:url" content="{{ request()->url() }}">
+    <meta name="twitter:title" content="{{ $category->name }} | Digi Appliances">
+    <meta name="twitter:description" content="{{ $category->meta_description ?? 'Explore our range of ' . $category->name . ' products.' }}">
+    <meta name="twitter:image" content="{{ asset('img/' . ($category->cover_image ?? 'default-category.jpg')) }}">
+    <meta name="twitter:card" content="summary_large_image">
+@endsection
 
 @section('title', $category->name)
 
@@ -17,11 +28,12 @@
                 </a>
             @endforeach
         </div>
+    </div>
 
-        <!-- Category Header -->
-        <div class="text-center relative">
+    <div class="w-full bg-[#F2F0EC]">
+        <div class="text-center relative max-w-7xl mx-auto py-5">
             @if ($category->cover_image)
-                <img src="{{ asset('img/' . $category->cover_image) }}" alt="{{ $category->name }} cover image" class="w-full h-[50vh] object-cover">
+                <img src="{{ asset('img/' . $category->cover_image) }}" alt="{{ $category->name }} cover image" class="w-full rounded-2xl h-[50vh] object-cover">
             @endif
         </div>
     </div>

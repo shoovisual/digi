@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('cover_image_2')->nullable();
             $table->string('cover_image_3')->nullable();
             $table->string('cover_image_4')->nullable();
+            $table->text('meta_keywords')->nullable();
+            $table->text('meta_description')->nullable();
             $table->timestamps();
         });
     }

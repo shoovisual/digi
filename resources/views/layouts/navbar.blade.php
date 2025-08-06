@@ -16,65 +16,65 @@
   <div x-data="{ stuck: false }"
     x-init="
         window.addEventListener('scroll', () => {
-            stuck = window.scrollY > 80   // change 80 to any pixel offset
+            stuck = window.scrollY > 80
         })" :class="stuck
             ? 'fixed top-0 inset-x-0 bg-off-white/90 shadow-md backdrop-blur transition' : ''"
             class="bg-off-white flex items-center justify-between px-4 md:px-6 py-6 transition-all duration-300 z-50" >
-    <!-- Logo -->
-    <div class="flex items-center space-x-2">
-      <a href="/"><img src="{{ asset('img/digi-logo.svg') }}" alt="DIGI Logo" class="h-8 w-auto" /></a>
-    </div>
+        <!-- Logo -->
+        <div class="flex items-center space-x-2">
+        <a href="/"><img src="{{ asset('img/digi-logo.svg') }}" alt="DIGI Logo" class="h-8 w-auto" /></a>
+        </div>
 
-    <!-- Desktop menu -->
-    <nav class="hidden lg:flex text-black space-x-6 text-lg font-[400]">
-        <a href="/"
-        @class([
-            'hover:text-digi-orange',
-            'text-digi-orange' => request()->is('/')
-        ])>
-            Home
-        </a>
+        <!-- Desktop menu -->
+        <nav class="hidden lg:flex text-black space-x-6 text-lg font-[400]">
+            <a href="/"
+            @class([
+                'hover:text-digi-orange',
+                'text-digi-orange' => request()->is('/')
+            ])>
+                Home
+            </a>
 
-        <a href="{{ route('about-digi.index') }}"
-        @class([
-            'hover:text-digi-orange',
-            'text-digi-orange' => request()->is('about-digi')
-        ])>
-            What is DIGI
-        </a>
+            <a href="{{ route('about-digi.index') }}"
+            @class([
+                'hover:text-digi-orange',
+                'text-digi-orange' => request()->is('about-digi')
+            ])>
+                What is DIGI
+            </a>
 
-        <a href="{{ route('products.index') }}"
-        @class([
-            'hover:text-digi-orange',
-            'text-digi-orange' => request()->routeIs('products.*', 'categories.*')
-        ])>
-            Our Products
-        </a>
+            <a href="{{ route('products.index') }}"
+            @class([
+                'hover:text-digi-orange',
+                'text-digi-orange' => request()->routeIs('products.*', 'categories.*')
+            ])>
+                Our Products
+            </a>
 
-        <a href="{{ route('about') }}"
-        @class([
-            'hover:text-digi-orange',
-            'text-digi-orange' => request()->routeIs('about')
-        ])>
-            About CTC DIGI‑Venture
-        </a>
+            <a href="{{ route('about') }}"
+            @class([
+                'hover:text-digi-orange',
+                'text-digi-orange' => request()->routeIs('about')
+            ])>
+                About CTC DIGI‑Venture
+            </a>
 
-        <a href="#order-now"
-        @class([
-            'hover:text-digi-orange',
-            'text-digi-orange' => request()->is('order-now')
-        ])>
-            Order Now
-        </a>
+            <a href="#order-now"
+            @class([
+                'hover:text-digi-orange',
+                'text-digi-orange' => request()->is('order-now')
+            ])>
+                Order Now
+            </a>
 
-        <a href="{{ route('contact') }}"
-        @class([
-            'hover:text-digi-orange',
-            'text-digi-orange' => request()->is('contact')
-        ])>
-            Contact Us
-        </a>
-    </nav>
+            <a href="{{ route('contact') }}"
+            @class([
+                'hover:text-digi-orange',
+                'text-digi-orange' => request()->is('contact')
+            ])>
+                Contact Us
+            </a>
+        </nav>
 
 
     <!-- Right Side: Search & Icons -->
