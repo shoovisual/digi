@@ -32,7 +32,7 @@ class CategorySeeder extends Seeder
                 'cover_image' => 'products/category/tv-cover.png',
                 'icon' => 'products/category/tvs.svg',
                 'meta_description' => 'Discover affordable Digi TVs with clear HD picture, strong sound, and smart features perfect for home entertainment in Tanzania.',
-                'meta_keywords' => 'Digi TV, bei nafuu TV, smart TV Tanzania, flat screen tv, runinga ya kisasa, TV ya HD, tv nzuri kwa familia, cheap TV Dar es Salaam'
+                'meta_keywords' => 'Digi TV, bei nafuu TV, smart TV Tanzania, TV za bei rahisi, TV za 4k, Smart TV, TV za Kisasa, flat screen tv, runinga ya kisasa, TV ya HD, tv nzuri kwa familia, cheap TV Dar es Salaam'
             ],
 
             [
@@ -54,7 +54,7 @@ class CategorySeeder extends Seeder
                 'cover_image' => 'products/freezers/freezer-cover-2.webp',
                 'icon' => 'products/category/freezers.svg',
                 'meta_description' => 'Store meat, drinks, and more with Digi freezers. Reliable cooling, low power use, and designed for home or small business.',
-                'meta_keywords' => 'Digi freezer, deep freezer Tanzania, freezer ya nyumbani, chest freezer bei nafuu, food storage freezer, biashara ndogo freezer, freezer ya duka',
+                'meta_keywords' => 'Digi freezer, deep freezer Tanzania, freezer ya nyumbani, chest freezer bei nafuu, freezer ya biashara, Friza nzuri, food storage freezer, biashara ndogo freezer, freezer ya duka',
             ],
 
             [

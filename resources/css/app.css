@@ -57,3 +57,25 @@ body {
     font-family: 'Inter', sans-serif;
     font-size: 18px;
 }
+
+/* LG Style Mobile Menu */
+.lg-mobile-menu {
+    background-color: #f5f1e9;
+}
+
+.lg-mobile-menu-item {
+    border-bottom: 1px solid #e0dbd0;
+    transition: background-color 0.2s ease;
+}
+
+.lg-mobile-menu-item:hover {
+    background-color: #e0dbd0;
+}
+
+/* Ensure the mobile menu takes full height */
+@media (max-width: 1023px) {
+    .mobile-menu-container {
+        height: 100vh;
+        overflow-y: auto;
+    }
+}
