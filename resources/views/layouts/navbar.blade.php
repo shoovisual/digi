@@ -120,10 +120,10 @@
   <div x-show="mobileMenuOpen" x-transition class="lg:hidden fixed inset-0 z-50 overflow-y-auto bg-white">
     <div class="absolute right-0 top-0 h-full w-full max-w-full lg-mobile-menu mobile-menu-container">
       <!-- Header with close button -->
-      <div class="flex items-center justify-between p-4 border-b border-[#e0dbd0]">
+      <div class="flex items-center justify-between p-6">
         <a href="/"><img src="{{ asset('img/digi-logo.svg') }}" alt="DIGI Logo" class="h-8 w-auto" /></a>
         <div class="flex items-center space-x-4">
-          <!-- Search icon -->
+          {{-- <!-- Search icon -->
           <button class="focus:outline-none">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -140,7 +140,7 @@
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
             </svg>
-          </button>
+          </button> --}}
           <!-- Close button -->
           <button @click="mobileMenuOpen = false" class="focus:outline-none">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -149,81 +149,48 @@
           </button>
         </div>
       </div>
-      
+
       <!-- Menu Items -->
-      <nav class="text-black text-lg font-medium">
-        <!-- Main navigation links -->
-        <a href="{{ route('products.index') }}" class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
-          <span>Shop</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </a>
-        <a href="#" class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
-          <span>TV/Audio/Video</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </a>
-        <a href="#" class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
-          <span>Home Appliances</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </a>
-        <a href="#" class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
-          <span>Air Solutions</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </a>
-        <a href="#" class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
-          <span>Computing</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </a>
-        <a href="#" class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
-          <span>Accessories</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </a>
-        <a href="{{ route('contact') }}" class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
-          <span>Support</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </a>
-        <a href="{{ route('about-digi.index') }}" class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
-          <span>DIGI AI</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </a>
-        
-        <!-- Secondary links -->
-        <div class="mt-6 px-6 py-4 border-b border-[#e0dbd0]">
-          <a href="{{ route('about') }}" class="block text-black font-medium py-2 lg-mobile-menu-item">INVESTOR</a>
-          <a href="#" class="block text-black font-medium py-2 lg-mobile-menu-item">For Business</a>
-        </div>
-        
-        <!-- User actions -->
-        <div class="mt-6 px-6 py-4">
-          <a href="#" class="flex items-center text-black font-medium py-2 lg-mobile-menu-item">
-            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-            </svg>
-            Sign in
-          </a>
-          <a href="#" class="flex items-center text-black font-medium py-2 lg-mobile-menu-item">
-            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-            </svg>
-            Register a product
-          </a>
-        </div>
-      </nav>
+      <nav class="text-black mt-8 text-lg font-medium">
+        <!-- Other menu items -->
+            <a href="{{ route('about-digi.index') }}"
+            class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
+                <span>About DIGI</span>
+            </a>
+            <!-- Products Dropdown -->
+            <div x-data="{ open: false }" class="relative">
+                <button @click="open = !open"
+                        class="flex items-center justify-between w-full px-6 py-4 border-y border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
+                    <span>Products</span>
+                    <svg :class="{'rotate-90': open}" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </button>
+
+                <!-- Dropdown Items -->
+                <div x-show="open" x-transition
+                    class="lg:absolute font-[inter] lg:left-0 lg:w-56">
+                    @foreach ($categories as $category)
+                        <a href="{{ route('categories.show', $category->slug) }}"
+                           class="block px-8 py-3 hover:bg-[#e0dbd0] border-b border-[#e0dbd0]">
+                            {{ $category->name }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Other menu items -->
+            <a href="{{ route('about') }}"
+            class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
+                <span>CTC DIGI-Venture</span>
+            </a>
+            <!-- Other menu items -->
+            <a href="{{ route('contact') }}"
+            class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
+                <span>Contact Us</span>
+            </a>
+        </nav>
+
     </div>
   </div>
 </header>
