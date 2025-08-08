@@ -4,11 +4,11 @@
  |---------------------------------------------------------------*/
 $slides = [
     [
-        'image'     => '/img/tv-cover.png',
-        'title'     => 'Enjoy the Best in Every Pixel',
-        'subtitle'  => 'With our affordable UHD Smart TV',
-        'primary'   => ['label' => 'Buy now',          'url' => '#'],
-        'secondary' => ['label' => 'View More',        'url' => '#'],
+        'image'     => '/img/product-cover-umejipata.png',
+        'title'     => 'Vumbua Furaha na Uhuru na DIGI',
+        'subtitle'  => 'Bidhaa mahususi kwa nyumba yako',
+        'primary'   => ['label' => 'View Products',          'url' => '#'],
+        'secondary' => ['label' => 'Contact us',        'url' => '#'],
     ],
     [
         'image'     => '/img/tv-slider-2.jpg',
@@ -38,27 +38,36 @@ $slides = [
                      style="background-image:url('{{ $slide['image'] }}');"></div>
 
                 {{-- Overlay --}}
-                <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30"></div>
+                {{-- <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30"></div> --}}
 
                 {{-- Copy --}}
                 <div class="relative z-10 flex flex-col justify-center h-full p-10 md:p-20 lg:p-32">
-                    <h1 class="text-white text-4xl md:text-5xl lg:text-6xl md:w-lg font-regular leading-tight mb-4">
+                    <p style="background-image: url(' {{ asset('img/umejipata-label-bg.png') }}'); background-size: contain; background-repeat: no-repeat; background-position: center;" class="text-white w-fit py-2 px-4 text-lg">DIGI Rafiki wa kweli</p>
+                    <h1 class="text-4xl md:text-4xl lg:text-5xl md:w-lg font-semibold leading-tight mb-4">
                         {!! nl2br(e($slide['title'])) !!}
                     </h1>
-                    <p class="text-white text-lg font-light md:text-xl mb-8">
+                    <p class="text-lg font-light md:text-xl mb-8">
                         {{ $slide['subtitle'] }}
                     </p>
                     <div class="flex space-x-4">
                         <a href="{{ $slide['primary']['url'] }}"
-                           class="bg-digi-orange text-white px-6 py-3 rounded-full text-lg font-medium
+                           class="bg-digi-orange flex items-center text-white px-4 py-3 rounded-full text-lg font-medium
                                   hover:bg-digi-orange-dark transition-colors duration-300">
-                            {{ $slide['primary']['label'] }}
+                            {{ $slide['primary']['label'] }} <span class="ml-2 px-2 py-2 flex items-center rounded-full border bg-white"><img src="{{ asset('img/icon_quote.svg') }}" class="inline-block w-5" alt=""></span>
                         </a>
-                        <a href="{{ $slide['secondary']['url'] }}"
-                           class="border-2 border-white text-white px-6 py-3 rounded-full text-lg font-medium
-                                  hover:bg-white hover:text-digi-dark transition-colors duration-300">
-                            {{ $slide['secondary']['label'] }}
+                        <a href="{{ $slide['secondary']['url'] }}" class="flex items-center relative overflow-hidden border border-white/80 text-gray-500 backdrop-blur-md
+                                bg-white/5 pr-4 pl-5 py-3 rounded-full text-lg font-medium
+                                shadow-lg shadow-white/5 hover:shadow-white/10
+                                hover:bg-white/20 hover:text-digi-dark transition-all duration-500 group">
+
+                            {{-- Glass reflection layer --}}
+                            <span class="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></span>
+
+                            {{-- Moving highlight streak --}}
+                            <span class="absolute top-0 left-[-50%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/40 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></span>
+                            <span class="relative z-10">{{ $slide['secondary']['label'] }}</span><span class="ml-2 px-2 py-2 flex items-center rounded-full border border-white/90"><img src="{{ asset('img/arrow.svg') }}" class="inline-block w-5" alt=""></span>
                         </a>
+
                     </div>
                 </div>
             </div>
