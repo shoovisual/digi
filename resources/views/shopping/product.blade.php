@@ -4,7 +4,7 @@
 @section('meta')
     <meta name="description" content="{{ $product->name . '. ' . $product->description }}">
     <meta name="keywords" content="{{ $category->meta_keywords ?? 'Digi, Appliances, ' . $product->name }}">
-    <meta property="og:description" content="{{ $category->meta_description ?? 'Explore our range of ' . $product->name . ' products.' }}">
+    <meta property="og:description" content="{{ $product->name . '. ' . $product->description }}">
     <meta property="og:image" content="{{ asset('img/' . ($product->image ?? 'default-category.jpg')) }}">
     <meta property="og:url" content="{{ request()->url() }}">
     <meta name="twitter:title" content="{{ $product->name }} | Digi Appliances">
