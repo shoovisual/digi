@@ -1,6 +1,18 @@
 @extends('layouts.app')
 @section('title', $product->name)
 
+@section('meta')
+    <meta name="description" content="{{ $product->name . '. ' . $product->description }}">
+    <meta name="keywords" content="{{ $category->meta_keywords ?? 'Digi, Appliances, ' . $product->name }}">
+    <meta property="og:description" content="{{ $category->meta_description ?? 'Explore our range of ' . $product->name . ' products.' }}">
+    <meta property="og:image" content="{{ asset('img/' . ($product->image ?? 'default-category.jpg')) }}">
+    <meta property="og:url" content="{{ request()->url() }}">
+    <meta name="twitter:title" content="{{ $product->name }} | Digi Appliances">
+    <meta name="twitter:description" content="{{ $product->name . $product->description }}">
+    <meta name="twitter:image" content="{{ asset('img/' . ($category->cover_image ?? 'default-category.jpg')) }}">
+    <meta name="twitter:card" content="summary_large_image">
+@endsection
+
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <!-- Product Details Section -->
