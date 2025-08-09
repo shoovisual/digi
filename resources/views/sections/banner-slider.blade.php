@@ -1,19 +1,19 @@
 @php
     $bannerImage = [
             [
-                'title' => 'wash fast and with easy',
+                'title' => 'Wash Fast and Easy',
                 'subtitle' => 'With our affordable washing machines',
                 'image' => 'img/digi-washing-machine-featured.jpg',
                 'url' => '/categories/digi-washing-machine',
             ],
             [
-                'title' => 'Enjoy the Best in Every Pixel',
+                'title' => 'Enjoy in Every Pixel',
                 'subtitle' => 'With our affordable UHD Smart TV',
                 'image' => 'img/products/tvs/tv-featured.jpg',
                 'url' => '/categories/digi-tvs',
             ],
             [
-                'title' => 'Keep Your it Fresher, Longer',
+                'title' => 'Keep it Fresher, Longer',
                 'subtitle' => 'With our affordable Digi Fridges',
                 'image' => 'img/digi-fridge-featured.jpg',
                 'url' => '/categories/digi-refrigerators',
@@ -38,7 +38,7 @@
             ],
         ];
 @endphp
-<section class="py-10 bg-white">
+<section class="py-10 bg-[#F2F0EC]">
     <div class="max-w-7xl mx-auto px-4">
         <div class="banner-slider justify-center">
             @foreach ($bannerImage as $image)
@@ -50,7 +50,7 @@
                     <a href="{{ $image['url'] }}" class="absolute group inset-x-0 text-center bottom-0 bg-gradient-to-t h-[70%] from-black/100 to-black/0 text-white p-4">
                         <div class="absolute inset-x-0 bottom-5">
                             <h3 class="text-3xl font-medium mb-1">{{ $image['title'] }}</h3>
-                            <p class="text-md font-regular mb-3">{{ $image['subtitle'] }}</p>
+                            <p class="font-regular mb-3">{{ $image['subtitle'] }}</p>
                             <div class="flex gap-2 justify-center">
                                 <div
                                 class="text-[16px] px-4 flex items-center py-3 border border-orange-500 group-hover:bg-orange-600 rounded-full text-white font-medium transition">
@@ -65,6 +65,18 @@
                 </div>
             @endforeach
         </div>
+        {{-- Custom Slider Arrows --}}
+        <div class="flex justify-center items-center mt-6 gap-8">
+            <button class="prev-arrow w-8 h-8 flex items-center opacity-50 justify-center rounded-full border transition cursor-pointer">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <div class="text-sm font-medium flex items-center gap-x-4">
+                <span class="current-slide">1</span> / <span class="total-slides">{{ count($bannerImage) }}</span>
+            </div>
+            <button class="next-arrow w-8 h-8 flex items-center justify-center rounded-full border transition cursor-pointer">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
     </div>
 </section>
 
@@ -75,29 +87,61 @@
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
     $(function () {
-        $('.banner-slider').slick({
+        var $slider = $('.banner-slider');
+        var $prev = $('.prev-arrow');
+        var $next = $('.next-arrow');
+
+        $slider.slick({
             slidesToShow: 3,
             slidesToScroll: 1,
-            infinite: true,
-            autoplay: true,
+            infinite: false,
+            autoplay: false,
             autoplaySpeed: 5000,
             speed: 500,
-            arrows: true,
+            prevArrow: $prev,
+            nextArrow: $next,
             dots: false,
             responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 2,
-                    }
-                },
-                {
-                    breakpoint: 640,
-                    settings: {
-                        slidesToShow: 1,
-                    }
-                }
+                { breakpoint: 1024, settings: { slidesToShow: 2 }},
+                { breakpoint: 640, settings: { slidesToShow: 1 }}
             ]
         });
+
+        function updateArrows(slick, currentSlide) {
+            var totalSlides = slick.slideCount;
+            var slidesToShow = slick.options.slidesToShow;
+
+            // Disable prev if at start
+            if (currentSlide === 0) {
+                $prev.prop('disabled', true).addClass('opacity-50');
+            } else {
+                $prev.prop('disabled', false).removeClass('opacity-50');
+            }
+
+            // Disable next if at end
+            if (currentSlide >= totalSlides - slidesToShow) {
+                $next.prop('disabled', true).addClass('opacity-50');
+            } else {
+                $next.prop('disabled', false).removeClass('opacity-50');
+            }
+        }
+
+        // On init
+        $slider.on('init', function(event, slick) {
+            updateArrows(slick, slick.currentSlide);
+            $('.total-slides').text(slick.slideCount);
+            $('.current-slide').text(slick.currentSlide + 1);
+        });
+
+        // After slide change
+        $slider.on('afterChange', function(event, slick, currentSlide) {
+            updateArrows(slick, currentSlide);
+            $('.current-slide').text(currentSlide + 1);
+        });
+
+        // Re-initialize arrows on page load
+        $slider.slick('setPosition');
     });
 </script>
+
+

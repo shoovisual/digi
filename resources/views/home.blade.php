@@ -12,11 +12,13 @@
 
     @include('sections.hero-section')
 
-    @include('shopping.sections.product-categories')
-
-    @include('sections.banner-slider')
+    <div class="w-full bg-[#F2F0EC] border-b border-gray-400">
+        @include('shopping.sections.product-categories')
+    </div>
 
     @include('shopping.sections.most-shopped')
+
+    @include('sections.banner-slider')
 
     @include('sections.learn')
 
