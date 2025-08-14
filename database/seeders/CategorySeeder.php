@@ -70,7 +70,8 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Gas Cookers',
                 'slug' => 'digi-gas-cookers',
-                'cover_image' => 'products/gas-cooker/gas-cooker-cover-3.webp',
+                'cover_image' => 'products/gas-cooker/gas-cooker-cover-umejipata.png',
+                'cover_image_2' => 'products/gas-cooker/gas-cooker-cover-umejipata-mobile.png',
                 'icon' => 'products/category/gas-cooker.svg',
                 'description' => ' Cook delicious meals with Digi gas cookers — safe, durable, and suitable for daily family use at home.',
                 'meta_description' => 'Cook faster and save energy with Digi gas cookers. Affordable, reliable, and perfect for Tanzanian kitchens.',

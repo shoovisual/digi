@@ -15,7 +15,6 @@
 
 @section('content')
     <div class="w-full mx-auto">
-        <!-- Categories Bar -->
         <div class="lg:flex grid md:grid-cols-5 grid-cols-2 justify-center lg:space-x-8 gap-y-4 py-5">
             @foreach ($categories as $cat)
                 <a href="{{ route('categories.show', $cat->slug) }}" class="flex flex-col items-center group">
@@ -31,12 +30,17 @@
     </div>
 
     <div class="w-full bg-[#F2F0EC]">
-        <div class="text-center relative max-w-7xl mx-auto py-5">
-            @if ($category->cover_image)
-                <img src="{{ asset('img/' . $category->cover_image) }}" alt="{{ $category->name }} cover image" class="w-full rounded-2xl h-[50vh] object-cover">
-            @endif
+        <div class="md:max-w-7xl mx-auto px-4 py-10">
+            <div class="bg-black rounded-2xl overflow-hidden flex flex-col md:flex-row">
+                <div class="w-full relative">
+                    @if ($category->cover_image)
+                        <img src="{{ asset('img/' . $category->cover_image) }}" alt="{{ $category->name }} cover image"  class="w-full h-full object-cover">
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
+
 
     <div class="w-full bg-[#F2F0EC] mx-auto py-8">
         <div class="max-w-7xl mx-auto px-4 flex">
@@ -49,12 +53,15 @@
                 </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto px-4 py-8">
-            <!-- Category Header -->
-            <div class="text-center relative">
-                @if ($category->cover_image_2)
-                    <img src="{{ asset('img/' . $category->cover_image_2) }}" alt="{{ $category->name }} cover image" class="w-full rounded-2xl h-[50vh] object-cover">
-                @endif
+        <div class="w-full bg-[#F2F0EC]">
+            <div class="md:max-w-7xl mx-auto px-4 py-10">
+                <div class="bg-black rounded-2xl overflow-hidden flex flex-col md:flex-row">
+                    <div class="w-full relative">
+                        @if ($category->cover_image_2)
+                            <img src="{{ asset('img/' . $category->cover_image) }}" alt="{{ $category->name }} cover image"  class="w-full h-full object-cover">
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>

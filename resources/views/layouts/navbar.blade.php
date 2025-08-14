@@ -43,13 +43,84 @@
                 What is DIGI
             </a>
 
-            <a href="{{ route('products.index') }}"
-            @class([
-                'hover:text-digi-orange',
-                'text-digi-orange' => request()->routeIs('products.*', 'categories.*')
-            ])>
-                Our Products
-            </a>
+            <div x-data="{ megaMenuOpen: true }" class="relative" @mouseover="megaMenuOpen = true" @mouseleave="megaMenuOpen = true" :class="{ 'mega-menu-active': megaMenuOpen }">
+                <a href="{{ route('products.index') }}"
+                @class([
+                    'hover:text-digi-orange flex items-center',
+                    'text-digi-orange' => request()->routeIs('products.*', 'categories.*')
+                ])>
+                    Our Products
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    </svg>
+                </a>
+
+                <!-- Mega Menu -->
+                <div class="border border-gray-400 bg-white p-4 w-fit absolute top-14 -left-50 z-50">
+                    <div class="mega-menu-grid text-sm">
+                        <!-- TVs Column -->
+                        <div class="mega-menu-column">
+                            <h3 class="mega-menu-title">TVs</h3>
+                            <a href="{{ route('categories.show', 'digi-tvs') }}" class="mega-menu-link">All TVs</a>
+                            <a href="#" class="mega-menu-link">Smart TVs</a>
+                            <a href="#" class="mega-menu-link">4K TVs</a>
+                            <a href="#" class="mega-menu-link">LED TVs</a>
+                            <a href="#" class="mega-menu-link">TV Accessories</a>
+                        </div>
+
+                        <!-- Refrigerators Column -->
+                        <div class="mega-menu-column">
+                            <h3 class="mega-menu-title">Refrigerators</h3>
+                            <a href="{{ route('categories.show', 'digi-refrigerators') }}" class="mega-menu-link">All Refrigerators</a>
+                            <a href="#" class="mega-menu-link">Single Door</a>
+                            <a href="#" class="mega-menu-link">Double Door</a>
+                            <a href="#" class="mega-menu-link">Side by Side</a>
+                            <a href="#" class="mega-menu-link">French Door</a>
+                        </div>
+
+                        <!-- Freezers Column -->
+                        <div class="mega-menu-column">
+                            <h3 class="mega-menu-title">Freezers</h3>
+                            <a href="{{ route('categories.show', 'digi-freezers') }}" class="mega-menu-link">All Freezers</a>
+                            <a href="#" class="mega-menu-link">Chest Freezers</a>
+                            <a href="#" class="mega-menu-link">Upright Freezers</a>
+                            <a href="#" class="mega-menu-link">Commercial Freezers</a>
+                        </div>
+
+                        <!-- Air Conditioners Column -->
+                        <div class="mega-menu-column">
+                            <h3 class="mega-menu-title">Air Conditioners</h3>
+                            <a href="{{ route('categories.show', 'digi-acs') }}" class="mega-menu-link">All Air Conditioners</a>
+                            <a href="#" class="mega-menu-link">Split ACs</a>
+                            <a href="#" class="mega-menu-link">Window ACs</a>
+                            <a href="#" class="mega-menu-link">Portable ACs</a>
+                        </div>
+
+                        <!-- Cooking Appliances Column -->
+                        <div class="mega-menu-column">
+                            <h3 class="mega-menu-title">Cooking Appliances</h3>
+                            <a href="{{ route('categories.show', 'digi-gas-cookers') }}" class="mega-menu-link">Gas Cookers</a>
+                            <a href="#" class="mega-menu-link">Microwave Ovens</a>
+                            <a href="#" class="mega-menu-link">Electric Cookers</a>
+                            <a href="#" class="mega-menu-link">Small Appliances</a>
+                        </div>
+
+                        <!-- Washing Machines Column -->
+                        <div class="mega-menu-column">
+                            <h3 class="mega-menu-title">Washing Machines</h3>
+                            <a href="{{ route('categories.show', 'digi-washing-machine') }}" class="mega-menu-link">All Washing Machines</a>
+                            <a href="#" class="mega-menu-link">Front Load</a>
+                            <a href="#" class="mega-menu-link">Top Load</a>
+                            <a href="#" class="mega-menu-link">Semi-Automatic</a>
+                        </div>
+
+                        <!-- Featured Product Image -->
+                        <div class="mega-menu-image">
+                            <img src="{{ asset('img/digi-washing-machine-featured.jpg') }}" alt="Featured DIGI Product" />
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <a href="{{ route('about') }}"
             @class([

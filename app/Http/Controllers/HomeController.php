@@ -10,11 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-
-
-
         $categories = Category::all();
         $products = Product::take(5)->get(); // Fetch 5 products
-        return view('home', compact('products', 'categories'));
+        return view('under_construction', compact('products', 'categories'));
     }
 }

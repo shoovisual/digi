@@ -1,4 +1,28 @@
 import './bootstrap';
+import Alpine from 'alpinejs';
+import './whereToBuyModal';
+
+window.Alpine = Alpine;
+Alpine.start();
+
+// Mega Menu Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // The mega menu is handled by Alpine.js in the navbar.blade.php file
+    // This is just for any additional JavaScript enhancements
+    
+    // Add keyboard accessibility for mega menu
+    const productLinks = document.querySelectorAll('.mega-menu-link');
+    productLinks.forEach(link => {
+        link.addEventListener('focus', function() {
+            // Find the parent mega menu container
+            const megaMenuContainer = this.closest('.mega-menu');
+            if (megaMenuContainer) {
+                // Make sure the mega menu is visible when a link inside it receives focus
+                megaMenuContainer.style.display = 'block';
+            }
+        });
+    });
+});
 
 // Function to get wishlist from local storage
 function getWishlist() {
@@ -180,6 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const fullWishlistContainer = document.getElementById('full-wishlist');
     const emptyWishlistMessage = document.getElementById('empty-wishlist-message');
 
+    // Only proceed if we're on the wishlist page
+    if (!fullWishlistContainer || !emptyWishlistMessage) return;
+    
     // Clear existing content before re-rendering
     fullWishlistContainer.innerHTML = '';
 
