@@ -8,7 +8,7 @@
     <meta property="og:keywords" content="digi, digital appliances, umejipata, tv za bei rahisi, electronics, UHD Smart TV, washing machines, refrigerators, gas cookers, air conditioners, online shopping">
     <meta property="og:image" content="{{ asset('img/favicon.png') }}">
     <title>Digi Appliances - Under Construction</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
         * {
@@ -18,7 +18,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: #F2F0EC;
             min-height: 100vh;
             overflow: hidden;
@@ -153,8 +153,7 @@
         }
 
         .coming-soon {
-            font-size: 4rem;
-            font-weight: 600;
+            font-size: 3rem;
             margin-bottom: 1.5rem;
             color: #1B1917;
             background-clip: text;
@@ -226,11 +225,19 @@
             animation: fadeInUp 1s ease-out 0.9s both;
         }
 
+        .social-links a {
+            color: #EA6911;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
         .social-link {
             width: 50px;
             height: 50px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
@@ -351,11 +358,11 @@
             </div>
         </div>
         <div class="social-links">
-            <a href="#" class="social-link" title="Instagram">
+            <a href="https://www.instagram.com/digi_tanzania/" target="_blank" class="social-link" title="Instagram">
                 <i class="bi bi-instagram"></i>
             </a>
-            <a href="#" class="social-link" title="Twitter">
-                <i class="bi bi-twitter"></i>
+            <a href="https://www.facebook.com/people/DIGI-Tanzania/61573040064155/?_rdr" target="_blank" class="social-link" title="Twitter">
+                <i class="bi bi-facebook"></i>
             </a>
             <a href="#" class="social-link" title="LinkedIn">
                 <i class="bi bi-linkedin"></i>
