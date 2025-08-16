@@ -34,26 +34,49 @@
       <div>
         <h3 class="font-semibold text-lg mb-3 tracking-wide">About&nbsp;Us</h3>
         <ul class="space-y-2">
-          <li><a href="#" class="hover:underline">Company Info</a></li>
-          <li><a href="#" class="hover:underline">Our Business</a></li>
-          <li><a href="#" class="hover:underline">Brand Identity</a></li>
+          <li><a href="{{ route('about') }}" class="hover:underline">Company Info</a></li>
+          <li><a href="{{ route('about-digi.index') }}" class="hover:underline">Our Business</a></li>
+          <li><a href="{{ asset('img/branding/digi_branding_guide.pdf') }}" target="_blank" class="hover:underline">Brand Identity</a></li>
           <li><a href="#" class="hover:underline">Careers</a></li>
-          <li><a href="#" class="hover:underline">Newsroom</a></li>
-          <li><a href="#" class="hover:underline">Ethics</a></li>
+          {{-- <li><a href="#" class="hover:underline">Newsroom</a></li> --}}
+          {{-- <li><a href="#" class="hover:underline">Ethics</a></li> --}}
         </ul>
       </div>
 
       <!-- 5️⃣ Sustainability -->
       <div>
-        <h3 class="font-semibold text-lg mb-3 tracking-wide">Sustainability</h3>
+        <h3 class="font-semibold text-lg mb-3 tracking-wide">Social Links</h3>
         <ul class="space-y-2">
-          <li><a href="#" class="hover:underline">Overview</a></li>
-          <li><a href="#" class="hover:underline">Environment</a></li>
-          <li><a href="#" class="hover:underline">Digital Responsibility</a></li>
-          <li><a href="#" class="hover:underline">Security & Privacy</a></li>
-          <li><a href="#" class="hover:underline">Accessibility</a></li>
-          <li><a href="#" class="hover:underline">Labor & Human Rights</a></li>
-          <li><a href="#" class="hover:underline">Diversity · Equity · Inclusion</a></li>
+        <li >
+            <a href="#" target="_blank" class="flex gap-1 hover:underline items-center">
+            Instagram
+            <span>
+                <svg class="group-hover:fill-white -rotate-45 fill-current" width="15" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3012 15.2813L15.3322 5.00068L16.3641 4L28.0005 16L16.3641 28L15.3322 26.9993L25.3012 16.7187H4V15.2813H25.3012Z"></path>
+                </svg>
+            </span>
+            </a>
+        </li>
+        <li >
+            <a href="#" target="_blank" class="flex gap-1 hover:underline items-center">
+            facebook
+            <span>
+                <svg class="group-hover:fill-white -rotate-45 fill-current" width="15" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3012 15.2813L15.3322 5.00068L16.3641 4L28.0005 16L16.3641 28L15.3322 26.9993L25.3012 16.7187H4V15.2813H25.3012Z"></path>
+                </svg>
+            </span>
+            </a>
+        </li>
+        <li >
+            <a href="#" target="_blank" class="flex gap-1 hover:underline items-center">
+            LinkedIn
+            <span>
+                <svg class="group-hover:fill-white -rotate-45 fill-current" width="15" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3012 15.2813L15.3322 5.00068L16.3641 4L28.0005 16L16.3641 28L15.3322 26.9993L25.3012 16.7187H4V15.2813H25.3012Z"></path>
+                </svg>
+            </span>
+            </a>
+        </li>
         </ul>
       </div>
     </div>

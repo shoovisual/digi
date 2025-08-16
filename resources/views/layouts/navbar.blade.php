@@ -1,6 +1,6 @@
 <header class="border-b border-[#EDEDED]" x-data="{ mobileMenuOpen: false }">
   <!-- Top slim bar -->
-  <div class="bg-off-white flex border-b border-[#C7C7C7] justify-between text-sm font-medium text-black px-4 md:px-6 py-4">
+  <div class="bg-[#F2F0EC] flex border-b border-[#C7C7C7] justify-between text-sm font-medium text-black px-4 md:px-6 py-4">
     <div class="flex">
         <a href="#" class="font-semibold">For Consumer</a>
         <span class="mx-4">|</span>
@@ -18,8 +18,8 @@
         window.addEventListener('scroll', () => {
             stuck = window.scrollY > 80
         })" :class="stuck
-            ? 'fixed top-0 inset-x-0 bg-off-white/90 shadow-md backdrop-blur transition' : ''"
-            class="bg-off-white flex items-center justify-between px-4 md:px-6 py-6 transition-all duration-300 z-50" >
+            ? 'fixed top-0 inset-x-0 bg-[#F2F0EC]/90 border-b border-[#C7C7C7]  backdrop-blur transition' : ''"
+            class="bg-[#F2F0EC] flex items-center justify-between px-4 md:px-6 py-6 transition-all duration-300 z-50" >
         <!-- Logo -->
         <div class="flex items-center space-x-2">
         <a href="/"><img src="{{ asset('img/digi-logo.svg') }}" alt="DIGI Logo" class="h-8 w-auto" /></a>
@@ -43,7 +43,7 @@
                 What is DIGI
             </a>
 
-            <div x-data="{ megaMenuOpen: true }" class="relative" @mouseover="megaMenuOpen = true" @mouseleave="megaMenuOpen = true" :class="{ 'mega-menu-active': megaMenuOpen }">
+            <div x-data="{ megaMenuOpen: false, closeTimeout: null }" class="relative" @mouseenter="clearTimeout(closeTimeout); megaMenuOpen = true" @mouseleave="closeTimeout = setTimeout(() => megaMenuOpen = false, 100)">
                 <a href="{{ route('products.index') }}"
                 @class([
                     'hover:text-digi-orange flex items-center',
@@ -56,67 +56,64 @@
                 </a>
 
                 <!-- Mega Menu -->
-                <div class="border border-gray-400 bg-white p-4 w-fit absolute top-14 -left-50 z-50">
-                    <div class="mega-menu-grid text-sm">
-                        <!-- TVs Column -->
-                        <div class="mega-menu-column">
-                            <h3 class="mega-menu-title">TVs</h3>
-                            <a href="{{ route('categories.show', 'digi-tvs') }}" class="mega-menu-link">All TVs</a>
-                            <a href="#" class="mega-menu-link">Smart TVs</a>
-                            <a href="#" class="mega-menu-link">4K TVs</a>
-                            <a href="#" class="mega-menu-link">LED TVs</a>
-                            <a href="#" class="mega-menu-link">TV Accessories</a>
-                        </div>
+                <div x-show="megaMenuOpen" x-transition:enter="transition ease-out duration-200" class="border border-gray-400 bg-black/30 backdrop-blur-xs h-screen w-screen absolute top-14 -left-120 z-50">
+                    <div class="bg-[#F2F0EC] p-4">
+                        <div class="grid grid-cols-4 gap-4 max-w-7xl mx-auto text-sm">
+                            <!-- TVs Column -->
+                            <div class="flex flex-col gap-y-2 font-semibold">
+                                <a href="#" class="mega-menu-link">Recently Viewed</a>
+                                <a href="#" class="mega-menu-link">Most Popular</a>
+                                <a href="#" class="mega-menu-link">New Arrivals</a>
+                                <a href="#" class="mega-menu-link">Big Deals</a>
+                            </div>
 
-                        <!-- Refrigerators Column -->
-                        <div class="mega-menu-column">
-                            <h3 class="mega-menu-title">Refrigerators</h3>
-                            <a href="{{ route('categories.show', 'digi-refrigerators') }}" class="mega-menu-link">All Refrigerators</a>
-                            <a href="#" class="mega-menu-link">Single Door</a>
-                            <a href="#" class="mega-menu-link">Double Door</a>
-                            <a href="#" class="mega-menu-link">Side by Side</a>
-                            <a href="#" class="mega-menu-link">French Door</a>
-                        </div>
+                            <!-- Refrigerators Column -->
+                            <div class="mega-menu-column">
+                                <h3 class="mega-menu-title">Kitchen Appliances</h3>
+                                <a href="{{ url('/categories/digi-gas-cookers') }}" class="mega-menu-link">DIGI Gas Cookers</a>
+                                <a href="{{ url('/categories/digi-refrigerators') }}" class="mega-menu-link">DIGI Fridges</a>
+                                <a href="{{ url('/categories/digi-freezers') }}" class="mega-menu-link">DIGI Freezers</a>
+                            </div>
 
-                        <!-- Freezers Column -->
-                        <div class="mega-menu-column">
-                            <h3 class="mega-menu-title">Freezers</h3>
-                            <a href="{{ route('categories.show', 'digi-freezers') }}" class="mega-menu-link">All Freezers</a>
-                            <a href="#" class="mega-menu-link">Chest Freezers</a>
-                            <a href="#" class="mega-menu-link">Upright Freezers</a>
-                            <a href="#" class="mega-menu-link">Commercial Freezers</a>
-                        </div>
+                            <!-- Freezers Column -->
+                            <div class="mega-menu-column">
+                                <h3 class="mega-menu-title">General Appliances</h3>
+                                <a href="{{ url('/categories/digi-tvs') }}" class="mega-menu-link">DIGI TVs</a>
+                                <a href="{{ url('/categories/digi-acs') }}" class="mega-menu-link">DIGI Air Conditioners</a>
+                                <a href="{{ url('/categories/digi-washing-machine') }}" class="mega-menu-link">Washing Machines</a>
+                            </div>
 
-                        <!-- Air Conditioners Column -->
-                        <div class="mega-menu-column">
-                            <h3 class="mega-menu-title">Air Conditioners</h3>
-                            <a href="{{ route('categories.show', 'digi-acs') }}" class="mega-menu-link">All Air Conditioners</a>
-                            <a href="#" class="mega-menu-link">Split ACs</a>
-                            <a href="#" class="mega-menu-link">Window ACs</a>
-                            <a href="#" class="mega-menu-link">Portable ACs</a>
                         </div>
-
-                        <!-- Cooking Appliances Column -->
-                        <div class="mega-menu-column">
-                            <h3 class="mega-menu-title">Cooking Appliances</h3>
-                            <a href="{{ route('categories.show', 'digi-gas-cookers') }}" class="mega-menu-link">Gas Cookers</a>
-                            <a href="#" class="mega-menu-link">Microwave Ovens</a>
-                            <a href="#" class="mega-menu-link">Electric Cookers</a>
-                            <a href="#" class="mega-menu-link">Small Appliances</a>
-                        </div>
-
-                        <!-- Washing Machines Column -->
-                        <div class="mega-menu-column">
-                            <h3 class="mega-menu-title">Washing Machines</h3>
-                            <a href="{{ route('categories.show', 'digi-washing-machine') }}" class="mega-menu-link">All Washing Machines</a>
-                            <a href="#" class="mega-menu-link">Front Load</a>
-                            <a href="#" class="mega-menu-link">Top Load</a>
-                            <a href="#" class="mega-menu-link">Semi-Automatic</a>
-                        </div>
-
-                        <!-- Featured Product Image -->
-                        <div class="mega-menu-image">
-                            <img src="{{ asset('img/digi-washing-machine-featured.jpg') }}" alt="Featured DIGI Product" />
+                        @php
+                            $featuredProducts = [
+                                [
+                                    'name' => 'DIGI Washing Machine',
+                                    'url' => '#',
+                                    'image' => asset('img/digi-washing-machine-featured.jpg')
+                                ],
+                                [
+                                    'name' => 'DIGI TV',
+                                    'url' => '#',
+                                    'image' => asset('img/products/tvs/tv-featured.jpg')
+                                ],
+                                [
+                                    'name' => 'DIGI Fridge',
+                                    'url' => '#',
+                                    'image' => asset('img/digi-fridge-featured.jpg')
+                                ]
+                            ]
+                        @endphp
+                        <div class="max-w-7xl mx-auto mt-4 grid grid-cols-4 py-3 gap-4">
+                            <!-- Featured Product Image -->
+                            <div></div>
+                            @foreach ($featuredProducts as $product)
+                                <a href="{{ $product['url'] }}" class="flex group relative flex-col">
+                                    <img src="{{ $product['image'] }}" alt="{{ $product['name'] }} image" class="w-full h-40 rounded-2xl object-cover">
+                                    <span class="absolute top-2 left-5 mt-2 text-lg w-1/2 z-20">{{ $product['name'] }}</span>
+                                    <div class="overlay bg-gradient-to-r from-white/50 to-transparent rounded-2xl absolute z-10 inset-0"></div>
+                                    <span class="z-20 absolute bottom-2 bg-white/50 backdrop-blur-sm rounded-full px-3 border-1 group-hover:bg-digi-orange group-hover:text-white transition-all duration-300 border-digi-orange py-2 left-5"><i class="bi bi-arrow-right text-lg"></i></span>
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>

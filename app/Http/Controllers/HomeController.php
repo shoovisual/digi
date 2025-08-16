@@ -12,6 +12,6 @@ class HomeController extends Controller
     {
         $categories = Category::all();
         $products = Product::take(5)->get(); // Fetch 5 products
-        return view('under_construction', compact('products', 'categories'));
+        return view('home', compact('products', 'categories'));
     }
 }

@@ -613,7 +613,7 @@ class ProductSeeder extends Seeder
                 'push_ignition' => 'Yes',
             ]),
             'features' => json_encode([
-                'Freestanding Gas Cocker 50 cm x 50 cm Black Color',
+                'Freestand Gas Cooker 50 cm x 50 cm Black Color',
                 '3 Gas Burner + 1 Hot Plate (1000 W)',
                 'Electric Oven',
                 'Oven Thermostat',
@@ -644,7 +644,7 @@ class ProductSeeder extends Seeder
                 'push_ignition' => 'Yes',
             ]),
             'features' => json_encode([
-                'Freestanding Gas Cocker',
+                'Freestand Gas Cooker',
                 '50 cm x 50 cm Steel Color',
                 '3 Gas Burner + 1 Hot Plate (1000 W)',
                 'Electric Oven',
@@ -676,7 +676,7 @@ class ProductSeeder extends Seeder
                 'push_ignition' => 'Yes',
             ]),
             'features' => json_encode([
-                'Freestanding Gas Cocker',
+                'Freestand Gas Cooker',
                 '60 cm x 60 cm Black Color',
                 '3 Gas Burner + 1 Hot Plate (1000 W)',
                 'Electric Oven',
@@ -707,7 +707,7 @@ class ProductSeeder extends Seeder
                 'push_ignition' => 'Yes',
             ]),
             'features' => json_encode([
-                'Freestanding Gas Cocker',
+                'Freestand Gas Cooker',
                 '60 cm x 60 cm Steel Color',
                 '3 Gas Burner + 1 Hot Plate (1000 W)',
                 'Electric Oven',

@@ -114,6 +114,14 @@ body {
     border-radius: 0.5rem;
 }
 
+.bg-overlay {
+    display: none;
+}
+
+.mega-menu-toggle:hover .bg-overlay {
+    display: block;
+}
+
 /* Ensure the mobile menu takes full height */
 @media (max-width: 1023px) {
     .mobile-menu-container {
