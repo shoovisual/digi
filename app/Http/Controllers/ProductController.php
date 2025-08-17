@@ -30,12 +30,34 @@ class ProductController extends Controller
 
     public function productsByCategory(Category $category)
     {
-        if ($category->slug === 'products') {
+        if ($category->slug === 'products' || $category->slug === 'all-products') {
             $products = Product::with('categoryRelation')->get();
+            $categories = Category::all();
+            // Use the same template as the products index page for 'all-products'
+            if ($category->slug === 'all-products') {
+                return view('shopping.products', compact('products', 'categories'));
+            }
         } else {
             $products = Product::with('categoryRelation')->where('category_id', $category->id)->get();
         }
         $categories = Category::all();
         return view('shopping.category', compact('products', 'category', 'categories'));
+    }
+
+    public function getCategories()
+    {
+        $categories = Category::select('id', 'name', 'slug')
+            ->get();
+        
+        return response()->json($categories);
+    }
+
+    public function getProductsByCategory($categoryId)
+    {
+        $products = Product::where('category_id', $categoryId)
+            ->select('id', 'name', 'product_short', 'serial')
+            ->get();
+        
+        return response()->json($products);
     }
 }

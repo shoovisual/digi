@@ -225,8 +225,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>New Contact Form Submission</h2>
-            <p>Customer inquiry received and processed</p>
+            <h2>New {{ $data['form_type'] ?? 'Contact Form' }} Submission</h2>
+            <p>{{ $data['form_type'] ?? 'Customer inquiry' }} received and processed</p>
         </div>
 
         <div class="content">
@@ -234,6 +234,10 @@
                 <div class="form-section">
                     <div class="section-title">Contact Information</div>
                     <div class="contact-info">
+                        <div class="field-group">
+                            <label class="field-label">Request Type</label>
+                            <div class="field-value" style="font-weight: bold; color: #EA6911;">{{ $data['form_type'] ?? 'General Contact' }}</div>
+                        </div>
                         <div class="field-group">
                             <label class="field-label">Full Name</label>
                             <div class="field-value">{{ $data['name'] }}</div>
@@ -244,7 +248,7 @@
                         </div>
                         <div class="field-group">
                             <label class="field-label">Email Address</label>
-                            <div class="field-value">{{ $data['email'] }}</div>
+                            <div class="field-value">{{ $data['email'] ?? 'Not provided' }}</div>
                         </div>
                         <div class="field-group">
                             <label class="field-label">Country</label>
@@ -253,7 +257,7 @@
                     </div>
                     <div class="field-group">
                         <label class="field-label">Address</label>
-                        <div class="field-value">{{ $data['address'] }}</div>
+                        <div class="field-value">{{ $data['address'] ?? 'Not provided' }}</div>
                     </div>
                 </div>
 
@@ -274,17 +278,44 @@
                     </div>
                     @endif
                     <div class="field-group">
-                        <label class="field-label">Product Type ID</label>
+                        <label class="field-label">Product Type</label>
                         <div class="field-value">{{ $data['product_type'] }}</div>
                     </div>
                     <div class="field-group">
-                        <label class="field-label">Product Model ID</label>
+                        <label class="field-label">Product Model</label>
                         <div class="field-value">{{ $data['product_model'] }}</div>
                     </div>
                 </div>
 
+                @if(isset($data['support_type']) && !empty($data['support_type']))
+                <div class="form-section" style="margin-top: 30px">
+                    <div class="section-title">Support Request Details</div>
+                    <div class="field-group">
+                        <label class="field-label">Support Type</label>
+                        <div class="field-value" style="font-weight: bold; color: #2563eb;">
+                            @switch($data['support_type'])
+                                @case('technical')
+                                    Technical Support
+                                    @break
+                                @case('manuals')
+                                    Product Manuals
+                                    @break
+                                @case('troubleshooting')
+                                    Troubleshooting Guides
+                                    @break
+                                @case('warranty')
+                                    Warranty Information
+                                    @break
+                                @default
+                                    {{ $data['support_type'] }}
+                            @endswitch
+                        </div>
+                    </div>
+                </div>
+                @endif
+
                 <div class="form-section message-section" style="margin-top: 30px">
-                    <div class="section-title">Customer Message</div>
+                    <div class="section-title">{{ isset($data['support_type']) && !empty($data['support_type']) ? 'Support Request Details' : 'Customer Message' }}</div>
                     <div class="message-content">{{ $data['message'] }}</div>
                 </div>
             </div>

@@ -26,12 +26,13 @@ class ContactController extends Controller
             'is_under_warranty'  => 'nullable|in:0,1',
             'product_type'       => 'required|string',
             'product_model'      => 'required|string',
-            'name'               => 'required|string|max:255',
-            'phone'              => 'required|string|max:20',
+            'name'               => 'nullable|string|max:255',
+            'phone'              => 'nullable|string|max:20',
             'email'              => 'nullable|email',
-            'country'            => 'required|string',
+            'country'            => 'nullable|string',
             'address'            => 'nullable|string',
-            'message'            => 'required|string',
+            'message'            => 'nullable|string',
+            'support_type'       => 'nullable|string',
         ]);
 
         // ✅ Prepare data for email
@@ -46,6 +47,8 @@ class ContactController extends Controller
             'country'           => $request->country,
             'address'           => $request->address,
             'message'           => $request->message,
+            'support_type'      => $request->support_type,
+            'form_type'         => $request->reason, // Add form type for email identification
         ];
 
         // ✅ Send Email

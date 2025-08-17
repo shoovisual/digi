@@ -56,12 +56,12 @@
         <!-- Product Info -->
         <div class="md:w-1/2 pr-8">
             <!-- Product Title -->
-            <h1 id="product-name" class="text-3xl sm:text-4xl font-bold text-black leading-snug mb-2">
+            <h1 id="product-name" class="text-xl md:text-4xl font-bold text-black leading-snug mb-2">
                 {{ $product->name }}
             </h1>
 
             <!-- SKU & Chat -->
-            <div class="flex items-center gap-3 text-lg text-gray-500 mb-2">
+            <div class="flex flex-col md:flex-row md:items-center gap-x-3 mt-2 md:mt-0 text-lg text-gray-500 mb-2">
                 <div x-data="{ copyText: '{{ $product->serial }}', copied: false }" class="flex items-center gap-2">
                     <span class="font-medium">{{ $product->serial }}</span>
                     <!-- Copy Icon -->
@@ -79,12 +79,8 @@
                     <span x-show="copied" class="text-green-500 text-xs font-medium">Copied!</span>
                 </div>
 
-                <a href="https://wa.me/255748504676" id="wa-btn" target="_blank" class="text-digi-orange font-medium hover:underline flex items-center gap-1">
-                    Chat with an expert
-                    <img src="{{ asset('img/icons/ico-chat-red-72-72-2.gif') }}" alt="WhatsApp Icon" class="w-6 ml-1 h-6">
-                    {{-- <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M18 10c0 3.866-3.582 7-8 7a8.22 8.22 0 01-3.946-1.011L2 17l1.302-3.717A7.763 7.763 0 012 10c0-3.866 3.582-7 8-7s8 3.134 8 7z"/>
-                    </svg> --}}
+                <a href="https://wa.me/255793333444" id="wa-btn" target="_blank" class="text-digi-orange font-medium hover:underline flex items-center gap-2">
+                    Chat with an expert <span><img src="{{ asset('img/icons/ico-chat-red-72-72-2.gif') }}" width="23" alt="DIGI chsat icon"></span>
                 </a>
             </div>
 
@@ -134,43 +130,25 @@
             </div>
 
             <!-- Buttons -->
-            <div class="buttons flex items-center justify-start font-medium gap-4">
-                <div class="flex basic-btn space-x-2">
-                    <a href="#" id="wa-btn-2" target="_blank" class="bg-orange-500 hover:bg-digi-orange cursor-pointer text-white text-[16px] px-6 py-3 rounded-full font-medium transition">
+            <div class="buttons flex  items-center justify-start font-medium md:gap-4 gap-2">
+                <div class="flex basic-btn text-[14px] md:text-[16px] space-x-2">
+                    <a href="#" id="wa-btn-2" target="_blank" class="bg-orange-500 hover:bg-digi-orange cursor-pointer text-white px-5 md:px-6 py-3 rounded-full font-medium transition">
                         Contact Sales
                     </a>
-                    <button onclick="openBuyModal()" class="bg-gray-200 cursor-pointer hover:bg-gray-300 text-gray-700 text-[16px] px-6 py-3 rounded-full font-medium transition">
+                    <button onclick="openBuyModal('{{ addslashes($product->name) }}', '{{ asset('img/' . $product->image) }}', '{{ $product->slug }}')" class="bg-gray-200 cursor-pointer hover:bg-gray-300 text-gray-700 px-5 md:px-6 py-3 rounded-full font-medium transition">
                         Where to Buy
                     </button>
                 </div>
                 <button id="wishlist-icon-{{ $product->id }}" onclick="addToWishlist('{{ $product->id }}', '{{ $product->name }}', '{{ $product->image }}', '{{ $product->slug }}')"
-                    class="text-gray-500 text-4xl cursor-pointer hover:text-orange-500"> <i class=""></i>
+                    class="text-gray-500 md:block text-3xl md:text-4xl cursor-pointer hover:text-orange-500"> <i class=""></i>
                 </button>
-                </div>
-
-                <!-- Modal -->
-                <div id="buyModal" class="fixed inset-0 z-50 hidden bg-black/50 items-center justify-center" >
-                    <div class="bg-white rounded-xl overflow-hidden w-full max-w-5xl mx-4 flex flex-col md:flex-row shadow-xl">
-                        <!-- Product Info -->
-                        <div class="w-full md:w-1/2 p-6 border-b md:border-b-0 md:border-r space-y-4">
-                        <h2 class="text-xl font-semibold">{{ $product->name }}</h2>
-                        <img src="{{ asset('img/' . $product->image) }}" alt="{{ $product->name }}" class="rounded" />
-                        <p class="text-md font-medium text-gray-600">*In-store and other retailers' prices will vary.</p>
-                        </div>
-
-                        <!-- Google Map + Store Info -->
-                        <div class="w-full md:w-1/2 p-6">
-                            <div id="map" class="h-64 w-full rounded mb-4"></div>
-                            <div id="storeList" class="text-sm border-b border-gray-200 text-gray-800"></div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
 
         </div>
+
     </div>
+</div>
 
     <!-- Related Products Section -->
     <div class="w-full bg-[#F2F0EC] border-b border-gray-400">
@@ -205,76 +183,7 @@
     });
 </script>
 
-<script>
-  function openBuyModal() {
-    document.getElementById("buyModal").classList.remove("hidden");
-    document.getElementById("buyModal").classList.add("flex");
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showMapWithStores, function () {
-        alert("Location blocked or not available.");
-      });
-    } else {
-      alert("Geolocation not supported by your browser.");
-    }
-  }
-
-  function showMapWithStores(position) {
-    const userLat = position.coords.latitude;
-    const userLng = position.coords.longitude;
-
-    const userLatLng = [userLat, userLng];
-
-    const map = L.map('map').setView(userLatLng, 12);
-
-    // Set tile layer (OpenStreetMap, no API key needed)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // User location marker
-    L.marker(userLatLng).addTo(map).bindPopup("You are here").openPopup();
-
-    // Manually listed store locations
-    const stores = [
-      {
-        name: 'Jaden Home Store',
-        lat: -6.7740129,
-        lng: 39.1966954,
-        address: 'Haidery Plaza, Posta',
-        phone: '0768285151',
-        email: 'digi@store',
-      },
-      {
-        name: 'DIGI Store',
-        lat: -6.8147387,
-        lng: 39.2879986,
-        address: 'Haidery Plaza, Posta',
-        phone: '070 000 0000',
-        email: 'digi@store',
-      },
-    ];
-
-    // Add store markers
-    stores.forEach(store => {
-      L.marker([store.lat, store.lng])
-        .addTo(map)
-        .bindPopup(`<strong>${store.name}</strong><br>${store.address}`);
-    });
-
-    window.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') document.getElementById("buyModal").classList.add("hidden");
-  });
-  document.getElementById("buyModal").addEventListener('click', function (e) {
-    if (e.target.id === 'buyModal') this.classList.add("hidden");
-  });
-
-    // Store list under map
-    document.getElementById("storeList").innerHTML = stores.map(store =>
-      `<div class="mb-2"><strong>${store.name}</strong><br><span>${store.address}</span></div>`
-    ).join('');
-  }
-</script>
 
 
 <script>
@@ -292,7 +201,7 @@
     const encodedMsg = encodeURIComponent(message);
 
     // 5. Build the full WhatsApp link
-    const waNumber = '255748504676';
+    const waNumber = '255793333444';
     const waUrl = `https://wa.me/${waNumber}?text=${encodedMsg}`;
 
     // 6. Inject into the button
@@ -300,3 +209,5 @@
     document.getElementById('wa-btn-2').setAttribute('href', waUrl);
     });
 </script>
+
+{{-- @include('layouts.partials.whereToBuy-modal') --}}

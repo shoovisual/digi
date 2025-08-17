@@ -9,7 +9,7 @@ $slides = [
         'tabletImage' => '/img/product-cover-umejipata-ipad.png',
         'title'     => 'Vumbua Furaha na Uhuru na DIGI',
         'subtitle'  => 'Bidhaa mahususi kwa nyumba yako',
-        'primary'   => ['label' => 'View Products',          'url' => '#'],
+        'primary'   => ['label' => 'View Products',          'url' => '/products'],
         'secondary' => ['label' => 'Contact us',        'url' => '#'],
     ],
     [
@@ -48,7 +48,7 @@ $slides = [
                 {{-- <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30"></div> --}}
 
                 {{-- Copy --}}
-                <div class="relative z-10 flex flex-col items-start lg:justify-center h-full p-10 md:p-20 lg:p-32">
+                <div class="relative z-10 flex flex-col items-start lg:justify-center h-full p-8 md:p-20 lg:p-32">
                     <p style="background-image: url(' {{ asset('img/umejipata-label-bg.png') }}'); background-size: contain; background-repeat: no-repeat; background-position: center;" class="text-white w-fit py-2 px-4 text-lg">DIGI Rafiki wa kweli</p>
                     <h1 class="text-4xl md:text-4xl lg:text-5xl md:w-lg font-semibold leading-tight mb-4">
                         {!! nl2br(e($slide['title'])) !!}

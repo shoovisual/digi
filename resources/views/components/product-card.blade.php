@@ -52,24 +52,26 @@
         @include('shopping.sections.rating')
 
         <div class="flex items-center justify-start font-medium gap-1 mt-1">
-            @if(isset($product) && !empty($product->slug))
-                 <a href="{{ route('products.show', $product->slug) }}" class="px-4 py-2 border border-gray-300 rounded-full text-[16px] text-black hover:bg-gray-100">
-                     View Product
-                 </a>
-             @else
-                 <span class="px-4 py-2 border border-gray-300 rounded-full text-[16px] text-gray-400 cursor-not-allowed">
-                     View Product
-                 </span>
-             @endif
-            <button
-                onclick="openBuyModal(
-                    '{{ addslashes($product->name) }}',
-                    '{{ asset('img/' . $product->image) }}',
-                    '{{ $product->slug }}'
-                )"
-                class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-[16px]">
-                Where to Buy
-            </button>
+            <div class="flex gap-2 md:text-[16px] text-[14px]">
+                @if(isset($product) && !empty($product->slug))
+                    <a href="{{ route('products.show', $product->slug) }}" class="px-4 py-2 border border-gray-300 rounded-full text-black hover:bg-gray-100">
+                        View Product
+                    </a>
+                @else
+                    <span class="px-4 py-2 border border-gray-300 rounded-full text-gray-400 cursor-not-allowed">
+                        View Product
+                    </span>
+                @endif
+                <button
+                    onclick="openBuyModal(
+                        '{{ addslashes($product->name) }}',
+                        '{{ asset('img/' . $product->image) }}',
+                        '{{ $product->slug }}'
+                    )"
+                    class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-[16px]">
+                    Where to Buy
+                </button>
+            </div>
 
             <button id="wishlist-icon-{{ $product->id }}" onclick="addToWishlist('{{ $product->id }}', '{{ $product->name }}', '{{ $product->image }}', '{{ $product->slug }}')"
                 class="text-gray-500 text-3xl cursor-pointer hover:text-orange-500">
@@ -78,23 +80,4 @@
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-<div id="buyModal-{{ $product->slug }}" class="fixed inset-0 z-50 hidden bg-black/50 items-center justify-center" >
-    <div class="bg-white rounded-xl overflow-hidden w-full max-w-5xl mx-4 flex flex-col md:flex-row shadow-xl">
-        <!-- Product Info -->
-        <div class="w-full md:w-1/2 p-6 border-b md:border-b-0 md:border-r space-y-4">
-            <h2 id="modalProductName-{{ $product->slug }}" class="text-xl font-semibold">Product Name</h2>
-            <img id="modalProductImage-{{ $product->slug }}" src="" alt="" class="rounded" />
-            <p class="text-md font-medium text-gray-600">*In-store and other retailers' prices will vary.</p>
-        </div>
-
-        <!-- Google Map + Store Info -->
-        <div class="w-full md:w-1/2 p-6">
-            <div id="map-{{ $product->slug }}" class="h-64 w-full rounded mb-4"></div>
-            <div id="storeList-{{ $product->slug }}" class="text-sm border-b border-gray-200 text-gray-800"></div>
-        </div>
-    </div>
-</div>
-@include('layouts.partials.whereToBuy-modal')
 
