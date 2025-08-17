@@ -42,7 +42,16 @@ window.whereToBuyModal = function(config) {
             // Initialize the map
             initMap(slug) {
                 const mapElement = document.getElementById(`map-${slug}`);
-                if (!mapElement) return;
+                if (!mapElement) {
+                    // Try with productName-based ID as fallback
+                    const fallbackId = `map-${this.productName.replace(/\s+/g, '-').toLowerCase()}`;
+                    const fallbackElement = document.getElementById(fallbackId);
+                    if (fallbackElement) {
+                        this.renderMap(fallbackElement, null, slug);
+                        return;
+                    }
+                    return;
+                }
                 
                 // Use Leaflet if available
                 if (typeof L !== 'undefined') {
@@ -65,39 +74,39 @@ window.whereToBuyModal = function(config) {
             
             // Render the map with stores
             renderMap(mapElement, center, slug) {
+                // Use default center if not provided
+                if (!center) {
+                    center = [-6.7924, 39.2083]; // Dar es Salaam default
+                }
+                
                 const map = L.map(mapElement.id).setView(center, 12);
                 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; OpenStreetMap contributors'
                 }).addTo(map);
                 
-                // Add user marker
-                L.marker(center).addTo(map).bindPopup("You are here").openPopup();
+                // Add user marker if center is user location
+                if (center[0] !== -6.7924 || center[1] !== 39.2083) {
+                    L.marker(center).addTo(map).bindPopup("You are here").openPopup();
+                }
                 
                 // Add store markers
                 this.places = [
                     {
                         name: 'Jaden Home Store',
-                        address: 'Rose Garden Rd., Mikocheni',
+                        address: 'Haidery Plaza, Posta',
                         phone: '0768285151',
+                        email: 'digi@store',
                         lat: -6.7740129,
                         lng: 39.1966954,
                     },
                     {
                         name: 'DIGI Store',
-                        address: 'Maktaba Square, Posta',
-                        phone: '0793 333 444',
-                        email: 'info@digiappliances.com',
+                        address: 'Haidery Plaza, Posta',
+                        phone: '070 000 0000',
+                        email: 'digi@store',
                         lat: -6.8147387,
                         lng: 39.2879986,
-                    },
-                    {
-                        name: 'Mashariki Electronics',
-                        address: 'Kariakoo, Dar es Salaam',
-                        phone: '0793 333 444',
-                        email: 'info@digiappliances.com',
-                        lat: -6.786251,
-                        lng: 39.2153335,
                     }
                 ];
                 
@@ -108,11 +117,21 @@ window.whereToBuyModal = function(config) {
                         .bindPopup(`<strong>${store.name}</strong><br>${store.address || ''}<br>Phone: ${store.phone || 'N/A'}<br>Email: ${store.email || 'N/A'}`);
                 });
                 
-                // Update store list
-                const storeListElement = document.getElementById(`storeList-${slug}`);
+                // Update store list - try multiple possible IDs
+                const storeListIds = [
+                    `storeList-${slug}`,
+                    `storeList-${this.productName.replace(/\s+/g, '-').toLowerCase()}`
+                ];
+                
+                let storeListElement = null;
+                for (const id of storeListIds) {
+                    storeListElement = document.getElementById(id);
+                    if (storeListElement) break;
+                }
+                
                 if (storeListElement) {
                     storeListElement.innerHTML = this.places.map(store =>
-                        `<div class="mb-2"><strong>${store.name}</strong><br><span>${store.address}</span></div>`
+                        `<div class="border rounded-lg p-4 mb-2"><strong>${store.name}</strong><br><span class="text-sm text-gray-600">${store.address}</span><br><span class="text-sm text-gray-600">Phone: ${store.phone}</span></div>`
                     ).join('');
                 }
             },
@@ -135,16 +154,14 @@ window.whereToBuyModal = function(config) {
     // Bridge between vanilla JS and Alpine.js
     // Override the existing openBuyModal function to dispatch an event for Alpine.js
     document.addEventListener('DOMContentLoaded', function() {
+        // Store reference to any existing openBuyModal function
         const originalOpenBuyModal = window.openBuyModal;
+        
+        // Create new openBuyModal function that works with Alpine.js
         window.openBuyModal = function(name, image, slug) {
             // Dispatch a custom event that Alpine.js can listen for
             window.dispatchEvent(new CustomEvent('openBuyModalEvent', {
                 detail: { name, image, slug }
             }));
-            
-            // Also call the original function for backward compatibility
-            if (typeof originalOpenBuyModal === 'function') {
-                originalOpenBuyModal(name, image, slug);
-            }
         };
     });

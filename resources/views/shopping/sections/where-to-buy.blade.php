@@ -79,25 +79,18 @@
 
                 <!-- In Store Tab -->
                 <div x-show="tab === 'instore'">
-                    <div  class="flex flex-col lg:flex-row gap-6">
+                    <div class="flex flex-col space-y-4">
                         <!-- Map -->
-                        <div class="lg:w-1/2">
+                        <div class="map-listing">
                             <h3 class="text-lg font-semibold mb-4">Store Locations</h3>
                             <div :id="'map-' + productName.replace(/\s+/g, '-').toLowerCase()" class="h-64 w-full rounded border"></div>
                         </div>
 
                         <!-- Store List -->
-                        <div class="lg:w-1/2">
+                        <div class="map-listing">
                             <h3 class="text-lg font-semibold mb-4">Nearby Stores</h3>
                             <div :id="'storeList-' + productName.replace(/\s+/g, '-').toLowerCase()" class="space-y-3 max-h-64 overflow-y-auto">
-                                <template x-for="store in places" :key="store.name">
-                                    <div class="border rounded-lg p-4">
-                                        <h4 class="font-semibold" x-text="store.name"></h4>
-                                        <p class="text-sm text-gray-600" x-text="store.address"></p>
-                                        <p class="text-sm text-gray-600">Phone: <span x-text="store.phone"></span></p>
-                                        <p class="text-sm text-gray-600" x-show="store.email">Email: <span x-text="store.email"></span></p>
-                                    </div>
-                                </template>
+                                <!-- Store list will be populated by JavaScript -->
                             </div>
                         </div>
                     </div>
@@ -106,3 +99,84 @@
         </div>
     </div>
 </div>
+
+<script>
+    function openBuyModal(name, image, slug) {
+        const modal = document.getElementById(`buyModal-${slug}`);
+
+        // Show modal
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+
+        // Set product details
+        document.getElementById(`modalProductName-${slug}`).textContent = name;
+        document.getElementById(`modalProductImage-${slug}`).src = image;
+        document.getElementById(`modalProductImage-${slug}`).alt = name;
+
+        // Load map
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                showMapWithStores(position, slug);
+            }, function () {
+                alert("Location blocked or not available.");
+            });
+        } else {
+            alert("Geolocation not supported by your browser.");
+        }
+    }
+
+    function showMapWithStores(position, slug) {
+        const userLat = position.coords.latitude;
+        const userLng = position.coords.longitude;
+
+        const userLatLng = [userLat, userLng];
+
+        const map = L.map(`map-${slug}`).setView(userLatLng, 12);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        L.marker(userLatLng).addTo(map).bindPopup("You are here").openPopup();
+
+        const stores = [
+            {
+                name: 'Jaden Home Store',
+                lat: -6.7740129,
+                lng: 39.1966954,
+                address: 'Haidery Plaza, Posta',
+                phone: '0768285151',
+                email: 'digi@store',
+            },
+            {
+                name: 'DIGI Store',
+                lat: -6.8147387,
+                lng: 39.2879986,
+                address: 'Haidery Plaza, Posta',
+                phone: '070 000 0000',
+                email: 'digi@store',
+            },
+        ];
+
+        stores.forEach(store => {
+            L.marker([store.lat, store.lng])
+                .addTo(map)
+                .bindPopup(`<strong>${store.name}</strong><br>${store.address}`);
+        });
+
+        // ESC or click outside to close
+        window.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') document.getElementById(`buyModal-${slug}`).classList.add("hidden");
+        });
+
+        document.getElementById(`buyModal-${slug}`).addEventListener('click', function (e) {
+            if (e.target.id === `buyModal-${slug}`) this.classList.add("hidden");
+        });
+
+        document.getElementById(`storeList-${slug}`).innerHTML = stores.map(store =>
+            `<div class="mb-2"><strong>${store.name}</strong><br><span>${store.address}</span></div>`
+        ).join('');
+    }
+</script>
+
+
