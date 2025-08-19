@@ -1,7 +1,7 @@
 <div
     x-data="whereToBuyModal({
-        googleKey : '{{ config('services.google.places_key') }}',
-        mapboxKey : '{{ config('services.mapbox.key') }}'
+        {{-- googleKey : '{{ config('services.google.places_key') }}', --}}
+        {{-- mapboxKey : '{{ config('services.mapbox.key') }}' --}}
     })"
     x-show="isOpen"
     x-cloak
@@ -33,10 +33,10 @@
 
 
             <!-- tabs -->
-            <div class="px-4 mb-2 flex gap-4 mt-6 text-sm">
-                <button :class="tab==='online' ? 'font-semibold' : 'text-gray-500'"
+            <div class="px-4 mb-2 flex gap-2 mt-6 text-sm">
+                <button class="px-4 cursor-pointer py-2 rounded-md" :class="tab==='online' ? 'font-semibold bg-digi-orange text-white' : 'text-gray-500 bg-gray-300'"
                         @click="tab='online'">ONLINE</button>
-                <button :class="tab==='instore' ? 'font-semibold' : 'text-gray-500'"
+                <button class="px-4 cursor-pointer py-2 rounded-md" :class="tab==='instore' ? 'font-semibold bg-digi-orange text-white' : 'text-gray-500 bg-gray-300'"
                         @click="tab='instore'">IN&nbsp;STORE</button>
             </div>
 

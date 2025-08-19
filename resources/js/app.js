@@ -9,7 +9,7 @@ Alpine.start();
 document.addEventListener('DOMContentLoaded', function() {
     // The mega menu is handled by Alpine.js in the navbar.blade.php file
     // This is just for any additional JavaScript enhancements
-    
+
     // Add keyboard accessibility for mega menu
     const productLinks = document.querySelectorAll('.mega-menu-link');
     productLinks.forEach(link => {
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Only proceed if we're on the wishlist page
     if (!fullWishlistContainer || !emptyWishlistMessage) return;
-    
+
     // Clear existing content before re-rendering
     fullWishlistContainer.innerHTML = '';
 
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </a>
                         <div class="p-4">
                             <a href="/products/${product.slug}">
-                                <h2 class="text-lg font-semibold text-gray-800">${product.name}</h2>
+                                <h2 class="text-lg font-semibold text-gray-800">${product.name.split(' ').slice(0, 7).join(' ')}</h2>
                             </a>
                             <p class="text-sm text-gray-500 mt-1">${timeLeft} days left</p>
                             <div class="flex items-center font-medium gap-x-4 justify-between mt-4">
