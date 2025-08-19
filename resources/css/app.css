@@ -5,6 +5,11 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+/* Alpine.js cloak directive */
+[x-cloak] {
+    display: none !important;
+}
+
 @theme {
     --color-digi-orange: #EA6911;
     --color-digi-orange-dark: #D45C0F;
@@ -121,6 +126,8 @@ body {
 .mega-menu-toggle:hover .bg-overlay {
     display: block;
 }
+
+/* Mega menu is now implemented with fixed positioning for full-screen coverage */
 
 /* Ensure the mobile menu takes full height */
 @media (max-width: 1023px) {

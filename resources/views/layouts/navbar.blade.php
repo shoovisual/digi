@@ -14,19 +14,20 @@
 
   <!-- Main nav -->
   <div x-data="{ stuck: false }"
-    x-init="
-        window.addEventListener('scroll', () => {
+    x-init="window.addEventListener('scroll', () => {
             stuck = window.scrollY > 80
         })" :class="stuck
-            ? 'fixed top-0 inset-x-0 bg-[#F2F0EC]/90 border-b border-[#C7C7C7]  backdrop-blur transition' : ''"
-            class="bg-[#F2F0EC] flex items-center justify-between px-4 md:px-6 py-6 transition-all duration-300 z-50" >
+            ? 'fixed top-0 inset-x-0 bg-[#F2F0EC]/90 border-b border-[#C7C7C7] backdrop-blur transition py-4' : 'py-6'"
+            class="bg-[#F2F0EC] flex items-center justify-between px-4 md:px-6 transition-all duration-300 z-50" >
         <!-- Logo -->
         <div class="flex items-center space-x-2">
         <a href="/"><img src="{{ asset('img/digi-logo.svg') }}" alt="DIGI Logo" class="h-8 w-auto" /></a>
         </div>
 
         <!-- Desktop menu -->
-        <nav class="hidden lg:flex text-black space-x-6 text-lg font-[400]">
+        <nav class="transition-all duration-300 hidden lg:flex  text-black"
+            :class="stuck ? 'text-md space-x-4' : ' space-x-6 text-lg font-[400]'">
+
             <a href="/"
             @class([
                 'hover:text-digi-orange',
@@ -56,64 +57,66 @@
                 </a>
 
                 <!-- Mega Menu -->
-                <div x-show="megaMenuOpen" x-transition:enter="transition ease-out duration-200" class="border border-gray-400 bg-black/30 backdrop-blur-xs h-screen w-screen absolute top-14 -left-120 z-50">
-                    <div class="bg-[#F2F0EC] p-4">
-                        <div class="grid grid-cols-4 gap-4 max-w-7xl mx-auto text-sm">
-                            <!-- TVs Column -->
-                            <div class="flex flex-col gap-y-2 font-semibold">
-                                <a href="#" class="mega-menu-link">Recently Viewed</a>
-                                <a href="#" class="mega-menu-link">Most Popular</a>
-                                <a href="#" class="mega-menu-link">New Arrivals</a>
-                                <a href="#" class="mega-menu-link">Big Deals</a>
-                            </div>
+                <div x-show="megaMenuOpen" x-cloak x-transition:enter="transition ease-out duration-200" class="fixed -top-0 left-0 w-screen h-screen bg-black/40 backdrop-blur-sm z-50" :class=" stuck ? 'fixed top-0 mt-[68px] transition': 'mt-[136px]'" ">
+                    <div class="w-full border border-gray-400">
+                        <div class="bg-[#F2F0EC] p-6 nav-focus" megaMenuOpen = true" @mouseleave="megaMenuOpen = false">
+                            <div class="grid grid-cols-4 gap-4 max-w-7xl mx-auto text-sm">
+                                <!-- TVs Column -->
+                                <div class="flex flex-col gap-y-2 font-semibold">
+                                    <a href="{{ route('recently-viewed.index') }}" class="mega-menu-link">Recently Viewed</a>
+                                    <a href="{{ route('most-popular.index') }}" class="mega-menu-link">Most Popular</a>
+                                    <a href="{{ route('new-arrivals.index') }}" class="mega-menu-link">New Arrivals</a>
+                                    <a href="#" class="mega-menu-link">Big Deals</a>
+                                </div>
 
-                            <!-- Refrigerators Column -->
-                            <div class="mega-menu-column">
-                                <h3 class="mega-menu-title">Kitchen Appliances</h3>
-                                <a href="{{ url('/categories/digi-gas-cookers') }}" class="mega-menu-link">DIGI Gas Cookers</a>
-                                <a href="{{ url('/categories/digi-refrigerators') }}" class="mega-menu-link">DIGI Fridges</a>
-                                <a href="{{ url('/categories/digi-freezers') }}" class="mega-menu-link">DIGI Freezers</a>
-                            </div>
+                                <!-- Refrigerators Column -->
+                                <div class="mega-menu-column">
+                                    <h3 class="mega-menu-title">Kitchen Appliances</h3>
+                                    <a href="{{ url('/categories/digi-gas-cookers') }}" class="mega-menu-link">DIGI Gas Cookers</a>
+                                    <a href="{{ url('/categories/digi-refrigerators') }}" class="mega-menu-link">DIGI Fridges</a>
+                                    <a href="{{ url('/categories/digi-freezers') }}" class="mega-menu-link">DIGI Freezers</a>
+                                </div>
 
-                            <!-- Freezers Column -->
-                            <div class="mega-menu-column">
-                                <h3 class="mega-menu-title">General Appliances</h3>
-                                <a href="{{ url('/categories/digi-tvs') }}" class="mega-menu-link">DIGI TVs</a>
-                                <a href="{{ url('/categories/digi-acs') }}" class="mega-menu-link">DIGI Air Conditioners</a>
-                                <a href="{{ url('/categories/digi-washing-machine') }}" class="mega-menu-link">Washing Machines</a>
-                            </div>
+                                <!-- Freezers Column -->
+                                <div class="mega-menu-column">
+                                    <h3 class="mega-menu-title">General Appliances</h3>
+                                    <a href="{{ url('/categories/digi-tvs') }}" class="mega-menu-link">DIGI TVs</a>
+                                    <a href="{{ url('/categories/digi-acs') }}" class="mega-menu-link">DIGI Air Conditioners</a>
+                                    <a href="{{ url('/categories/digi-washing-machine') }}" class="mega-menu-link">Washing Machines</a>
+                                </div>
 
-                        </div>
-                        @php
-                            $featuredProducts = [
-                                [
-                                    'name' => 'DIGI Washing Machine',
-                                    'url' => '#',
-                                    'image' => asset('img/digi-washing-machine-featured.jpg')
-                                ],
-                                [
-                                    'name' => 'DIGI TV',
-                                    'url' => '#',
-                                    'image' => asset('img/products/tvs/tv-featured.jpg')
-                                ],
-                                [
-                                    'name' => 'DIGI Fridge',
-                                    'url' => '#',
-                                    'image' => asset('img/digi-fridge-featured.jpg')
+                            </div>
+                            @php
+                                $featuredProducts = [
+                                    [
+                                        'name' => 'DIGI Washing Machine',
+                                        'url' => '/categories/digi-washing-machine',
+                                        'image' => asset('img/digi-washing-machine-featured.jpg')
+                                    ],
+                                    [
+                                        'name' => 'DIGI TV',
+                                        'url' => '/categories/digi-tvs',
+                                        'image' => asset('img/products/tvs/tv-featured.jpg')
+                                    ],
+                                    [
+                                        'name' => 'DIGI Fridge',
+                                        'url' => '/categories/digi-refrigerators',
+                                        'image' => asset('img/digi-fridge-featured.jpg')
+                                    ]
                                 ]
-                            ]
-                        @endphp
-                        <div class="max-w-7xl mx-auto mt-4 grid grid-cols-4 py-3 gap-4">
-                            <!-- Featured Product Image -->
-                            <div></div>
-                            @foreach ($featuredProducts as $product)
-                                <a href="{{ $product['url'] }}" class="flex group relative flex-col">
-                                    <img src="{{ $product['image'] }}" alt="{{ $product['name'] }} image" class="w-full h-40 rounded-2xl object-cover">
-                                    <span class="absolute top-2 left-5 mt-2 text-lg w-1/2 z-20">{{ $product['name'] }}</span>
-                                    <div class="overlay bg-gradient-to-r from-white/50 to-transparent rounded-2xl absolute z-10 inset-0"></div>
-                                    <span class="z-20 absolute bottom-2 bg-white/50 backdrop-blur-sm rounded-full px-3 border-1 group-hover:bg-digi-orange group-hover:text-white transition-all duration-300 border-digi-orange py-2 left-5"><i class="bi bi-arrow-right text-lg"></i></span>
-                                </a>
-                            @endforeach
+                            @endphp
+                            <div class="max-w-7xl mx-auto mt-4 grid grid-cols-4 pb-8 py-3 gap-4">
+                                <!-- Featured Product Image -->
+                                <div></div>
+                                @foreach ($featuredProducts as $product)
+                                    <a href="{{ $product['url'] }}" class="flex group relative flex-col">
+                                        <img src="{{ $product['image'] }}" alt="{{ $product['name'] }} image" class="w-full h-40 rounded-2xl object-cover">
+                                        <span class="absolute top-2 left-5 mt-2 text-lg w-1/2 z-20">{{ $product['name'] }}</span>
+                                        <div class="overlay bg-gradient-to-r from-white/50 to-transparent rounded-2xl absolute z-10 inset-0"></div>
+                                        <span class="z-20 absolute bottom-2 bg-white/50 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center border-1 group-hover:bg-digi-orange group-hover:text-white transition-all duration-300 border-digi-orange left-5"><i class="bi bi-arrow-right text-lg"></i></span>
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -159,13 +162,13 @@
 
       <!-- Wishlist Icon -->
       <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-        <a href="{{ route('wishlist.index') }}" class="relative">
+        <a href="{{ route('wishlist.index') }}" class="relative block">
           <svg class="w-9 h-9 text-black hidden sm:block" fill="none" stroke="currentColor" stroke-width="1.5"
             viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
           </svg>
-          <span id="wishlist-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 items-center justify-center hidden">0</span>
+          <span  id="wishlist-count" class="absolute border-2 border-[#f2f0ec] bg-red-500 text-white text-xs rounded-full w-5 h-5 items-center justify-center hidden" style="top: -8px; right: -8px; position: absolute;">0</span>
         </a>
         <!-- Wishlist Preview Dropdown -->
         <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-md shadow-lg z-10 p-4" style="display: none;">
@@ -185,7 +188,7 @@
   </div>
 
   <!-- Mobile Menu - LG Style -->
-  <div x-show="mobileMenuOpen" x-transition class="lg:hidden fixed inset-0 z-50 overflow-y-auto bg-white">
+  <div x-show="mobileMenuOpen" x-cloak x-transition class="lg:hidden fixed inset-0 z-50 overflow-y-auto bg-white">
     <div class="absolute right-0 top-0 h-full w-full max-w-full lg-mobile-menu mobile-menu-container">
       <!-- Header with close button -->
       <div class="flex items-center justify-between p-6">
@@ -251,6 +254,21 @@
             <a href="{{ route('about') }}"
             class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
                 <span>CTC DIGI-Venture</span>
+            </a>
+            <!-- Other menu items -->
+            <a href="{{ route('recently-viewed.index') }}"
+            class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
+                <span>Recently Viewed</span>
+            </a>
+            <!-- Other menu items -->
+            <a href="{{ route('new-arrivals.index') }}"
+            class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
+                <span>New Arrivals</span>
+            </a>
+            <!-- Other menu items -->
+            <a href="{{ route('most-popular.index') }}"
+            class="flex items-center justify-between px-6 py-4 border-b border-[#e0dbd0] hover:bg-[#e0dbd0] lg-mobile-menu-item">
+                <span>Most Popular</span>
             </a>
             <!-- Other menu items -->
             <a href="{{ route('contact') }}"

@@ -144,17 +144,16 @@
                 name: 'Jaden Home Store',
                 lat: -6.7740129,
                 lng: 39.1966954,
-                address: 'Haidery Plaza, Posta',
+                address: 'Rose Garden Road, Mikocheni',
                 phone: '0768285151',
-                email: 'digi@store',
             },
             {
                 name: 'DIGI Store',
                 lat: -6.8147387,
                 lng: 39.2879986,
-                address: 'Haidery Plaza, Posta',
-                phone: '070 000 0000',
-                email: 'digi@store',
+                address: 'Maktaba Square, Posta',
+                phone: '+25579 3333 444',
+                email: 'info@digiappliances.com',
             },
         ];
 

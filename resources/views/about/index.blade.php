@@ -22,7 +22,7 @@
 
             <p class="mb-2 text-gray-700">
                 DIGI Electronics is part of the extended legacy of the CTC Group—a privately‑owned conglomerate that
-                has been driving progress in Sudan since 1956.
+                has been driving progress in East Africa since 1956.
             </p>
             <p class="mb-2 text-gray-700">
                 Like our parent, we are <span class="font-semibold">people‑centric</span> and
@@ -62,33 +62,7 @@
         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <h2 class="text-3xl font-bold mb-10">Our Core Values</h2>
 
-            <div class="grid grid-col-1 md:grid-cols-3 gap-8">
-
-                @php
-                    $values = [
-                        ['title' => 'Moving Forward',
-                         'text'  => 'Leading markets where we operate and continuously growing.'],
-                        ['title' => 'Employee Focus',
-                         'text'  => 'Attracting, developing and retaining top talent through empowerment.'],
-                        ['title' => 'Integrity',
-                         'text'  => 'Conducting business with ethics, respect and meeting commitments.'],
-                        ['title' => 'Teamwork',
-                         'text'  => 'We accomplish more working together across the organisation.'],
-                        ['title' => 'Value Consciousness & Quality',
-                         'text'  => 'Optimising resources while adhering to international quality standards.'],
-                        ['title' => 'Customer Focus',
-                         'text'  => 'Being obsessed with understanding and exceeding customer needs.'],
-                    ];
-                @endphp
-
-                @foreach ($values as $v)
-                    <div class="px-6 py-10 bg-gray-100 border border-digi-orange/20 font-medium rounded-lg">
-                        <h3 class="text-2xl font-medium mb-4">{{ $v['title'] }}</h3>
-                        <p class="text-gray-700 text-md">{{ $v['text'] }}</p>
-                    </div>
-                @endforeach
-
-            </div>
+            @include('components.values')
         </div>
     </section>
 

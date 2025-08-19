@@ -62,7 +62,7 @@ $slides = [
                                   hover:bg-digi-orange-dark transition-colors duration-300">
                             {{ $slide['primary']['label'] }} <span class="hidden ml-2 px-2 py-2 md:flex items-center rounded-full border bg-white"><img src="{{ asset('img/icon_quote.svg') }}" class="inline-block w-5" alt=""></span>
                         </a>
-                        <a href="{{ $slide['secondary']['url'] }}" class="flex items-center relative overflow-hidden border border-white/80 text-gray-500 backdrop-blur-md
+                        <a href="{{ $slide['secondary']['url'] }}" class="flex items-center relative overflow-hidden border border-digi-orange/70 text-gray-500 backdrop-blur-md
                                 bg-white/5 pr-4 pl-5 py-3 rounded-full text-lg font-medium
                                 shadow-lg shadow-white/5 hover:shadow-white/10
                                 hover:bg-white/20 hover:text-digi-dark transition-all duration-500 group">
@@ -72,7 +72,7 @@ $slides = [
 
                             {{-- Moving highlight streak --}}
                             <span class="absolute top-0 left-[-50%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/40 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></span>
-                            <span class="relative z-10">{{ $slide['secondary']['label'] }}</span><span class="hidden ml-2 px-2 py-2 md:flex items-center rounded-full border border-white/90"><img src="{{ asset('img/arrow.svg') }}" class="inline-block w-5" alt=""></span>
+                            <span class="relative z-10">{{ $slide['secondary']['label'] }}</span><span class="hidden ml-2 px-2 py-2 md:flex items-center rounded-full border bg-digi-orange"><img src="{{ asset('img/arrow.svg') }}" class="inline-block w-5" alt=""></span>
                         </a>
 
                     </div>

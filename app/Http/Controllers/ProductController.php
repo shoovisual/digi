@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductView;
 
 class ProductController extends Controller
 {
@@ -48,7 +49,7 @@ class ProductController extends Controller
     {
         $categories = Category::select('id', 'name', 'slug')
             ->get();
-        
+
         return response()->json($categories);
     }
 
@@ -57,7 +58,38 @@ class ProductController extends Controller
         $products = Product::where('category_id', $categoryId)
             ->select('id', 'name', 'product_short', 'serial')
             ->get();
-        
+
         return response()->json($products);
+    }
+
+    public function incrementViewCount(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $ipAddress = $request->ip();
+
+        if ($productId) {
+            // Check if this IP has already viewed this product
+            $existingView = ProductView::where('product_id', $productId)
+                ->where('ip_address', $ipAddress)
+                ->first();
+
+            // Only increment if this is a new view from this IP
+            if (!$existingView) {
+                // Create a new view record
+                ProductView::create([
+                    'product_id' => $productId,
+                    'ip_address' => $ipAddress
+                ]);
+
+                // Increment the product's view count
+                Product::where('id', $productId)->increment('view_count');
+
+                return response()->json(['success' => true, 'new_view' => true]);
+            }
+
+            return response()->json(['success' => true, 'new_view' => false]);
+        }
+
+        return response()->json(['success' => false], 400);
     }
 }

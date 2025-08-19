@@ -1,6 +1,6 @@
 {{-- Help Modal Component --}}
 <div id="helpModal" class="fixed inset-0 z-50 hidden bg-black/50 items-center justify-center">
-    <div class="bg-white rounded-xl overflow-hidden w-full max-w-2xl mx-4 shadow-xl max-h-[90vh] flex flex-col">
+    <div class="bg-white rounded-xl relative overflow-hidden w-full max-w-2xl mx-4 shadow-xl max-h-[90vh] flex flex-col">
         <!-- Modal Header -->
         <div class="flex justify-between items-center px-6 py-4 border-b border-b-gray-400">
             <h2 id="helpModalTitle" class="text-2xl font-bold text-gray-900">Help Center</h2>
@@ -125,7 +125,7 @@ function openHelpModal(category) {
                             <label class="block text-sm font-medium text-gray-700 mb-2">Support Request Details</label>
                             <textarea name="message" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Describe your support request or question" required></textarea>
                         </div>
-                        <div class="flex justify-end space-x-4">
+                        <div class="absolute bottom-0 left-0 right-0 flex justify-end space-x-4 p-4 bg-white border-t border-gray-300">
                             <a href="javascript:void(0);" onclick="closeHelpModal()" class="border border-gray-500 text-gray-500 hover:text-white py-2 px-4 rounded-full hover:bg-gray-500 transition">
                                 cancel
                             </a>
@@ -171,7 +171,7 @@ function openHelpModal(category) {
                     </div>
 
                     <div class="text-center text-sm text-gray-500 mt-4">
-                        <p>Or call us directly at: <strong>+25579 3333 444</strong></p>
+                        <p>Or call us directly at: <strong>+255793 333 444</strong></p>
                     </div>
                 </div>
             `;
@@ -253,12 +253,12 @@ async function loadProductModels(categoryName) {
         const categoriesResponse = await fetch('/api/categories');
         const categories = await categoriesResponse.json();
         const category = categories.find(cat => cat.name === categoryName);
-        
+
         if (!category) {
             productModelSelect.innerHTML = '<option value="">Category not found</option>';
             return;
         }
-        
+
         const response = await fetch(`/api/products-by-category/${category.id}`);
         const products = await response.json();
 
@@ -325,12 +325,12 @@ async function loadSupportProductModels(categoryName) {
         const categoriesResponse = await fetch('/api/categories');
         const categories = await categoriesResponse.json();
         const category = categories.find(cat => cat.name === categoryName);
-        
+
         if (!category) {
             productModelSelect.innerHTML = '<option value="">Category not found</option>';
             return;
         }
-        
+
         const response = await fetch(`/api/products-by-category/${category.id}`);
         const products = await response.json();
 

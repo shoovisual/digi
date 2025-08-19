@@ -23,10 +23,10 @@
       <div>
         <h3 class="font-semibold text-lg mb-3 tracking-wide">Support</h3>
         <ul class="space-y-2">
-          <li><a href="#" class="hover:underline">Chat with Us</a></li>
-          <li><a href="#" class="hover:underline">Product Support</a></li>
-          <li><a href="#" class="hover:underline">Contact Us</a></li>
-          <li><a href="#" class="hover:underline">Give Feedback</a></li>
+          <li><a href="https://wa.me/255793333444" target="_blank" class="hover:underline">Chat with Us</a></li>
+          <li><a href="{{ route('contact') }}" class="hover:underline">Product Support</a></li>
+          <li><a href="{{ route('contact') }}" class="hover:underline">Contact Us</a></li>
+          <li><a href="{{ route('feedback') }}" class="hover:underline">Give Feedback</a></li>
         </ul>
       </div>
 
@@ -89,9 +89,9 @@
       <p class="text-gray-700">&copy;{{ date('Y') }} DIGI&nbsp;| All Rights Reserved.</p>
 
       <nav class="flex items-center text-blue-600 font-medium space-x-4">
-        <a href="#" class="hover:underline">Terms and Conditions</a>
+        <a href="{{ route('terms-conditions') }}" class="hover:underline">Terms and Conditions</a>
         <span class="hidden sm:inline-block">|</span>
-        <a href="#" class="hover:underline">Privacy &amp; Policies</a>
+        <a href="{{ route('privacy-policy') }}" class="hover:underline">Privacy &amp; Policies</a>
       </nav>
     </div>
   </div>

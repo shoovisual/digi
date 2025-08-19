@@ -39,7 +39,7 @@
         <!-- Cards grid -->
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             @foreach ($helpCards as $card)
-                <button onclick="openHelpModal('{{ $card['category'] }}')" class="group relative block bg-white group rounded-xl p-6 hover:-translate-y-1 hover:shadow-lg transition ease-in-out duration-300 w-full text-left">
+                <button onclick="openHelpModal('{{ $card['category'] }}')" class="group cursor-pointer relative block bg-white group rounded-xl p-6 hover:-translate-y-1 hover:shadow-lg transition ease-in-out duration-300 w-full text-left">
                     <div class="card-content h-[320px] relative mb-5">
                         <!-- icon -->
                         <div class="flex justify-end mb-6"><img src="{{ asset('img/'.$card['icon']) }}" alt="{{ $card['title'] }} Icon" class="w-15 h-15 object-contain"></div>

@@ -188,6 +188,15 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+    // Track product view
+    trackProductView({
+        id: @json($product->id),
+        name: @json($product->name),
+        slug: @json($product->slug),
+        image: @json($product->image),
+        price: @json($product->price)
+    });
+
     // 1. Grab the product name
     const productName = document.getElementById('product-name')?.textContent.trim() || 'Awesome product';
 
@@ -195,7 +204,8 @@
     const productLink = window.location.href;
 
     // 3. Compose the WhatsApp message
-    const message = `Hello 👋, I'm interested in *${productName}*.\n${productLink}`;
+    const message = `Hello 👋, I'm interested in *${productName}*.
+${productLink}`;
 
     // 4. Encode the message for a URL
     const encodedMsg = encodeURIComponent(message);
@@ -208,6 +218,45 @@
     document.getElementById('wa-btn').setAttribute('href', waUrl);
     document.getElementById('wa-btn-2').setAttribute('href', waUrl);
     });
+
+    // Function to track product views
+    function trackProductView(product) {
+        // Get existing recently viewed products
+        let recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+        
+        // Remove the product if it already exists (to avoid duplicates)
+        recentlyViewed = recentlyViewed.filter(item => item.id !== product.id);
+        
+        // Add the product to the beginning of the array with current timestamp
+        recentlyViewed.unshift({
+            id: product.id,
+            name: product.name,
+            slug: product.slug,
+            image: product.image,
+            price: product.price,
+            viewedAt: new Date().toISOString()
+        });
+        
+        // Keep only the last 50 viewed products
+        recentlyViewed = recentlyViewed.slice(0, 50);
+        
+        // Save back to localStorage
+        localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed));
+        
+        // Increment view count in database
+        fetch('/api/increment-view-count', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                product_id: product.id
+            })
+        }).catch(error => {
+            console.error('Error incrementing view count:', error);
+        });
+    }
 </script>
 
 {{-- @include('layouts.partials.whereToBuy-modal') --}}
