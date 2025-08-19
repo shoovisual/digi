@@ -25,8 +25,7 @@
         </div>
 
         <!-- Desktop menu -->
-        <nav class="transition-all duration-300 hidden lg:flex  text-black"
-            :class="stuck ? 'text-md space-x-4' : ' space-x-6 text-lg font-[400]'">
+        <nav class="transition-all duration-300 hidden lg:flex  text-black space-x-6 text-lg font-[400]" >
 
             <a href="/"
             @class([

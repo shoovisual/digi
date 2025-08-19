@@ -32,11 +32,11 @@
                 <!-- Carousel Controls -->
                 <div class="absolute hidden inset-0 group-hover:flex items-center justify-between transition duration-300 ease-in-out px-2">
                     <button @click="activeImage = activeImage > 0 ? activeImage - 1 : {{ count($images) }} - 1"
-                        class="bg-white border border-gray-400 cursor-pointer px-1.5 text-xs bg-opacity-50 hover:bg-opacity-80 rounded-full p-1">
+                        class="bg-white border border-gray-400 cursor-pointer flex justify-center items-center text-xs bg-opacity-50 hover:bg-opacity-80 rounded-full h-7 w-7">
                         <i class="bi bi-chevron-left"></i>
                     </button>
                     <button @click="activeImage = activeImage < {{ count($images) }} - 1 ? activeImage + 1 : 0"
-                        class="bg-white border border-gray-400 cursor-pointer px-1.5 text-xs bg-opacity-50 hover:bg-opacity-80 rounded-full p-1">
+                        class="bg-white border border-gray-400 cursor-pointer flex justify-center items-center text-xs bg-opacity-50 hover:bg-opacity-80 rounded-full h-7 w-7">
                         <i class="bi bi-chevron-right"></i>
                     </button>
                 </div>
