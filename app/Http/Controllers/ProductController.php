@@ -92,4 +92,27 @@ class ProductController extends Controller
 
         return response()->json(['success' => false], 400);
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('q', '');
+        
+        if (strlen($query) < 2) {
+            return response()->json(['products' => []]);
+        }
+        
+        $products = Product::with('categoryRelation')
+            ->where('name', 'LIKE', '%' . $query . '%')
+            ->orWhere('product_short', 'LIKE', '%' . $query . '%')
+            ->orWhere('serial', 'LIKE', '%' . $query . '%')
+            ->orWhere('description', 'LIKE', '%' . $query . '%')
+            ->orWhereHas('categoryRelation', function($q) use ($query) {
+                $q->where('name', 'LIKE', '%' . $query . '%');
+            })
+            ->select('id', 'name', 'slug', 'image', 'product_short', 'serial', 'category_id')
+            ->limit(8)
+            ->get();
+            
+        return response()->json(['products' => $products]);
+    }
 }

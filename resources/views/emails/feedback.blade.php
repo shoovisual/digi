@@ -105,6 +105,7 @@
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             border-radius: 15px;
             padding: 25px;
+            margin-top: 30px;
             border-left: 5px solid #EA6911;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -191,15 +192,15 @@
                 margin: 10px;
                 border-radius: 15px;
             }
-            
+
             .header h1 {
                 font-size: 2rem;
             }
-            
+
             .content {
                 padding: 25px;
             }
-            
+
             .info-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;

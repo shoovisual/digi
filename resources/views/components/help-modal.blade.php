@@ -38,7 +38,6 @@ function openHelpModal(category) {
                         <img src="${window.location.origin}/img/icons/icon_request-a-repair_60x60.svg" alt="Repair Icon" class="w-12 h-12">
                         <h3 class="text-xl font-semibold">Request a Repair</h3>
                     </div>
-                    <p class="text-gray-600 mb-6">Need to repair your DIGI product? We're here to help you get it fixed quickly and efficiently.</p>
 
                     <form method="POST" action="{{ route('contact.send') }}" class="space-y-4">
                         @csrf
@@ -88,7 +87,7 @@ function openHelpModal(category) {
                         <img src="${window.location.origin}/img/icons/icon_product_48.svg" alt="Support Icon" class="w-12 h-12">
                         <h3 class="text-xl font-semibold">Product Support</h3>
                     </div>
-                    <p class="text-gray-600 mb-6">Find manuals, troubleshooting guides, and warranty information for your DIGI products.</p>
+
 
                     <form method="POST" action="{{ route('contact.send') }}" class="space-y-4">
                         @csrf
@@ -125,7 +124,7 @@ function openHelpModal(category) {
                             <label class="block text-sm font-medium text-gray-700 mb-2">Support Request Details</label>
                             <textarea name="message" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Describe your support request or question" required></textarea>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 flex justify-end space-x-4 p-4 bg-white border-t border-gray-300">
+                        <div class="flex justify-end space-x-4">
                             <a href="javascript:void(0);" onclick="closeHelpModal()" class="border border-gray-500 text-gray-500 hover:text-white py-2 px-4 rounded-full hover:bg-gray-500 transition">
                                 cancel
                             </a>
@@ -148,7 +147,7 @@ function openHelpModal(category) {
                         <img src="${window.location.origin}/img/icons/icon_whatsapp_60x60.svg" alt="WhatsApp Icon" class="w-12 h-12">
                         <h3 class="text-xl font-semibold">Chat with Us on WhatsApp</h3>
                     </div>
-                    <p class="text-gray-600 mb-6">Get instant support from our team via WhatsApp. We're here to help with any questions or concerns.</p>
+
 
                     <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                         <div class="flex items-center space-x-2 mb-2">
@@ -185,7 +184,7 @@ function openHelpModal(category) {
                         <img src="${window.location.origin}/img/icons/icon_order_48.svg" alt="Order Icon" class="w-12 h-12">
                         <h3 class="text-xl font-semibold">Order Support</h3>
                     </div>
-                    <p class="text-gray-600 mb-6">Track your order, request returns or exchanges, and get help with your purchases.</p>
+
 
                     <div class="space-y-4">
 

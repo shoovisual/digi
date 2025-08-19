@@ -43,5 +43,6 @@ Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.in
 Route::get('/recently-viewed', [RecentlyViewedController::class, 'index'])->name('recently-viewed.index');
 Route::get('/api/recently-viewed-products', [RecentlyViewedController::class, 'getProducts'])->name('api.recently-viewed.products');
 Route::post('/api/increment-view-count', [ProductController::class, 'incrementViewCount'])->name('api.increment-view-count');
+Route::get('/api/search', [ProductController::class, 'search'])->name('api.search');
 Route::get('/new-arrivals', [NewArrivalsController::class, 'index'])->name('new-arrivals.index');
 Route::get('/most-popular', [MostPopularController::class, 'index'])->name('most-popular.index');
