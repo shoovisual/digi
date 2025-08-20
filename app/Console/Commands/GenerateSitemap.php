@@ -35,6 +35,11 @@ class GenerateSitemap extends Command
             ->add(Url::create('/about-digi'))
             ->add(Url::create('/products'))
             ->add(Url::create('/products/{product}'))
+            ->add(Url::create('/contact'))
+            ->add(Url::create('/careers'))
+            ->add(Url::create('/recently-viewed'))
+            ->add(Url::create('/new-arrivals'))
+            ->add(Url::create('/most-popular'))
             ->add(Url::create('/wishlist'))
             ->add(Url::create('/about-digi'));
 
