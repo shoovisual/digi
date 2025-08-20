@@ -129,13 +129,13 @@
                 About CTC DIGI‑Venture
             </a>
 
-            <a href="#order-now"
+            {{-- <a href="#order-now"
             @class([
                 'hover:text-digi-orange',
                 'text-digi-orange' => request()->is('order-now')
             ])>
                 Order Now
-            </a>
+            </a> --}}
 
             <a href="{{ route('contact') }}"
             @class([

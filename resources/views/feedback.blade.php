@@ -4,16 +4,16 @@
 
 @section('content')
     <div class="w-full py-6 border-gray-400">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="md:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <h2 class="text-4xl font-bold text-gray-900 mb-10">Feedback</h2>
-            <p class="my-3 text-md w-2xl text-gray-700">Welcome! Your feedback is very important to us and we want to hear from you. We're always looking for ways to improve our services and products. Please take a minute to tell us how we're doing and how we can better serve you.</p>
-            
+            <p class="my-3 text-md md:w-2xl text-gray-700">Welcome! Your feedback is very important to us and we want to hear from you. We're always looking for ways to improve our services and products. Please take a minute to tell us how we're doing and how we can better serve you.</p>
+
             @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
                     {{ session('success') }}
                 </div>
             @endif
-            
+
             @if($errors->any())
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                     <ul>
@@ -24,7 +24,7 @@
                 </div>
             @endif
 
-            <div class="grid grid-cols-2">
+            <div class="grid lg:grid-cols-2">
                 {{-- <div class=""></div> --}}
                 {{-- Write your feedback form here --}}
                 <form method="POST" action="{{ route('contact.send') }}">
@@ -81,7 +81,7 @@
                         <div class="space-y-4 text-md text-gray-600">
                             <label class="flex items-start space-x-2">
                                 <input type="checkbox" required id="privacy-policy-checkbox" class="mt-1" onchange="toggleSubmitButton()">
-                                <span>I have read and agreed to the <a href="#" class="text-teal-600 underline">Privacy Policy</a>.</span>
+                                <span>I have read and agreed to the <a href="{{ route('privacy-policy') }}" class="text-teal-600 underline">Privacy Policy</a>.</span>
                             </label>
 
                             <label class="flex items-start space-x-2">

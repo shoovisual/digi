@@ -149,7 +149,7 @@
                     <div class="space-y-4 text-md text-gray-600">
                         <label class="flex items-start space-x-2">
                             <input type="checkbox" required id="privacy-policy-checkbox" class="mt-1" onchange="toggleSubmitButton()">
-                            <span>I have read and agreed to the <a href="#" class="text-teal-600 underline">Privacy Policy</a>.</span>
+                            <span>I have read and agreed to the <a href="{{ route('privacy-policy') }}" class="text-teal-600 underline">Privacy Policy</a>.</span>
                         </label>
 
                         <label class="flex items-start space-x-2">
