@@ -148,58 +148,74 @@
 
 
     <!-- Right Side: Search & Icons -->
-    <div class="flex items-center space-x-3">
-      <!-- Search bar -->
-      <div class="relative hidden sm:block" x-data="{
-        searchQuery: '',
-        searchResults: [],
-        showResults: false,
-        isLoading: false,
-        searchTimeout: null,
-        
-        async searchProducts() {
-          if (this.searchQuery.length < 2) {
-            this.searchResults = [];
-            this.showResults = false;
-            return;
-          }
-          
-          this.isLoading = true;
-          
-          try {
-            const response = await fetch(`/api/search?q=${encodeURIComponent(this.searchQuery)}`);
-            const data = await response.json();
-            this.searchResults = data.products || [];
-            this.showResults = true;
-          } catch (error) {
-            console.error('Search error:', error);
-            this.searchResults = [];
-          } finally {
-            this.isLoading = false;
-          }
-        },
-        
-        handleInput() {
-          clearTimeout(this.searchTimeout);
-          this.searchTimeout = setTimeout(() => {
-            this.searchProducts();
-          }, 300);
-        },
-        
-        selectProduct(product) {
-          window.location.href = `/products/${product.slug}`;
-        },
-        
-        hideResults() {
-          setTimeout(() => {
-            this.showResults = false;
-          }, 200);
+    <div class="flex items-center space-x-3" x-data="{
+      mobileSearchOpen: false,
+      searchQuery: '',
+      searchResults: [],
+      showResults: false,
+      isLoading: false,
+      searchTimeout: null,
+
+      async searchProducts() {
+        if (this.searchQuery.length < 2) {
+          this.searchResults = [];
+          this.showResults = false;
+          return;
         }
-      }" @click.away="showResults = false">
-        <input 
-          type="text" 
-          placeholder="Search products..." 
-          class="pl-8 placeholder:font-medium pr-3 py-1.5 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 w-64" 
+
+        this.isLoading = true;
+
+        try {
+          const response = await fetch(`/api/search?q=${encodeURIComponent(this.searchQuery)}`);
+          const data = await response.json();
+          this.searchResults = data.products || [];
+          this.showResults = true;
+        } catch (error) {
+          console.error('Search error:', error);
+          this.searchResults = [];
+        } finally {
+          this.isLoading = false;
+        }
+      },
+
+      handleInput() {
+        clearTimeout(this.searchTimeout);
+        this.searchTimeout = setTimeout(() => {
+          this.searchProducts();
+        }, 300);
+      },
+
+      selectProduct(product) {
+        window.location.href = `/products/${product.slug}`;
+        this.mobileSearchOpen = false;
+      },
+
+      hideResults() {
+        setTimeout(() => {
+          this.showResults = false;
+        }, 200);
+      },
+
+      openMobileSearch() {
+        this.mobileSearchOpen = true;
+        this.$nextTick(() => {
+          this.$refs.mobileSearchInput.focus();
+        });
+      },
+
+      closeMobileSearch() {
+        this.mobileSearchOpen = false;
+        this.searchQuery = '';
+        this.searchResults = [];
+        this.showResults = false;
+      }
+    }">
+      <!-- Desktop Search bar -->
+      <div class="relative hidden sm:block" @click.away="showResults = false">
+        <input
+          type="text"
+          placeholder="Search products..."
+          class="pl-8 placeholder:font-medium pr-3 py-1.5 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 w-64"
           x-model="searchQuery"
           @input="handleInput()"
           @focus="searchQuery.length >= 2 && searchResults.length > 0 ? showResults = true : null"
@@ -210,10 +226,10 @@
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 3.5a7.5 7.5 0 0013.15 13.15z" />
         </svg>
-        
+
         <!-- Search Results Dropdown -->
-        <div 
-          x-show="showResults" 
+        <div
+          x-show="showResults"
           x-transition:enter="transition ease-out duration-200"
           x-transition:enter-start="opacity-0 transform scale-95"
           x-transition:enter-end="opacity-100 transform scale-100"
@@ -228,22 +244,22 @@
             <div class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-orange-500"></div>
             <span class="ml-2">Searching...</span>
           </div>
-          
+
           <!-- No Results -->
           <div x-show="!isLoading && searchResults.length === 0 && searchQuery.length >= 2" class="p-4 text-center text-gray-500">
             No products found for "<span x-text="searchQuery"></span>"
           </div>
-          
+
           <!-- Search Results -->
           <div x-show="!isLoading && searchResults.length > 0">
             <template x-for="product in searchResults" :key="product.id">
-              <div 
+              <div
                 class="flex items-center p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0"
                 @click="selectProduct(product)"
               >
                 <div class="flex-shrink-0 w-12 h-12 mr-3">
-                  <img 
-                    :src="`/img/${product.image}`" 
+                  <img
+                    :src="`/img/${product.image}`"
                     :alt="product.name"
                     class="w-full h-full object-contain rounded"
                     loading="lazy"
@@ -264,6 +280,13 @@
           </div>
         </div>
       </div>
+
+      <!-- Mobile Search Icon -->
+      <button @click="openMobileSearch()" class="sm:hidden focus:outline-none">
+        <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+      </button>
 
       <!-- Wishlist Icon -->
       <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
@@ -289,6 +312,83 @@
             d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
+
+      <!-- Mobile Search Popup -->
+      <div x-show="mobileSearchOpen" x-cloak x-transition class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-start justify-center pt-10">
+        <div class="bg-white w-full max-w-md mx-4 rounded-lg shadow-lg" @click.away="closeMobileSearch()">
+          <!-- Search Header -->
+          <div class="flex items-center justify-between p-4 border-b">
+            <h3 class="text-lg font-semibold">Search Products</h3>
+            <button @click="closeMobileSearch()" class="focus:outline-none">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Search Input -->
+          <div class="p-4">
+            <div class="relative">
+              <input
+                type="text"
+                placeholder="Search products..."
+                class="w-full pl-10 pr-4 py-3 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                x-model="searchQuery"
+                @input="handleInput()"
+                @focus="searchQuery.length >= 2 && searchResults.length > 0 ? showResults = true : null"
+                x-ref="mobileSearchInput"
+              />
+              <svg class="w-5 h-5 absolute left-3 top-3.5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 3.5a7.5 7.5 0 0013.15 13.15z" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Search Results -->
+          <div class="max-h-96 overflow-y-auto">
+            <!-- Loading State -->
+            <div x-show="isLoading" class="p-4 text-center text-gray-500">
+              <div class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-orange-500"></div>
+              <span class="ml-2">Searching...</span>
+            </div>
+
+            <!-- No Results -->
+            <div x-show="!isLoading && searchResults.length === 0 && searchQuery.length >= 2" class="p-4 text-center text-gray-500">
+              No products found for "<span x-text="searchQuery"></span>"
+            </div>
+
+            <!-- Search Results -->
+            <div x-show="!isLoading && searchResults.length > 0">
+              <template x-for="product in searchResults" :key="product.id">
+                <div
+                  class="flex items-center p-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+                  @click="selectProduct(product)"
+                >
+                  <div class="flex-shrink-0 w-12 h-12 mr-3">
+                    <img
+                      :src="`/img/${product.image}`"
+                      :alt="product.name"
+                      class="w-full h-full object-contain rounded"
+                      loading="lazy"
+                    >
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate" x-text="product.name"></p>
+                    <p class="text-xs text-gray-500 truncate" x-text="product.product_short"></p>
+                    <p class="text-xs text-orange-600" x-text="product.serial"></p>
+                  </div>
+                  <div class="flex-shrink-0">
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+         </div>
+       </div>
+
     </div>
   </div>
 
@@ -384,4 +484,5 @@
 
     </div>
   </div>
+ </div>
 </header>
