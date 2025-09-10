@@ -21,7 +21,7 @@
             <h2 class="text-3xl font-bold mb-6">Our Story</h2>
 
             <p class="mb-2 text-gray-700">
-                DIGI Electronics is part of the extended legacy of the CTC Group—a privately‑owned conglomerate that
+                DIGI Electronics is part of the extended legacy of the CTC Group a privately‑owned conglomerate that
                 has been driving progress in East Africa since 1956.
             </p>
             <p class="mb-2 text-gray-700">
@@ -31,7 +31,7 @@
             </p>
             <p class="text-gray-700">
                 What began as a family business has evolved into a trusted brand for televisions, refrigerators, and
-                smart appliances—yet our entrepreneurial spirit remains as strong as day one.
+                smart appliances, yet our entrepreneurial spirit remains as strong as day one.
             </p>
         </div>
     </section>
@@ -66,34 +66,10 @@
         </div>
     </section>
 
-    <!-- Timeline -->
+    <!-- Experience -->
     <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <h2 class="text-3xl font-bold mb-10">A Timeline of Progress</h2>
-
-            <div class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-                @php
-                    $timeline = [
-                        ['year' => '1956',
-                         'event' => 'Central Trading Company founded – our story begins.'],
-                        ['year' => '2003',
-                         'event' => 'Ventured into consumer electronics, laying the groundwork for DIGI.'],
-                        ['year' => '2018',
-                         'event' => 'Launch of state‑of‑the‑art service complex elevating after‑sales support.'],
-                        ['year' => '2025',
-                         'event' => 'DIGI Electronics expands regionally with smart‑connected appliances.'],
-                    ];
-                @endphp
-
-                @foreach ($timeline as $item)
-                    <div class="mb-5 border border-digi-orange rounded-lg p-4">
-                        <time class="mb-3 text-3xl font-medium text-digi-orange">{{ $item['year'] }}</time>
-                        <h3 class="text-md font-medium text-gray-900">{{ $item['event'] }}</h3>
-                    </div>
-                @endforeach
-
-            </div>
+        <div class="max-w-7xl mx-auto px-4 md:px-0">
+            @include('components.experience')
         </div>
     </section>
 

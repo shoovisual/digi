@@ -182,9 +182,9 @@
                         <p class="text-md font-medium text-white/80">Get in touch with us and we’re looking forward to you.</p>
                     </div>
                     <div class="mt-8 absolute bottom-10 flex space-x-3">
-                        <a href="#" class="block hover:underline">@Facebook</a>
-                        <a href="#" class="block hover:underline">@Twitter</a>
-                        <a href="#" class="block hover:underline">@Instagram</a>
+                        <a href="https://www.instagram.com/digi_tanzania/" target="_blank" class="block hover:underline">@Instagram</a>
+                        <a href="https://www.facebook.com/people/DIGI-Tanzania/61573040064155/" target="_blank" class="block hover:underline">@Facebook</a>
+                        <a href="https://www.linkedin.com/company/digi-tanzania" target="_blank" class="block hover:underline">@LinkedIn</a>
                     </div>
                 </div>
             </div>

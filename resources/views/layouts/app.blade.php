@@ -37,12 +37,65 @@
         <link rel="apple-touch-icon" href="{{ asset('img/favicon.png') }}" type="image/png">
 
         @include('layouts.partials.vendor_css')
+        
+        <!-- Loading Overlay Styles -->
+        <style>
+            .page-loader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.95);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+            }
+            
+            .page-loader.active {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .loader-spinner {
+                width: 50px;
+                height: 50px;
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #ff6b35;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            
+            .loader-text {
+                margin-top: 20px;
+                font-size: 16px;
+                color: #666;
+                font-weight: 500;
+            }
+            
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
     </head>
     <body>
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NCP69366"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
+        
+        <!-- Loading Overlay -->
+        <div id="pageLoader" class="page-loader">
+            <div class="text-center">
+                <div class="loader-spinner"></div>
+                <div class="loader-text">Loading...</div>
+            </div>
+        </div>
         @include('layouts.navbar')
         @if (!request()->is('/'))
             <div class="breadcrumb bg-white border border-[#d6eefc] px-6 py-4">
@@ -74,6 +127,50 @@
         @include('shopping.sections.where-to-buy')
         @include('layouts.footer')
         @vite('resources/js/app.js')
+        
+        <!-- Page Loading Script -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const pageLoader = document.getElementById('pageLoader');
+                
+                // Hide loader when page is fully loaded
+                window.addEventListener('load', function() {
+                    pageLoader.classList.remove('active');
+                });
+                
+                // Show loader when clicking on navigation links
+                document.addEventListener('click', function(e) {
+                    const link = e.target.closest('a');
+                    if (link && link.href && !link.href.startsWith('#') && !link.href.includes('javascript:') && !link.target) {
+                        // Check if it's an internal link
+                        const currentDomain = window.location.origin;
+                        if (link.href.startsWith(currentDomain) || link.href.startsWith('/')) {
+                            pageLoader.classList.add('active');
+                        }
+                    }
+                });
+                
+                // Show loader on form submissions
+                document.addEventListener('submit', function(e) {
+                    if (e.target.tagName === 'FORM' && e.target.method.toLowerCase() === 'get') {
+                        pageLoader.classList.add('active');
+                    }
+                });
+                
+                // Hide loader if navigation is cancelled (back button, etc.)
+                window.addEventListener('beforeunload', function() {
+                    pageLoader.classList.add('active');
+                });
+                
+                // Hide loader on page show (back/forward navigation)
+                window.addEventListener('pageshow', function(e) {
+                    if (e.persisted) {
+                        pageLoader.classList.remove('active');
+                    }
+                });
+            });
+        </script>
+        
         @verbatim
         <script type="application/ld+json">
             {

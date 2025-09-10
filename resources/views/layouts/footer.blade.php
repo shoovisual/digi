@@ -16,9 +16,9 @@
             <h3 class="font-semibold text-lg mb-3 tracking-wide">Shop</h3>
             <ul class="space-y-2">
             <li><a href="#" class="hover:underline">Latest Products</a></li>
-            <li><a href="#" class="hover:underline">TVs</a></li>
-            <li><a href="#" class="hover:underline">Home Appliances</a></li>
-            <li><a href="#" class="hover:underline">Air conditioning</a></li>
+            <li><a href="{{ url('/categories/digi-tvs') }}" class="hover:underline">TVs</a></li>
+            <li><a href="{{ url('/categories/digi-refrigerators') }}" class="hover:underline">Fridges</a></li>
+            <li><a href="{{ url('/categories/digi-acs') }}" class="hover:underline">Air conditioning</a></li>
             </ul>
         </div>
 
@@ -51,7 +51,7 @@
             <h3 class="font-semibold text-lg mb-3 tracking-wide">Social Links</h3>
             <ul class="space-y-2">
             <li >
-                <a href="#" target="_blank" class="flex gap-1 hover:underline items-center">
+                <a href="https://www.instagram.com/digi_tanzania/" target="_blank" class="flex gap-1 hover:underline items-center">
                 Instagram
                 <span>
                     <svg class="group-hover:fill-white -rotate-45 fill-current" width="15" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +61,7 @@
                 </a>
             </li>
             <li >
-                <a href="#" target="_blank" class="flex gap-1 hover:underline items-center">
+                <a href="https://www.facebook.com/profile.php?id=61573040064155" target="_blank" class="flex gap-1 hover:underline items-center">
                 facebook
                 <span>
                     <svg class="group-hover:fill-white -rotate-45 fill-current" width="15" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

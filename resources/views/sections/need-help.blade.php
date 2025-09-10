@@ -28,7 +28,7 @@
     ];
 @endphp
 
-<section class="bg-[#F2F0EC] py-16">
+<section class="bg-[#F2F0EC] py-16" id="support">
     <div class="max-w-7xl mx-auto px-4">
         <!-- Section heading -->
         <div class="mb-10">

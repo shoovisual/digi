@@ -1,16 +1,4 @@
 <header class="border-b border-[#EDEDED]" x-data="{ mobileMenuOpen: false }">
-  <!-- Top slim bar -->
-  <div class="bg-[#F2F0EC] flex border-b border-[#C7C7C7] justify-between text-sm font-medium text-black px-4 md:px-6 py-4">
-    <div class="flex">
-        <a href="#" class="font-semibold">For Consumer</a>
-        <span class="mx-4">|</span>
-        <a href="/">For Business</a>
-    </div>
-    <div class="space-x-4 md:space-x-6 hidden sm:flex">
-      <a href="#">Career</a>
-      <a href="#">Supports</a>
-    </div>
-  </div>
 
   <!-- Main nav -->
   <div x-data="{ stuck: false }"
@@ -18,45 +6,36 @@
             stuck = window.scrollY > 80
         })" :class="stuck
             ? 'fixed top-0 inset-x-0 bg-[#F2F0EC]/90 border-b border-[#C7C7C7] backdrop-blur transition py-4' : 'py-6'"
-            class="bg-[#F2F0EC] flex items-center justify-between px-4 md:px-6 transition-all duration-300 z-50" >
+            class="bg-[#F2F0EC] flex items-center border-b border-[#C7C7C7] justify-between px-4 md:px-6 transition-all duration-300 z-50" >
         <!-- Logo -->
         <div class="flex items-center space-x-2">
         <a href="/"><img src="{{ asset('img/digi-logo.svg') }}" alt="DIGI Logo" class="h-8 w-auto" /></a>
         </div>
 
         <!-- Desktop menu -->
-        <nav class="transition-all duration-300 hidden lg:flex  text-black space-x-6 text-lg font-[400]" >
+        <nav class="transition-all duration-300 hidden lg:flex items-center text-black space-x-6 text-lg font-[400]" >
 
             <a href="/"
-            @class([
-                'hover:text-digi-orange',
-                'text-digi-orange' => request()->is('/')
+            @class([ 'rounded-sm hover:text-digi-orange px-6 py-2', 'hover:text-white text-white bg-digi-orange' => request()->is('/')
             ])>
                 Home
             </a>
 
             <a href="{{ route('about-digi.index') }}"
-            @class([
-                'hover:text-digi-orange',
-                'text-digi-orange' => request()->is('about-digi')
+            @class([ 'rounded-sm hover:text-digi-orange px-6 py-2', 'hover:text-white text-white bg-digi-orange' => request()->is('about-digi')
             ])>
                 What is DIGI
             </a>
 
             <div x-data="{ megaMenuOpen: false, closeTimeout: null }" class="relative" @mouseenter="clearTimeout(closeTimeout); megaMenuOpen = true" @mouseleave="closeTimeout = setTimeout(() => megaMenuOpen = false, 100)">
                 <a href="{{ route('products.index') }}"
-                @class([
-                    'hover:text-digi-orange flex items-center',
-                    'text-digi-orange' => request()->routeIs('products.*', 'categories.*')
+                @class(['rounded-sm hover:text-digi-orange px-6 py-2', 'hover:text-white text-white bg-digi-orange' => request()->routeIs('products.*', 'categories.*')
                 ])>
                     Our Products
-                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                    </svg>
                 </a>
 
                 <!-- Mega Menu -->
-                <div x-show="megaMenuOpen" x-cloak x-transition:enter="transition ease-out duration-200" class="fixed -top-0 left-0 w-screen h-screen bg-black/40 backdrop-blur-sm z-50" :class=" stuck ? 'fixed top-0 mt-[68px] transition': 'mt-[136px]'" ">
+                <div x-show="megaMenuOpen" x-cloak x-transition:enter="transition ease-out duration-200" class="fixed -top-0 left-0 w-screen h-screen bg-black/40 backdrop-blur-sm z-50" :class=" stuck ? 'fixed top-0 mt-[68px] transition': 'mt-[90px]'" ">
                     <div class="w-full border border-gray-400">
                         <div class="bg-[#F2F0EC] p-6 nav-focus" megaMenuOpen = true" @mouseleave="megaMenuOpen = false">
                             <div class="grid grid-cols-4 gap-4 max-w-7xl mx-auto text-sm">
@@ -122,9 +101,7 @@
             </div>
 
             <a href="{{ route('about') }}"
-            @class([
-                'hover:text-digi-orange',
-                'text-digi-orange' => request()->routeIs('about')
+            @class(['rounded-sm hover:text-digi-orange px-6 py-2', 'hover:text-white text-white bg-digi-orange' => request()->routeIs('about')
             ])>
                 About CTC DIGI‑Venture
             </a>
@@ -138,9 +115,7 @@
             </a> --}}
 
             <a href="{{ route('contact') }}"
-            @class([
-                'hover:text-digi-orange',
-                'text-digi-orange' => request()->is('contact')
+            @class(['rounded-sm hover:text-digi-orange px-6 py-2', 'hover:text-white text-white bg-digi-orange' => request()->is('contact')
             ])>
                 Contact Us
             </a>

@@ -1,53 +1,68 @@
 @php
 /* ---------------------------------------------------------------
- | Slider data
+ | Hero Slider Data - Inspired by Hisense Design
  |---------------------------------------------------------------*/
-$slides = [
+$heroSlides = [
     [
-        'image'     => '/img/product-cover-umejipata.png',
+        'id' => 1,
+        'image'       => '/img/product-cover-umejipata.png',
         'mobileImage' => '/img/product-cover-umejipata-mobile.png',
         'tabletImage' => '/img/product-cover-umejipata-ipad.png',
-        'title'     => 'Vumbua Furaha na Uhuru na DIGI',
-        'subtitle'  => 'Bidhaa mahususi kwa nyumba yako',
-        'primary'   => ['label' => 'View Products',          'url' => '/products'],
-        'secondary' => ['label' => 'Contact us',        'url' => '#'],
+        'title'       => 'Vumbua Furaha na Uhuru na DIGI',
+        'subtitle'    => 'Bidhaa mahususi kwa nyumba yako',
+        'primary'     => ['label' => 'View Products', 'url' => '/products'],
+        'secondary'   => ['label' => 'Contact us', 'url' => '/contact'],
     ],
     [
-        'image'     => '/img/tv-slider-2.jpg',
-        'title'     => 'Experience True Colors In Every Scene',
-        'mobileImage' => '/img/product-cover-umejipata-mobile.png',
-        'tabletImage' => '/img/product-cover-umejipata-ipad.png',
-        'subtitle'  => 'Immerse yourself in vibrant and lifelike visuals',
-        'primary'   => ['label' => 'Shop TVs',         'url' => '#'],
-        'secondary' => ['label' => 'Learn More',       'url' => '#'],
+        'id' => 2,
+        'image'       => '/img/digi-fridge-featured.jpg',
+        'mobileImage' => '/img/digi-fridge-featured.jpg',
+        'tabletImage' => '/img/digi-fridge-featured.jpg',
+        'title'       => 'Refrigerators za Kisasa',
+        'subtitle'    => 'Hifadhi chakula chako kwa muda mrefu',
+        'primary'     => ['label' => 'Explore Fridges', 'url' => '/products?category=refrigerators'],
+        'secondary'   => ['label' => 'Learn More', 'url' => '/about'],
     ],
     [
-        'image'     => '/img/tv-slider-3.png',
-        'title'     => 'Smart Features, Seamless Entertainment',
-        'mobileImage' => '/img/product-cover-umejipata-mobile.png',
-        'tabletImage' => '/img/product-cover-umejipata-ipad.png',
-        'subtitle'  => 'Access your favourite apps and content with ease',
-        'primary'   => ['label' => 'Explore Smart TVs','url' => '#'],
-        'secondary' => ['label' => 'Discover More',    'url' => '#'],
+        'id' => 3,
+        'image'       => '/img/digi-washing-machine-featured.jpg',
+        'mobileImage' => '/img/digi-washing-machine-featured.jpg',
+        'tabletImage' => '/img/digi-washing-machine-featured.jpg',
+        'title'       => 'Mashine za Kufulia',
+        'subtitle'    => 'Fulia nguo zako kwa urahisi na haraka',
+        'primary'     => ['label' => 'View Washers', 'url' => '/products?category=washing-machines'],
+        'secondary'   => ['label' => 'Get Quote', 'url' => '/contact'],
+    ],
+    [
+        'id' => 4,
+        'image'       => '/img/tv-cover.png',
+        'mobileImage' => '/img/tv-cover.png',
+        'tabletImage' => '/img/tv-cover.png',
+        'title'       => 'Smart TVs za Hali ya Juu',
+        'subtitle'    => 'Furahia burudani ya kisasa nyumbani',
+        'primary'     => ['label' => 'Shop TVs', 'url' => '/products?category=televisions'],
+        'secondary'   => ['label' => 'Compare', 'url' => '/products'],
     ],
 ];
 @endphp
 
 
 {{-- =========================  HERO SLIDER  ========================= --}}
-<section class="relative overflow-hidden h-[90vh]"> {{-- ← change 80vh as you wish --}}
-    <div class="hero-slider h-full">
-        @foreach ($slides as $slide)
-            <div class="relative h-full w-full">
+<section class="relative overflow-hidden h-[100vh]" id="hero-slider">
+    <div class="relative h-full w-full">
+        {{-- Slider Container --}}
+        <div class="hero-slider relative h-full w-full">
+            @foreach($heroSlides as $index => $slide)
+            <div class="slide" data-slide="{{ $index }}">
                 {{-- Background image --}}
-                <div class="absolute hidden lg:block inset-0 bg-cover bg-center" style="background-image:url('{{ $slide['image'] }}');"></div>
-                <div class="absolute lg:hidden md:block inset-0 bg-cover bg-center" style="background-image:url('{{ $slide['tabletImage'] }}');"></div>
-                <div class="absolute md:hidden block inset-0 bg-cover bg-center" style="background-image:url('{{ $slide['mobileImage'] }}');"></div>
+                <div class="absolute hidden lg:block inset-0 bg-cover bg-center transition-all duration-1000" style="background-image:url('{{ $slide['image'] }}');"></div>
+                <div class="absolute lg:hidden md:block inset-0 bg-cover bg-center transition-all duration-1000" style="background-image:url('{{ $slide['tabletImage'] }}');"></div>
+                <div class="absolute md:hidden block inset-0 bg-cover bg-center transition-all duration-1000" style="background-image:url('{{ $slide['mobileImage'] }}');"></div>
 
                 {{-- Overlay --}}
                 {{-- <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30"></div> --}}
 
-                {{-- Copy --}}
+                {{-- Content --}}
                 <div class="relative z-10 flex flex-col items-start lg:justify-center h-full p-8 md:p-20 lg:p-32">
                     <p style="background-image: url(' {{ asset('img/umejipata-label-bg.png') }}'); background-size: contain; background-repeat: no-repeat; background-position: center;" class="text-white w-fit py-2 px-4 text-lg">DIGI Rafiki wa kweli</p>
                     <h1 class="text-4xl md:text-4xl lg:text-5xl md:w-lg font-semibold leading-tight mb-4">
@@ -74,44 +89,195 @@ $slides = [
                             <span class="absolute top-0 left-[-50%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/40 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></span>
                             <span class="relative z-10">{{ $slide['secondary']['label'] }}</span><span class="hidden ml-2 px-2 py-2 md:flex items-center rounded-full border bg-digi-orange"><img src="{{ asset('img/arrow.svg') }}" class="inline-block w-5" alt=""></span>
                         </a>
-
                     </div>
                 </div>
             </div>
-        @endforeach
+            @endforeach
+        </div>
+
+        {{-- Navigation Arrows --}}
+        <button class="prev-arrow slider-nav prev absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+        <button class="next-arrow slider-nav next absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+
+        {{-- Dots Navigation --}}
+        <div class="slider-dots absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-3">
+            @foreach($heroSlides as $index => $slide)
+            <button class="dot {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}"></button>
+            @endforeach
+        </div>
     </div>
 </section>
 
-@push('styles')
-    {{-- Slick core CSS (CDN or compiled) --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<style>
+/* Hero Slider Styles */
+.hero-slider {
+    position: relative;
+    height: 100vh;
+}
 
-    {{-- Force Slick wrappers to fill the section height --}}
-    <style>
-        .hero-slider .slick-list,
-        .hero-slider .slick-track,
-        .hero-slider .slick-slide { height: 100vh; }
-    </style>
-@endpush
+.hero-slider .slide {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+}
 
-@push('scripts')
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+/* Navigation Arrows */
+.slider-nav {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('initialising slick…');
-            $('.hero-slider').slick({
-                autoplay: true,
-                autoplaySpeed: 5000,
-                speed: 1000,
-                fade: true,
-                arrows: true,
-                dots: true,
-                pauseOnHover: false,
-                pauseOnDotsHover: true,
-                adaptiveHeight: false      // keep at fixed vh height
-            });
-        });
-    </script>
-@endpush
+.slider-nav:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.slider-nav:active {
+    transform: scale(0.95);
+}
+
+/* Dots Navigation */
+.slider-dots .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.slider-dots .dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.2);
+}
+
+.slider-dots .dot.active {
+    background: #ff6b35;
+    border-color: #ff6b35;
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+}
+
+/* Content Animation */
+.slide .relative {
+    animation: slideInContent 0.8s ease-out;
+}
+
+@keyframes slideInContent {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .slider-nav {
+        padding: 8px;
+    }
+
+    .slider-nav svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .slider-dots {
+        bottom: 4rem;
+    }
+
+    .slider-dots .dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* Smooth transitions for background images */
+.slide [style*="background-image"] {
+    transition: all 1s ease-in-out;
+}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+$(function () {
+    var $slider = $('.hero-slider');
+    var $prev = $('.prev-arrow');
+    var $next = $('.next-arrow');
+    var $dots = $('.slider-dots .dot');
+
+    $slider.slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 6000,
+        pauseOnHover: false,
+        speed: 300,
+        prevArrow: $prev,
+        nextArrow: $next,
+        dots: false,
+        fade: true,
+        cssEase: 'ease-in-out'
+    });
+
+    function updateArrows(slick, currentSlide) {
+        // Keep arrows always enabled for infinite scrolling
+        $prev.prop('disabled', false).removeClass('opacity-50');
+        $next.prop('disabled', false).removeClass('opacity-50');
+    }
+
+    function updateDots(currentSlide) {
+        $dots.removeClass('active');
+        $dots.eq(currentSlide).addClass('active');
+    }
+
+    // On init
+    $slider.on('init', function(event, slick) {
+        updateArrows(slick, slick.currentSlide);
+        updateDots(slick.currentSlide);
+    });
+
+    // After slide change
+    $slider.on('afterChange', function(event, slick, currentSlide) {
+        updateArrows(slick, currentSlide);
+        updateDots(currentSlide);
+    });
+
+    // Custom dots navigation
+    $dots.on('click', function() {
+        var slideIndex = $(this).data('slide');
+        $slider.slick('slickGoTo', slideIndex);
+    });
+
+    // Re-initialize arrows on page load
+    $slider.slick('setPosition');
+
+    // Add smooth scroll behavior for anchor links in slides
+    $('.slide a[href^="#"]').on('click', function (e) {
+        e.preventDefault();
+        var target = $(this.getAttribute('href'));
+        if (target.length) {
+            $('html, body').animate({
+                scrollTop: target.offset().top
+            }, 800);
+        }
+    });
+});
+</script>
