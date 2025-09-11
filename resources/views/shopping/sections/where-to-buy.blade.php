@@ -35,9 +35,9 @@
             <!-- tabs -->
             <div class="px-4 mb-2 flex gap-2 mt-6 text-sm">
                 <button class="px-4 cursor-pointer py-2 rounded-md" :class="tab==='online' ? 'font-semibold bg-digi-orange text-white' : 'text-gray-500 bg-gray-300'"
-                        @click="tab='online'">ONLINE</button>
-                <button class="px-4 cursor-pointer py-2 rounded-md" :class="tab==='instore' ? 'font-semibold bg-digi-orange text-white' : 'text-gray-500 bg-gray-300'"
-                        @click="tab='instore'">IN&nbsp;STORE</button>
+                        @click="tab='online'">AVAILABLE AT</button>
+                {{-- <button class="px-4 cursor-pointer py-2 rounded-md" :class="tab==='instore' ? 'font-semibold bg-digi-orange text-white' : 'text-gray-500 bg-gray-300'"
+                        @click="tab='instore'">IN&nbsp;STORE</button> --}}
             </div>
 
             <div class="p-6 overflow-y-auto flex-1">
@@ -48,31 +48,72 @@
                     @php
                         $onlineStores = [
                             [
-                                'name' => 'Jiji Tanzania',
-                                'logo' => '/img/partners/jiji-logo.jpg',
-                                'url' => 'https://jiji.co.tz/ilala/home-appliances?query=' . urlencode(strtolower($productName ?? 'digi')),
-                                'type' => 'online',
+                                'name' => 'DIGI Appliances HQ',
+                                'logo' => '/img/favicon.svg',
+                                'url' => 'https://www.google.com/maps/place/DIGI+Appliances/@-6.812563,39.286,17z/data=!3m1!4b1!4m6!3m5!1s0x185c4b0008e2b043:0x11dbf3c19fde828a!8m2!3d-6.812563!4d39.286!16s%2Fg%2F11yh85pp49?entry=ttu&g_ep=EgoyMDI1MDkwNy4wIKXMDSoASAFQAw%3D%3D' . urlencode(strtolower($productName ?? 'digi')),
+                                'type' => 'Makataba Square',
+                                'direction' => 'https://www.google.com/maps/dir//57PP%2BXCC,+Azikiwe+St,+Dar+es+Salaam/@-6.812556,39.2035981,12z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x185c4b0008e2b043:0x11dbf3c19fde828a!2m2!1d39.286!2d-6.812563?entry=ttu&g_ep=EgoyMDI1MDkwNy4wIKXMDSoASAFQAw%3D%3D'
+                            ],
+                        ];
+                        $dealersStore = [
+                            [
+                                'title' => 'Dar Es Salaam Dealers',
+                                'stores' => [
+                                    'Posta',
+                                    'Mlimani City',
+                                    'Mikocheni',
+                                    'Kariakoo',
+                                    'Sinza',
+                                    'Temeke',
+                                    'Tegeta',
+                                ]
                             ],
                             [
-                                'name' => 'Lampard Electronics',
-                                'logo' => '/img/partners/lampard-electronics-logo.png',
-                                'url' => 'https://www.instagram.com/lampard_electronicss/' . urlencode(strtolower($productName ?? 'digi')),
-                                'type' => 'online',
+                                'title' => 'Other Cities Dealers',
+                                'stores' => [
+                                    'Arusha',
+                                    'Mwanza',
+                                    'Mbeya',
+                                    'Dodoma',
+                                    'Morogoro',
+                                    'Tanga',
+                                    'Zanzibar',
+                                ]
                             ],
-                        ]
+                        ];
                     @endphp
                     <div class="grid grid-cols-1 gap-4">
                         @foreach ($onlineStores as $store)
-                            <div class="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div class="border flex items-center justify-between rounded-lg p-4 hover:shadow-md transition-shadow">
                             <div class="flex items-center space-x-3">
-                                <img src="{{ $store['logo'] }}" alt="{{ $store['name'] }}" class="w-15">
-                                <div class="flex flex-col gapy-2">
+                                <img src="{{ $store['logo'] }}" alt="{{ $store['name'] }}" class="w-20 rounded-lg">
+                                <div class="flex flex-col px-4 gap-2">
                                     <h4 class="font-semibold">{{ $store['name'] }}</h4>
                                     <p class="text-sm text-gray-600">{{ $store['type'] }}</p>
                                     <a href="{{ $store['url'] }}" target="_blank" class="text-orange-600 hover:text-orange-700 text-sm font-medium">Visit Store</a>
                                 </div>
                             </div>
+                            <div class="flex items-center justify-center">
+                                <a href="{{ $store['direction'] }}" target="_blank" class="bg-digi-orange cursor-pointer h-18 w-18 flex items-center group border-2 border-white justify-center rounded-full">
+                                    <img src="{{ asset('img/arrow.svg') }}" width="25" class="group-hover:translate-x-[5px] transition-transform duration-300" alt="">
+                                </a>
+                                {{-- <a href="{{ $store['direction'] }}" target="_blank" class="px-4 py-2 rounded-md text-sm font-medium bg-digi-orange text-white">Get Directions</a> --}}
+                            </div>
                         </div>
+                        @endforeach
+                    </div>
+                    <div class="grid grid-cols-1 gap-2">
+                        @foreach ($dealersStore as $dealer)
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex flex-col space-x-3">
+                                    <h4 class="font-medium text-md mb-2">{{ $dealer['title'] }}</h4>
+                                    <ul class="list-none grid grid-cols-3 md:grid-cols-4 gap-3 text-sm text-gray-700">
+                                        @foreach ($dealer['stores'] as $storeLocation)
+                                            <li class="px-2 flex item-center justify-center py-1 bg-digi-orange text-white rounded">{{ $storeLocation }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
                         @endforeach
                     </div>
                 </div>

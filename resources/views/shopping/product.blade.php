@@ -18,10 +18,10 @@
 <div class="bg-white">
     <!-- Sticky Navigation Bar -->
     <div id="product-nav" class="bg-[#f2f0ec] border-b border-gray-200 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 py-3">
+        <div class="md:max-w-7xl overflow-x-scroll mx-auto px-4 py-3">
             <div class="flex items-center justify-between">
                 <!-- Product Navigation Tabs -->
-                <div class="flex space-x-8">
+                <div class="flex justify-between items-center space-x-8">
                     <a href="#features" class="nav-tab font-medium text-red-600 border-b-2 border-red-600 pb-2" data-section="features">Features</a>
                     <a href="#gallery" class="nav-tab font-medium text-black border-b-2 border-red-600 hover:text-red-600 pb-2" data-section="gallery">Gallery</a>
                     <a href="#specs" class="nav-tab font-medium text-black border-b-2 border-red-600 hover:text-red-600 pb-2" data-section="specs">Specs</a>
@@ -30,9 +30,8 @@
                     <a href="#support" class="nav-tab font-medium text-black border-b-2 border-red-600 hover:text-red-600 pb-2" data-section="support">Support</a>
                 </div>
 
-                <!-- Buy Now Button -->
                 <button onclick="openBuyModal('{{ addslashes($product->name) }}', '{{ asset('img/' . $product->image) }}', '{{ $product->slug }}')"
-                        class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-full text-md font-medium transition-colors">
+                        class="bg-red-600 hover:bg-red-700 text-white px-5 hidden md:block py-3 rounded-full text-md font-medium transition-colors">
                     Where to Buy
                 </button>
             </div>
@@ -249,7 +248,7 @@
     </div>
 
     <!-- Product Sections -->
-    <div class="max-w-7xl mx-auto px-4">
+    <div class="w-full md:max-w-7xl mx-auto px-4">
 
 
         <!-- Gallery Section -->
@@ -275,7 +274,7 @@
         <section id="specs" class="py-12 border-b">
             <div class="mb-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Technical Specifications</h2>
-                <p class="text-gray-600 w-4xl">Detailed technical information about {{ $product->name }}</p>
+                <p class="text-gray-600 lg:w-4xl">Detailed technical information about {{ $product->name }}</p>
             </div>
 
             @php
