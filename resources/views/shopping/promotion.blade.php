@@ -18,13 +18,15 @@
                 @php
                     $coverUrl = $promotion->cover ? asset('img/' . $promotion->cover) : asset('img/products/products-cover.webp');
                 @endphp
-                <img src="{{ $coverUrl }}" alt="{{ $promotion->name }} Cover" class="w-full h-[60vh] md:h-[75vh] object-cover">
+                <img src="{{ $coverUrl }}" alt="{{ $promotion->name }} Cover" class="w-full h-[40vh] object-cover">
                 <div class="absolute  inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent flex items-end">
                     <div class="text-white p-6 md:p-10">
                         <h1 class="text-3xl md:text-5xl font-bold mb-3">{{ $promotion->name }}</h1>
-                        <p class="text-lg md:text-xl">Hand-picked products for this campaign</p>
+
                         @if(!empty($promotion->description))
-                            <p class="mt-3 max-w-3xl text-sm md:text-base opacity-90">{{ $promotion->description }}</p>
+                            <p class="text-lg md:text-xl">{{ $promotion->description }}</p>
+                        @else
+                            <p class="text-lg md:text-xl">Discover products from the {{ $promotion->name }} promotion.</p>
                         @endif
                     </div>
                 </div>

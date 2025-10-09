@@ -75,6 +75,39 @@ if ($dbSlides->count() > 0) {
         ],
     ];
 }
+
+// Inject active promotion as the first slide if available
+$now = now();
+$activePromo = \App\Models\Promotion::query()
+    ->whereNotNull('start_date')
+    ->where('start_date', '<=', $now)
+    ->where(function ($q) use ($now) {
+        $q->whereNull('end_date')->orWhere('end_date', '>=', $now);
+    })
+    ->orderByDesc('start_date')
+    ->orderByDesc('created_at')
+    ->first();
+
+if ($activePromo) {
+    $cover = $activePromo->cover ? '/img/' . ltrim($activePromo->cover, '/') : '/img/products/products-cover.webp';
+    $promoSlide = [
+        'id' => 'promo-' . $activePromo->id,
+        'image' => $cover,
+        'mobileImage' => $cover,
+        'tabletImage' => $cover,
+        'title' => $activePromo->name,
+        'subtitle' => 'Special offers available now',
+        'primary' => [
+            'label' => 'View Promo',
+            'url' => route('promotions.public.show', ['promotion' => $activePromo->slug]),
+        ],
+        'secondary' => [
+            'label' => 'Shop Products',
+            'url' => '/products',
+        ],
+    ];
+    array_unshift($heroSlides, $promoSlide);
+}
 @endphp
 
 

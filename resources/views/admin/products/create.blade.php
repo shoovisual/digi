@@ -3,7 +3,7 @@
 @section('content')
 <h2 class="text-xl font-semibold mb-4">Create Product</h2>
 
-<form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data" class="space-y-4 max-w-2xl">
+<form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data" class="space-y-4">
     @csrf
     <div>
         <label class="block text-sm">Name</label>
@@ -32,16 +32,40 @@
         </div>
     </div>
     <div>
-        <label class="block text-sm">Upload gallery images (multiple)</label>
-        <input name="product_galleries_files[]" type="file" multiple accept="image/*" class="form-control mt-1 w-full" />
-        @error('product_galleries_files.*')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
-        <p class="text-xs text-gray-500 mt-1">Each selected gallery image gets its own caption field.</p>
-        <div id="preview-gallery-images" class="flex flex-wrap gap-3 mt-3"></div>
-        <div id="preview-gallery-images-count" class="mt-3 px-3 py-2 bg-blue-50 text-gray-700 rounded hidden">0 image(s) in total</div>
+        <label class="block text-sm">Product Gallery</label>
+        <p class="text-xs text-gray-500 mt-1">Add items with caption; each row is one gallery image.</p>
+        <div id="gallery-list" class="space-y-4 mt-2">
+            <div class="gallery-row border rounded p-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+                    <div>
+                        <label class="block text-sm">Caption *</label>
+                        <input name="product_galleries_captions[]" type="text" class="form-control mt-1 w-full" placeholder="Enter caption" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm">Gallery Image *</label>
+                        <input id="gallery-file-1" name="product_galleries_files[]" type="file" accept="image/*" class="hidden" />
+                        <label for="gallery-file-1" class="btn btn-primary w-full mt-1">Choose Image</label>
+                        <div class="text-xs text-gray-500 mt-1 gallery-file-name">No image selected</div>
+                        @error('product_galleries_files.0')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
+                    </div>
+                </div>
+                <div class="mt-3 flex justify-end">
+                    <button type="button" class="btn btn-outline-danger gallery-remove"><i class="bi bi-trash"></i> Remove</button>
+                </div>
+            </div>
+        </div>
+        <button type="button" id="add-gallery-row" class="btn btn-outline-secondary mt-3"><i class="bi bi-plus-lg"></i> Add Another Gallery</button>
     </div>
     <div>
         <label class="block text-sm">Slug</label>
-        <input name="slug" type="text" value="{{ old('slug') }}" class="form-control mt-1 w-full" required />
+        <div class="flex items-center gap-3 mt-1">
+            <input name="slug" type="text" value="{{ old('slug') }}" class="form-control flex-1" id="product-slug-input" disabled />
+            <label class="inline-flex items-center gap-2 text-xs">
+                <input type="checkbox" name="manual_slug" id="product-slug-manual" class="form-checkbox" {{ old('manual_slug') ? 'checked' : '' }} />
+                <span>Edit slug secara manual</span>
+            </label>
+        </div>
+        <p class="text-xs text-gray-500 mt-1">Default: slug dibuat otomatis dari nama produk. Centang untuk mengisi/ubah secara manual.</p>
         @error('slug')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
     </div>
     <div>
@@ -261,6 +285,59 @@ function setupGalleryPreviewWithCaptions(inputEl, listEl, countEl) {
     });
 }
 
+// Repeatable gallery rows (caption + individual image chooser)
+function initGalleryRows() {
+    const list = document.getElementById('gallery-list');
+    const addBtn = document.getElementById('add-gallery-row');
+    if (!list || !addBtn) return;
+
+    let counter = list.querySelectorAll('.gallery-row').length;
+
+    function attachRowEvents(row) {
+        const fileInput = row.querySelector('input[type="file"][name="product_galleries_files[]"]');
+        const fileNameEl = row.querySelector('.gallery-file-name');
+        const removeBtn = row.querySelector('.gallery-remove');
+        if (fileInput) {
+            fileInput.addEventListener('change', () => {
+                const f = fileInput.files && fileInput.files[0];
+                fileNameEl && (fileNameEl.textContent = f ? f.name : 'No image selected');
+            });
+        }
+        if (removeBtn) {
+            removeBtn.addEventListener('click', () => {
+                row.remove();
+            });
+        }
+    }
+
+    list.querySelectorAll('.gallery-row').forEach(attachRowEvents);
+
+    addBtn.addEventListener('click', () => {
+        counter += 1;
+        const row = document.createElement('div');
+        row.className = 'gallery-row border rounded p-3';
+        row.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+                <div>
+                    <label class="block text-sm">Caption *</label>
+                    <input name="product_galleries_captions[]" type="text" class="form-control mt-1 w-full" placeholder="Enter caption" required />
+                </div>
+                <div>
+                    <label class="block text-sm">Gallery Image *</label>
+                    <input id="gallery-file-${counter}" name="product_galleries_files[]" type="file" accept="image/*" class="hidden" />
+                    <label for="gallery-file-${counter}" class="btn btn-primary w-full mt-1">Choose Image</label>
+                    <div class="text-xs text-gray-500 mt-1 gallery-file-name">No image selected</div>
+                </div>
+            </div>
+            <div class="mt-3 flex justify-end">
+                <button type="button" class="btn btn-outline-danger gallery-remove"><i class="bi bi-trash"></i> Remove</button>
+            </div>
+        `;
+        list.appendChild(row);
+        attachRowEvents(row);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     setupSinglePreview(
         document.querySelector('input[name="image_file"]'),
@@ -274,6 +351,54 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('preview-product-images-count')
     );
     initGalleryRows();
+    // Slug manual toggle
+    const manualCb = document.getElementById('product-slug-manual');
+    const slugInput = document.getElementById('product-slug-input');
+    const nameInput = document.querySelector('input[name="name"]');
+    function syncSlugState() {
+        const enabled = !!(manualCb && manualCb.checked);
+        if (slugInput) {
+            slugInput.disabled = !enabled;
+            slugInput.classList.toggle('opacity-60', !enabled);
+        }
+    }
+    if (manualCb) {
+        manualCb.addEventListener('change', syncSlugState);
+        syncSlugState();
+    }
+
+    // Live slug generation from product name
+    function slugify(str) {
+        try {
+            return (str || '')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .trim()
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        } catch (e) {
+            return (str || '')
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .trim()
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+    }
+    function updateSlugPreview() {
+        if (!manualCb || !slugInput || !nameInput) return;
+        if (!manualCb.checked) {
+            slugInput.value = slugify(nameInput.value);
+        }
+    }
+    if (nameInput) {
+        nameInput.addEventListener('input', updateSlugPreview);
+        nameInput.addEventListener('change', updateSlugPreview);
+        // Initialize on load if not manual
+        updateSlugPreview();
+    }
 });
 </script>
 @endpush

@@ -25,7 +25,7 @@ class ProductController extends Controller
     {
         $data = $request->validate([
             'name' => ['required','string','max:255'],
-            'slug' => ['required','string','max:255','unique:products,slug'],
+            'slug' => ['nullable','string','max:255'],
             'serial' => ['required','string','max:255','unique:products,serial'],
             'category_id' => ['required','exists:categories,id'],
             'description' => ['nullable','string'],
@@ -41,6 +41,7 @@ class ProductController extends Controller
             'spec_keys.*' => ['nullable','string'],
             'spec_values' => ['nullable','array'],
             'spec_values.*' => ['nullable','string'],
+            'manual_slug' => ['nullable'],
         ]);
         
         // Handle uploads
@@ -102,9 +103,26 @@ class ProductController extends Controller
             }
         }
 
+        // Determine final slug (auto or manual)
+        $finalSlug = null;
+        $manual = $request->boolean('manual_slug');
+        $inputSlug = is_string($request->input('slug')) ? trim($request->input('slug')) : '';
+        if ($manual && $inputSlug !== '') {
+            $base = \Illuminate\Support\Str::slug($inputSlug);
+        } else {
+            $base = \Illuminate\Support\Str::slug($data['name']);
+        }
+        $slug = $base !== '' ? $base : \Illuminate\Support\Str::random(8);
+        $i = 1;
+        while (Product::where('slug', $slug)->exists()) {
+            $slug = $base.'-'.$i;
+            $i++;
+        }
+        $finalSlug = $slug;
+
         $product = Product::create([
             'name' => $data['name'],
-            'slug' => $data['slug'],
+            'slug' => $finalSlug,
             'serial' => $data['serial'],
             'category_id' => $data['category_id'],
             'description' => $data['description'] ?? null,
@@ -133,7 +151,7 @@ class ProductController extends Controller
     {
         $data = $request->validate([
             'name' => ['required','string','max:255'],
-            'slug' => ['required','string','max:255','unique:products,slug,'.$product->id],
+            'slug' => ['nullable','string','max:255','unique:products,slug,'.$product->id],
             'serial' => ['required','string','max:255','unique:products,serial,'.$product->id],
             'category_id' => ['required','exists:categories,id'],
             'description' => ['nullable','string'],
@@ -143,12 +161,17 @@ class ProductController extends Controller
             'product_galleries_files.*' => ['nullable','image','mimes:jpg,jpeg,png,webp,avif','max:5120'],
             'product_galleries_captions' => ['nullable','array'],
             'product_galleries_captions.*' => ['nullable','string'],
+            'remove_gallery_paths' => ['nullable','array'],
+            'remove_gallery_paths.*' => ['nullable','string'],
+            'remove_product_image_paths' => ['nullable','array'],
+            'remove_product_image_paths.*' => ['nullable','string'],
             'features' => ['nullable','array'],
             'features.*' => ['nullable','string'],
             'spec_keys' => ['nullable','array'],
             'spec_keys.*' => ['nullable','string'],
             'spec_values' => ['nullable','array'],
             'spec_values.*' => ['nullable','string'],
+            'manual_slug' => ['nullable'],
         ]);
         
         // Handle uploads (replace sets if new files provided)
@@ -161,17 +184,49 @@ class ProductController extends Controller
             $data['image'] = 'products/uploads/'.$filename;
         }
 
+        // Existing product images and removals (append new uploads)
+        $existingImages = is_array($product->product_images)
+            ? $product->product_images
+            : (json_decode($product->product_images ?? '[]', true) ?: []);
+
+        $removeImagePaths = $request->input('remove_product_image_paths', []);
+        $removeImagePaths = is_array($removeImagePaths) ? $removeImagePaths : [];
+
+        $remainingImages = [];
+        foreach ($existingImages as $path) {
+            if (!in_array($path, $removeImagePaths, true)) {
+                $remainingImages[] = $path;
+            }
+        }
+
+        $newImages = [];
         if ($request->hasFile('product_images_files')) {
-            $newImages = [];
             foreach ($request->file('product_images_files') as $pf) {
                 if (!$pf) continue;
                 $fname = time().'_'.\Illuminate\Support\Str::random(8).'.'.$pf->getClientOriginalExtension();
                 $pf->move(public_path('img/products/uploads'), $fname);
                 $newImages[] = 'products/uploads/'.$fname;
             }
-            $data['product_images'] = $newImages;
+        }
+        $data['product_images'] = array_merge($remainingImages, $newImages);
+
+        // Existing galleries and removals
+        $existingGalleries = is_array($product->product_galleries)
+            ? $product->product_galleries
+            : (json_decode($product->product_galleries ?? '{}', true) ?: []);
+
+        $removePaths = $request->input('remove_gallery_paths', []);
+        $removePaths = is_array($removePaths) ? $removePaths : [];
+
+        // Filter out removed gallery items
+        $remainingGalleries = [];
+        foreach ($existingGalleries as $caption => $path) {
+            if (!in_array($path, $removePaths, true)) {
+                $remainingGalleries[$caption] = $path;
+            }
         }
 
+        // New gallery uploads (append to remaining)
         if ($request->hasFile('product_galleries_files')) {
             $captions = $request->input('product_galleries_captions', []);
             $newGalleries = [];
@@ -186,7 +241,10 @@ class ProductController extends Controller
                 $newGalleries[$caption] = 'products/uploads/'.$gname;
                 $index++;
             }
-            $data['product_galleries'] = $newGalleries;
+            $data['product_galleries'] = array_merge($remainingGalleries, $newGalleries);
+        } else {
+            // No new uploads, just save remaining after removals
+            $data['product_galleries'] = $remainingGalleries;
         }
 
         // Build features array
@@ -209,9 +267,24 @@ class ProductController extends Controller
             }
         }
 
+        // Compute slug: keep existing unless manual override provided
+        $manual = $request->boolean('manual_slug');
+        $finalSlug = $product->slug;
+        if ($manual) {
+            $inputSlug = is_string($request->input('slug')) ? trim($request->input('slug')) : '';
+            $base = $inputSlug !== '' ? \Illuminate\Support\Str::slug($inputSlug) : \Illuminate\Support\Str::slug($data['name']);
+            $slug = $base !== '' ? $base : \Illuminate\Support\Str::random(8);
+            $i = 1;
+            while (Product::where('slug', $slug)->where('id','!=',$product->id)->exists()) {
+                $slug = $base.'-'.$i;
+                $i++;
+            }
+            $finalSlug = $slug;
+        }
+
         $product->update([
             'name' => $data['name'],
-            'slug' => $data['slug'],
+            'slug' => $finalSlug,
             'serial' => $data['serial'],
             'category_id' => $data['category_id'],
             'description' => $data['description'] ?? null,

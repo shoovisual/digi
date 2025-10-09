@@ -28,6 +28,19 @@
         </div>
 
         <div>
+            <label class="block text-sm font-medium text-gray-700">Slug</label>
+            <div class="flex items-center gap-3 mt-1">
+                <input type="text" id="promotion-slug-input" name="slug" value="{{ old('slug') }}" class="border rounded px-3 py-2 flex-1" disabled />
+                <label class="inline-flex items-center gap-2 text-xs">
+                    <input type="checkbox" name="manual_slug" id="promotion-slug-manual" class="rounded" {{ old('manual_slug') ? 'checked' : '' }} />
+                    <span>Edit slug secara manual</span>
+                </label>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Default: slug dibuat otomatis dari nama promosi. Centang untuk mengisi/ubah secara manual.</p>
+            @error('slug')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
+        </div>
+
+        <div>
             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
             <textarea id="description" name="description" rows="4" class="mt-1 block w-full border rounded px-3 py-2" placeholder="Describe what this promotion is about">{{ old('description') }}</textarea>
             <p class="text-xs text-gray-500 mt-1">Optional. Up to 2000 characters.</p>
@@ -73,4 +86,23 @@
         </div>
     </form>
 </div>
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const cb = document.getElementById('promotion-slug-manual');
+    const input = document.getElementById('promotion-slug-input');
+    function sync() {
+        const en = !!(cb && cb.checked);
+        if (input) {
+            input.disabled = !en;
+            input.classList.toggle('opacity-60', !en);
+        }
+    }
+    if (cb) {
+        cb.addEventListener('change', sync);
+        sync();
+    }
+});
+</script>
+@endpush
 @endsection

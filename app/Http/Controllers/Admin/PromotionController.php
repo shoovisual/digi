@@ -49,6 +49,8 @@ class PromotionController extends Controller
             'products' => ['nullable', 'array'],
             'products.*' => ['integer', 'exists:products,id'],
             'cover_file' => ['nullable','image','mimes:jpg,jpeg,png,webp,avif','max:5120'],
+            'slug' => ['nullable','string','max:255'],
+            'manual_slug' => ['nullable'],
         ]);
 
         // Prevent overlapping campaigns
@@ -73,9 +75,13 @@ class PromotionController extends Controller
             $coverPath = 'promotions/uploads/'.$filename;
         }
 
-        // Generate a unique slug from the name
-        $baseSlug = \Illuminate\Support\Str::slug($data['name']);
-        $slug = $baseSlug;
+        // Determine final slug (auto or manual)
+        $manual = $request->boolean('manual_slug');
+        $inputSlug = is_string($request->input('slug')) ? trim($request->input('slug')) : '';
+        $baseSlug = $manual && $inputSlug !== ''
+            ? \Illuminate\Support\Str::slug($inputSlug)
+            : \Illuminate\Support\Str::slug($data['name']);
+        $slug = $baseSlug !== '' ? $baseSlug : \Illuminate\Support\Str::random(8);
         $i = 1;
         while (Promotion::where('slug', $slug)->exists()) {
             $slug = $baseSlug.'-'.$i;
@@ -180,6 +186,8 @@ class PromotionController extends Controller
             'products' => ['nullable', 'array'],
             'products.*' => ['integer', 'exists:products,id'],
             'cover_file' => ['nullable','image','mimes:jpg,jpeg,png,webp,avif','max:5120'],
+            'slug' => ['nullable','string','max:255','unique:promotions,slug,'.$promotion->id],
+            'manual_slug' => ['nullable'],
         ]);
 
         // Prevent overlapping campaigns (exclude current promotion)
@@ -205,9 +213,25 @@ class PromotionController extends Controller
             $newCover = 'promotions/uploads/'.$filename;
         }
 
+        // Compute slug: keep existing unless manual override provided
+        $manual = $request->boolean('manual_slug');
+        $finalSlug = $promotion->slug;
+        if ($manual) {
+            $inputSlug = is_string($request->input('slug')) ? trim($request->input('slug')) : '';
+            $base = $inputSlug !== '' ? \Illuminate\Support\Str::slug($inputSlug) : \Illuminate\Support\Str::slug($data['name']);
+            $slug = $base !== '' ? $base : \Illuminate\Support\Str::random(8);
+            $i = 1;
+            while (Promotion::where('slug', $slug)->where('id','!=',$promotion->id)->exists()) {
+                $slug = $base.'-'.$i;
+                $i++;
+            }
+            $finalSlug = $slug;
+        }
+
         $promotion->update([
             'name' => $data['name'],
             'description' => $data['description'] ?? null,
+            'slug' => $finalSlug,
             'cover' => $newCover,
             'start_date' => $data['start_date'] ?? null,
             'end_date' => $data['end_date'] ?? null,

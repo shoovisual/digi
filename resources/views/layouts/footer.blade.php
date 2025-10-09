@@ -49,37 +49,22 @@
         <!-- 5️⃣ Sustainability -->
         <div>
             <h3 class="font-semibold text-lg mb-3 tracking-wide">Social Links</h3>
-            <ul class="space-y-2">
-            <li >
-                <a href="https://www.instagram.com/digi_tanzania/" target="_blank" class="flex gap-1 hover:underline items-center">
-                Instagram
-                <span>
-                    <svg class="group-hover:fill-white -rotate-45 fill-current" width="15" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3012 15.2813L15.3322 5.00068L16.3641 4L28.0005 16L16.3641 28L15.3322 26.9993L25.3012 16.7187H4V15.2813H25.3012Z"></path>
-                    </svg>
-                </span>
-                </a>
-            </li>
-            <li >
-                <a href="https://www.facebook.com/profile.php?id=61573040064155" target="_blank" class="flex gap-1 hover:underline items-center">
-                facebook
-                <span>
-                    <svg class="group-hover:fill-white -rotate-45 fill-current" width="15" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3012 15.2813L15.3322 5.00068L16.3641 4L28.0005 16L16.3641 28L15.3322 26.9993L25.3012 16.7187H4V15.2813H25.3012Z"></path>
-                    </svg>
-                </span>
-                </a>
-            </li>
-            <li >
-                <a href="#" target="_blank" class="flex gap-1 hover:underline items-center">
-                LinkedIn
-                <span>
-                    <svg class="group-hover:fill-white -rotate-45 fill-current" width="15" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3012 15.2813L15.3322 5.00068L16.3641 4L28.0005 16L16.3641 28L15.3322 26.9993L25.3012 16.7187H4V15.2813H25.3012Z"></path>
-                    </svg>
-                </span>
-                </a>
-            </li>
+            <ul class="flex gap-4 text-2xl">
+                <li >
+                    <a href="https://www.instagram.com/digi_tanzania/" target="_blank">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                </li>
+                <li >
+                    <a href="https://www.facebook.com/profile.php?id=61573040064155" target="_blank">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                </li>
+                <li >
+                    <a href="https://youtube.com/@digi_tanzania?si=atTe-OGoDBLNMe7_" target="_blank">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
