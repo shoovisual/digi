@@ -42,8 +42,16 @@
     <section id="features" class="py-12 border-b">
         <div class="max-w-7xl mx-auto px-4 py-8">
             @php
+                $imagesArr = [];
+                if (is_array($product->product_images)) {
+                    $imagesArr = $product->product_images;
+                } else {
+                    $decoded = json_decode($product->product_images ?? '[]', true);
+                    $imagesArr = is_array($decoded) ? $decoded : [];
+                }
+
                 $gallery = collect([$product->image])
-                    ->merge(json_decode($product->product_images, true) ?? [])
+                    ->merge($imagesArr)
                     ->filter(fn($img) => !empty($img) && file_exists(public_path('img/' . $img)))
                     ->unique()
                     ->values();
@@ -53,7 +61,7 @@
             <div class="mb-8">
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
                     <div class="flex-1">
-                        <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">{{ $product->name }}</h1>
+                        <h1 id="product-name" class="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">{{ $product->name }}</h1>
                         <div class="flex items-center space-x-4 text-md text-gray-600">
                             <div x-data="{ copyText: '{{ $product->serial }}', copied: false }" class="flex items-center gap-2">
                                 <span class="text-md text-gray-400 font-medium">{{ $product->serial }}</span>
@@ -73,6 +81,16 @@
                                 <a href="https://wa.me/255793333444" target="_blank" class="text-red-600 hover:underline">Chat with an expert</a>
                             </span>
                         </div>
+                        @if(isset($activePromotion) && $activePromotion)
+                            <div class="mt-2 inline-flex items-center bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">
+                                <i class="bi bi-tag-fill mr-2"></i>
+                                On Offer: {{ $activePromotion->name }}
+                            </div>
+                        @else
+                            <div class="mt-2 inline-flex items-center bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+                                No current offer
+                            </div>
+                        @endif
                     </div>
 
                     <!-- Price Section -->
@@ -111,7 +129,7 @@
                                 <img
                                     onclick="document.getElementById('mainImage').src = '{{ asset('img/' . $img) }}'"
                                     src="{{ asset('img/' . $img) }}"
-                                    class="w-16 h-16 object-cover rounded-lg border-2 border-transparent hover:border-red-600 cursor-pointer transition-all duration-200 {{ $index === 0 ? 'border-red-600' : '' }}"
+                                    class="w-16 h-16 object-cover rounded-lg border-3 border-transparent hover:border-red-600 bg-gray-100 cursor-pointer transition-all duration-200 {{ $index === 0 ? 'border-red-600' : '' }}"
                                     alt="{{ $product->name }} thumbnail" />
                             </div>
                         @endforeach
@@ -131,10 +149,14 @@
                         <h2 class="text-xl font-bold text-gray-900 mb-4">Key Features</h2>
 
                         @php
-                            $features = json_decode($product->features ?? '[]', true);
-                            $features = is_array($features) ? $features : [];
-                            $initialFeatures = array_slice($features, 0, 3); // Show first 3 features
-                            $remainingFeatures = array_slice($features, 3); // Remaining features
+                            if (is_array($product->features)) {
+                                $features = $product->features;
+                            } else {
+                                $decodedFeatures = json_decode($product->features ?? '[]', true);
+                                $features = is_array($decodedFeatures) ? $decodedFeatures : [];
+                            }
+                            $initialFeatures = array_slice($features, 0, 3);
+                            $remainingFeatures = array_slice($features, 3);
                         @endphp
 
                         @if(count($features) > 0)
@@ -179,8 +201,12 @@
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Specifications</h3>
 
                         @php
-                            $specifications = json_decode($product->specifications ?? '{}', true);
-                            $specifications = is_array($specifications) ? $specifications : [];
+                            if (is_array($product->specifications)) {
+                                $specifications = $product->specifications;
+                            } else {
+                                $decodedSpecs = json_decode($product->specifications ?? '{}', true);
+                                $specifications = is_array($decodedSpecs) ? $decodedSpecs : [];
+                            }
                         @endphp
 
                         @if(count($specifications) > 0)
@@ -238,7 +264,7 @@
 
                         <!-- Share Button -->
                         <button onclick="shareProduct()" class="w-full border border-gray-300 hover:border-red-600 text-gray-700 hover:text-red-600 py-3 px-6 rounded-full font-medium transition-colors">
-                            <i class="bi bi-share mr-2"></i>Share Product
+                            <i class="bi bi-share mr-3"></i>Share Product
                         </button>
                         </div>
                     </div>
@@ -248,38 +274,61 @@
     </div>
 
     <!-- Product Sections -->
-    <div class="w-full md:max-w-7xl mx-auto px-4">
+    <div class="w-full bg-black mx-auto px-4">
 
 
         <!-- Gallery Section -->
-        {{-- <section id="gallery" class="py-12 border-b">
+        <section id="gallery" class="py-12 border-b">
             <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Product Gallery</h2>
-                <p class="text-gray-600">Explore {{ $product->name }} from every angle</p>
+                <h2 class="text-3xl font-bold text-white mb-4">Product Gallery</h2>
+                {{-- <p class="text-gray-600">Explore {{ $product->name }} from every angle</p> --}}
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach($gallery as $index => $img)
-                    <div class="bg-gray-50 rounded-lg overflow-hidden aspect-square hover:shadow-lg transition-shadow duration-300">
-                        <img src="{{ asset('img/' . $img) }}"
-                             alt="{{ $product->name }} - Image {{ $index + 1 }}"
-                             class="w-full h-full object-contain cursor-pointer hover:scale-105 transition-transform duration-300"
-                             onclick="openImageModal('{{ asset('img/' . $img) }}', '{{ $product->name }} - Image {{ $index + 1 }}')">
-                    </div>
-                @endforeach
-            </div>
-        </section> --}}
+            <div class="w-full md:max-w-7xl mx-auto flex flex-col gap-6 overflow-x-auto pb-4">
+                @php
+                    if (is_array($product->product_galleries)) {
+                        $galleries = $product->product_galleries;
+                    } else {
+                        $decodedGalleries = json_decode($product->product_galleries ?? '{}', true);
+                        $galleries = is_array($decodedGalleries) ? $decodedGalleries : [];
+                    }
+                @endphp
 
+                @if(count($galleries) > 0)
+                    @foreach($galleries as $caption => $img)
+                        @if(!empty($img) && file_exists(public_path('img/' . $img)))
+                            <div class="overflow-hidden cursor-pointer">
+                                @if(!empty($caption))
+                                    <div class="p-6 text-center w-full  md:max-w-7xl mx-auto">
+                                        <h1 class=" text-3xl font-medium text-white">{{ $caption }}</h1>
+                                    </div>
+                                @endif
+                                <img src="{{ asset('img/' . $img) }}" alt="{{ $caption }}" class="w-screen h-[30rem] object-cover rounded-2xl" />
+                            </div>
+                        @endif
+                    @endforeach
+                @else
+                    <p class="text-gray-500 text-center w-full">No gallery images available.</p>
+                @endif
+            </div>
+        </section>
+    </div>
+
+    <div class="w-full mx-auto px-4">
         <!-- Specifications Section -->
-        <section id="specs" class="py-12 border-b">
+        <section id="specs" class="py-12 w-full  md:max-w-7xl mx-auto border-b">
             <div class="mb-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Technical Specifications</h2>
                 <p class="text-gray-600 lg:w-4xl">Detailed technical information about {{ $product->name }}</p>
             </div>
 
             @php
-                $specifications = json_decode($product->specifications ?? '{}', true);
-                $specifications = is_array($specifications) ? $specifications : [];
+                if (is_array($product->specifications)) {
+                    $specifications = $product->specifications;
+                } else {
+                    $decodedSpecs = json_decode($product->specifications ?? '{}', true);
+                    $specifications = is_array($decodedSpecs) ? $decodedSpecs : [];
+                }
             @endphp
 
             @if(count($specifications) > 0)
@@ -399,7 +448,7 @@
         </section> --}}
 
         <!-- Where to Buy Section -->
-        <section id="where-to-buy" class="py-12 border-b">
+        <section id="where-to-buy" class="py-12 w-full  md:max-w-7xl mx-auto border-b">
             <div class="mb-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Where to Buy</h2>
                 <p class="text-gray-600">Find {{ $product->name }} at these authorized retailers</p>
@@ -476,9 +525,12 @@
     // 2. Grab the page URL (you can also use a canonical URL if you prefer)
     const productLink = window.location.href;
 
-    // 3. Compose the WhatsApp message
-    const message = `Hello 👋, I'm interested in *${productName}*.
-${productLink}`;
+    // Promotion context from server (if any)
+    const promoName = @json(optional($activePromotion)->name);
+
+    // 3. Compose the WhatsApp message, include promo name when applicable
+    const offerText = promoName ? ` It’s under promotion: *${promoName}*.` : '';
+    const message = `Hello 👋, I'm interested in *${productName}*.${offerText}\n${productLink}`;
 
     // 4. Encode the message for a URL
     const encodedMsg = encodeURIComponent(message);

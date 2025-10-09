@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductView;
+use App\Models\Promotion;
 
 class ProductController extends Controller
 {
@@ -26,7 +27,20 @@ class ProductController extends Controller
             ->take(5)
             ->get();
 
-        return view('shopping.product', compact('product', 'relatedProducts', 'categories'));
+        // Find an active promotion for this product by date
+        $now = now();
+        $activePromotion = Promotion::query()
+            ->whereHas('products', function ($q) use ($product) {
+                $q->where('products.id', $product->id);
+            })
+            ->where('start_date', '<=', $now)
+            ->where(function ($q) use ($now) {
+                $q->whereNull('end_date')->orWhere('end_date', '>=', $now);
+            })
+            ->orderBy('start_date', 'asc')
+            ->first();
+
+        return view('shopping.product', compact('product', 'relatedProducts', 'categories', 'activePromotion'));
     }
 
     public function productsByCategory(Category $category)

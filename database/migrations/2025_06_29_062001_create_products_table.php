@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('product_short')->nullable();
             $table->text('description')->nullable();
             $table->json('product_images')->nullable();
+            $table->json('product_galleries')->nullable();
             $table->json('product_videos')->nullable();
             $table->json('product_documents')->nullable();
             $table->json('specifications')->nullable();

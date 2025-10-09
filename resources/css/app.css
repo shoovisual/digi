@@ -18,6 +18,12 @@
     --color-off-white: #F9F9F9;
 }
 
+body a {
+    text-decoration: none;
+    color: none;
+    transition: color 0.2s ease;
+}
+
 .shopped-slider .slide {
     margin: 10px;
 }
@@ -26,6 +32,26 @@ body {
     font-family: 'Inter', sans-serif;
     font-size: 18px;
 }
+
+.admin-nav a {
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.admin-nav a:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.front-nav a {
+    transition: color 0.2s ease;
+}
+
+/* .front-nav a:hover {
+    color: var(--color-digi-orange);
+} */
+
 
 /* LG Style Mobile Menu */
 .lg-mobile-menu {

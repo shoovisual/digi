@@ -43,7 +43,7 @@
         <div class="banner-slider justify-center">
             @foreach ($bannerImage as $image)
                 <div class="rounded-2xl mx-3 slide overflow-hidden shadow-lg relative">
-                    {{-- Product Image --}}
+                    {{-- Image --}}
                     <img src="{{ $image['image'] }}" alt="{{ $image['title'] }}" class="w-full h-[450px] object-cover" />
 
                     {{-- Overlay --}}

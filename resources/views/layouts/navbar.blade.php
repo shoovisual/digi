@@ -6,45 +6,45 @@
             stuck = window.scrollY > 80
         })" :class="stuck
             ? 'fixed top-0 inset-x-0 bg-[#F2F0EC]/90 border-b border-[#C7C7C7] backdrop-blur transition py-4' : 'py-6'"
-            class="bg-[#F2F0EC] flex items-center border-b border-[#C7C7C7] justify-between px-4 md:px-6 transition-all duration-300 z-50" >
+            class="bg-[#F2F0EC] flex items-center front-nav border-b border-[#C7C7C7] justify-between px-4 md:px-6 transition-all duration-300 z-50" >
         <!-- Logo -->
         <div class="flex items-center space-x-2">
-        <a href="/"><img src="{{ asset('img/digi-logo.svg') }}" alt="DIGI Logo" class="h-8 w-auto" /></a>
+            <a href="/"><img src="{{ asset('img/digi-logo.svg') }}" alt="DIGI Logo" class="h-8 w-auto" /></a>
         </div>
 
         <!-- Desktop menu -->
-        <nav class="transition-all duration-300 hidden lg:flex items-center text-black space-x-6 text-lg font-[400]" >
+        <nav class="transition-all duration-300 hidden lg:flex items-center space-x-6 text-lg font-[400]" >
 
-            <a href="/"
-            @class([ 'rounded-sm hover:text-digi-orange px-6 py-2', 'hover:text-white text-white bg-digi-orange' => request()->is('/')
-            ])>
+            <a href="/" class="rounded-sm hover:text-digi-orange px-6 py-2 {{ request()->routeIs('/') ? 'bg-digi-orange hover:text-white': '' }}">
                 Home
             </a>
 
-            <a href="{{ route('about-digi.index') }}"
-            @class([ 'rounded-sm hover:text-digi-orange px-6 py-2', 'hover:text-white text-white bg-digi-orange' => request()->is('about-digi')
-            ])>
+            <a href="{{ route('about-digi.index') }}" class="rounded-sm hover:text-digi-orange px-6 py-2 {{ request()->routeIs('about-digi.index') ? 'bg-digi-orange text-white hover:text-white': '' }}">
                 What is DIGI
             </a>
 
             <div x-data="{ megaMenuOpen: false, closeTimeout: null }" class="relative" @mouseenter="clearTimeout(closeTimeout); megaMenuOpen = true" @mouseleave="closeTimeout = setTimeout(() => megaMenuOpen = false, 100)">
-                <a href="{{ route('products.index') }}"
-                @class(['rounded-sm hover:text-digi-orange px-6 py-2', 'hover:text-white text-white bg-digi-orange' => request()->routeIs('products.*', 'categories.*')
-                ])>
+                <a href="{{ route('products.index') }}" class="rounded-sm hover:text-digi-orange px-6 py-2 {{ request()->routeIs('products.*') ? 'bg-digi-orange text-white hover:text-white': '' }}">
                     Our Products
                 </a>
 
                 <!-- Mega Menu -->
-                <div x-show="megaMenuOpen" x-cloak x-transition:enter="transition ease-out duration-200" class="fixed -top-0 left-0 w-screen h-screen bg-black/40 backdrop-blur-sm z-50" :class=" stuck ? 'fixed top-0 mt-[68px] transition': 'mt-[90px]'" ">
+                <div x-show="megaMenuOpen" x-cloak x-transition:enter="transition ease-out duration-200" class="fixed -top-0 left-0 w-screen h-screen bg-black/40 backdrop-blur-sm z-50" :class="stuck ? 'fixed top-0 mt-[68px] transition' : 'mt-[90px]'">
                     <div class="w-full border border-gray-400">
-                        <div class="bg-[#F2F0EC] p-6 nav-focus" megaMenuOpen = true" @mouseleave="megaMenuOpen = false">
+                        <div class="bg-[#F2F0EC] p-6 nav-focus" @mouseleave="megaMenuOpen = false">
                             <div class="grid grid-cols-4 gap-4 max-w-7xl mx-auto text-sm">
                                 <!-- TVs Column -->
                                 <div class="flex flex-col gap-y-2 font-semibold">
                                     <a href="{{ route('recently-viewed.index') }}" class="mega-menu-link">Recently Viewed</a>
                                     <a href="{{ route('most-popular.index') }}" class="mega-menu-link">Most Popular</a>
                                     <a href="{{ route('new-arrivals.index') }}" class="mega-menu-link">New Arrivals</a>
-                                    <a href="#" class="mega-menu-link">Big Deals</a>
+                                    @if(!empty($activePromotion))
+                                        <a href="{{ route('promotions.public.show', $activePromotion) }}" class="mega-menu-link">Promotion</a>
+                                    @elseif(!empty($upcomingPromotion))
+                                        <span class="mega-menu-link opacity-60 cursor-default">Upcoming Promo</span>
+                                    @else
+                                        <span class="mega-menu-link opacity-60 cursor-default">Stay Tuned</span>
+                                    @endif
                                 </div>
 
                                 <!-- Refrigerators Column -->

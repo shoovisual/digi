@@ -1,5 +1,11 @@
 @php
-    $images = json_decode($product->product_images ?? '[]', true);
+    $images = [];
+    if (is_array($product->product_images)) {
+        $images = $product->product_images;
+    } else {
+        $decoded = json_decode($product->product_images ?? '[]', true);
+        $images = is_array($decoded) ? $decoded : [];
+    }
 @endphp
 
 <div class="bg-white slide rounded-2xl p-5 flex flex-col justify-between hover:shadow-lg transition duration-300 w-full max-w-sm mx-auto">

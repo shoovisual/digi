@@ -11,6 +11,14 @@ use App\Http\Controllers\CareersController;
 use App\Http\Controllers\RecentlyViewedController;
 use App\Http\Controllers\NewArrivalsController;
 use App\Http\Controllers\MostPopularController;
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
+use App\Http\Controllers\Admin\HeroSlideController as AdminHeroSlideController;
+use App\Http\Controllers\Admin\PromotionController as AdminPromotionController;
+use App\Http\Controllers\PromotionPublicController;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
@@ -46,3 +54,58 @@ Route::post('/api/increment-view-count', [ProductController::class, 'incrementVi
 Route::get('/api/search', [ProductController::class, 'search'])->name('api.search');
 Route::get('/new-arrivals', [NewArrivalsController::class, 'index'])->name('new-arrivals.index');
 Route::get('/most-popular', [MostPopularController::class, 'index'])->name('most-popular.index');
+// Public Promotion Page
+Route::get('/promotions/{promotion:slug}', [PromotionPublicController::class, 'show'])->name('promotions.public.show');
+
+// Admin Panel
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.submit');
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+
+    Route::middleware('admin')->group(function () {
+        // Admin Dashboard
+        Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+        // Products
+        Route::resource('products', AdminProductController::class)->names([
+            'index' => 'products.index',
+            'create' => 'products.create',
+            'store' => 'products.store',
+            'show' => 'products.show',
+            'edit' => 'products.edit',
+            'update' => 'products.update',
+            'destroy' => 'products.destroy',
+        ]);
+
+        // Hero Slides
+        Route::resource('hero-slides', AdminHeroSlideController::class)->names([
+            'index' => 'hero-slides.index',
+            'create' => 'hero-slides.create',
+            'store' => 'hero-slides.store',
+            'show' => 'hero-slides.show',
+            'edit' => 'hero-slides.edit',
+            'update' => 'hero-slides.update',
+            'destroy' => 'hero-slides.destroy',
+        ]);
+
+        // Categories (index for now)
+        Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
+
+        // Settings
+        Route::get('/settings', [AdminSettingsController::class, 'index'])->name('settings.index');
+
+        // Promotions
+        Route::resource('promotions', AdminPromotionController::class)
+            ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
+            ->names([
+                'index' => 'promotions.index',
+                'create' => 'promotions.create',
+                'store' => 'promotions.store',
+                'show' => 'promotions.show',
+                'edit' => 'promotions.edit',
+                'update' => 'promotions.update',
+                'destroy' => 'promotions.destroy',
+            ]);
+    });
+});

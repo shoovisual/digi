@@ -12,6 +12,13 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\User::updateOrCreate(
+            ['email' => 'admin@digiappliances.com'],
+            [
+                'name' => 'Admin',
+                'password' => 'password',
+                'is_admin' => true,
+            ]
+        );
     }
 }

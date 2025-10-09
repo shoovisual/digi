@@ -1,6 +1,3 @@
-@php
-    $images = json_decode($product->product_images ?? '[]', true);
-@endphp
 <section class="w-full bg-[#F2F0EC]">
     <div class="md:max-w-7xl mx-auto px-4 py-8">
         <div class="section-header flex items-center justify-between mb-6">
@@ -17,6 +14,15 @@
         </div>
         <div class="shopped-slider">
             @foreach ($products as $product)
+                @php
+                    $images = [];
+                    if (is_array($product->product_images)) {
+                        $images = $product->product_images;
+                    } else {
+                        $decoded = json_decode($product->product_images ?? '[]', true);
+                        $images = is_array($decoded) ? $decoded : [];
+                    }
+                @endphp
                 <div class="bg-white mx-2 rounded-2xl p-5 flex flex-col justify-between hover:shadow-lg transition duration-300">
                     <div>
                         <div x-data="{ copyText: '{{ $product->serial }}', copied: false }" class="flex items-center gap-2">

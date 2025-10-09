@@ -1,54 +1,85 @@
 @php
 /* ---------------------------------------------------------------
- | Hero Slider Data - Inspired by Hisense Design
+ | Hero Slider Data
+ | Loads from DB if available; falls back to static slides
  |---------------------------------------------------------------*/
-$heroSlides = [
-    [
-        'id' => 1,
-        'image'       => '/img/product-cover-umejipata.png',
-        'mobileImage' => '/img/product-cover-umejipata-mobile.png',
-        'tabletImage' => '/img/product-cover-umejipata-ipad.png',
-        'title'       => 'Vumbua Furaha na Uhuru na DIGI',
-        'subtitle'    => 'Bidhaa mahususi kwa nyumba yako',
-        'primary'     => ['label' => 'View Products', 'url' => '/products'],
-        'secondary'   => ['label' => 'Contact us', 'url' => '/contact'],
-    ],
-    [
-        'id' => 2,
-        'image'       => '/img/digi-fridge-featured.jpg',
-        'mobileImage' => '/img/digi-fridge-featured.jpg',
-        'tabletImage' => '/img/digi-fridge-featured.jpg',
-        'title'       => 'Refrigerators za Kisasa',
-        'subtitle'    => 'Hifadhi chakula chako kwa muda mrefu',
-        'primary'     => ['label' => 'Explore Fridges', 'url' => '/products?category=refrigerators'],
-        'secondary'   => ['label' => 'Learn More', 'url' => '/about'],
-    ],
-    [
-        'id' => 3,
-        'image'       => '/img/digi-washing-machine-featured.jpg',
-        'mobileImage' => '/img/digi-washing-machine-featured.jpg',
-        'tabletImage' => '/img/digi-washing-machine-featured.jpg',
-        'title'       => 'Mashine za Kufulia',
-        'subtitle'    => 'Fulia nguo zako kwa urahisi na haraka',
-        'primary'     => ['label' => 'View Washers', 'url' => '/products?category=washing-machines'],
-        'secondary'   => ['label' => 'Get Quote', 'url' => '/contact'],
-    ],
-    [
-        'id' => 4,
-        'image'       => '/img/tv-cover.png',
-        'mobileImage' => '/img/tv-cover.png',
-        'tabletImage' => '/img/tv-cover.png',
-        'title'       => 'Smart TVs za Hali ya Juu',
-        'subtitle'    => 'Furahia burudani ya kisasa nyumbani',
-        'primary'     => ['label' => 'Shop TVs', 'url' => '/products?category=televisions'],
-        'secondary'   => ['label' => 'Compare', 'url' => '/products'],
-    ],
-];
+
+$dbSlides = \App\Models\HeroSlide::where('is_active', true)
+    ->orderBy('sort_order')
+    ->orderByDesc('id')
+    ->get();
+
+if ($dbSlides->count() > 0) {
+    $heroSlides = $dbSlides->map(function ($s) {
+        $image = $s->image ? '/img/' . ltrim($s->image, '/') : '/img/product-cover-umejipata.png';
+        $mobile = $s->mobile_image ? '/img/' . ltrim($s->mobile_image, '/') : $image;
+        $tablet = $s->tablet_image ? '/img/' . ltrim($s->tablet_image, '/') : $image;
+        return [
+            'id' => $s->id,
+            'image' => $image,
+            'mobileImage' => $mobile,
+            'tabletImage' => $tablet,
+            'title' => $s->title ?? 'Vumbua Furaha na Uhuru na DIGI',
+            'subtitle' => $s->subtitle ?? 'Bidhaa mahususi kwa nyumba yako',
+            'primary' => [
+                'label' => $s->primary_label ?? 'View Products',
+                'url' => $s->primary_url ?? '/products',
+            ],
+            'secondary' => [
+                'label' => $s->secondary_label ?? 'Contact us',
+                'url' => $s->secondary_url ?? '/contact',
+            ],
+        ];
+    })->toArray();
+} else {
+    $heroSlides = [
+        [
+            'id' => 1,
+            'image'       => '/img/product-cover-umejipata.png',
+            'mobileImage' => '/img/product-cover-umejipata-mobile.png',
+            'tabletImage' => '/img/product-cover-umejipata-ipad.png',
+            'title'       => 'Vumbua Furaha na Uhuru na DIGI',
+            'subtitle'    => 'Bidhaa mahususi kwa nyumba yako',
+            'primary'     => ['label' => 'View Products', 'url' => '/products'],
+            'secondary'   => ['label' => 'Contact us', 'url' => '/contact'],
+        ],
+        [
+            'id' => 2,
+            'image'       => '/img/digi-fridge-featured.jpg',
+            'mobileImage' => '/img/digi-fridge-featured.jpg',
+            'tabletImage' => '/img/digi-fridge-featured.jpg',
+            'title'       => 'Refrigerators za Kisasa',
+            'subtitle'    => 'Hifadhi chakula chako kwa muda mrefu',
+            'primary'     => ['label' => 'Explore Fridges', 'url' => '/products?category=refrigerators'],
+            'secondary'   => ['label' => 'Learn More', 'url' => '/about'],
+        ],
+        [
+            'id' => 3,
+            'image'       => '/img/digi-washing-machine-featured.jpg',
+            'mobileImage' => '/img/digi-washing-machine-featured.jpg',
+            'tabletImage' => '/img/digi-washing-machine-featured.jpg',
+            'title'       => 'Mashine za Kufulia',
+            'subtitle'    => 'Fulia nguo zako kwa urahisi na haraka',
+            'primary'     => ['label' => 'View Washers', 'url' => '/products?category=washing-machines'],
+            'secondary'   => ['label' => 'Get Quote', 'url' => '/contact'],
+        ],
+        [
+            'id' => 4,
+            'image'       => '/img/tv-cover.png',
+            'mobileImage' => '/img/tv-cover.png',
+            'tabletImage' => '/img/tv-cover.png',
+            'title'       => 'Smart TVs za Hali ya Juu',
+            'subtitle'    => 'Furahia burudani ya kisasa nyumbani',
+            'primary'     => ['label' => 'Shop TVs', 'url' => '/products?category=televisions'],
+            'secondary'   => ['label' => 'Compare', 'url' => '/products'],
+        ],
+    ];
+}
 @endphp
 
 
 {{-- =========================  HERO SLIDER  ========================= --}}
-<section class="relative overflow-hidden h-[100vh]" id="hero-slider">
+<section class="relative overflow-hidden h-[80vh]" id="hero-slider">
     <div class="relative h-full w-full">
         {{-- Slider Container --}}
         <div class="hero-slider relative h-full w-full">
@@ -230,11 +261,22 @@ $(function () {
         autoplaySpeed: 6000,
         pauseOnHover: false,
         speed: 300,
-        prevArrow: $prev,
-        nextArrow: $next,
+        arrows: false,
+        rtl: false,
         dots: false,
         fade: true,
         cssEase: 'ease-in-out'
+    });
+
+    // Manual arrow bindings to ensure correct direction
+    $prev.on('click', function (e) {
+        e.preventDefault();
+        $slider.slick('slickPrev');
+    });
+
+    $next.on('click', function (e) {
+        e.preventDefault();
+        $slider.slick('slickNext');
     });
 
     function updateArrows(slick, currentSlide) {

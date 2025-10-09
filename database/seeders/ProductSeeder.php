@@ -44,6 +44,12 @@ class ProductSeeder extends Seeder
                 'products/tvs/55/tv-03.png',
                 'products/tvs/55/tv-04.png',
             ]),
+            'product_galleries' => json_encode([
+                'Enjoy The best Of The Best' => 'products/tvs/55/gallery/tv-featured.jpg',
+                // 'Stunning 4K UHD Resolution' => 'products/tvs/55/gallery/tv-02.png',
+                // 'Immersive Dolby Audio' => 'products/tvs/55/gallery/tv-03.png',
+                // '3 Full size HDMI Ports, 2 USB Ports and One Ethernet Port' => 'products/tvs/55/gallery/tv-04.png',
+            ]),
         ]);
 
         Product::create([
@@ -467,6 +473,13 @@ class ProductSeeder extends Seeder
             'product_images' => json_encode([
                 'products/freezers/DG-FZ-CD1HAB315S/closed.png',
                 'products/freezers/DG-FZ-CD1HAB315S/open.png',
+                'products/freezers/DG-FZ-CD1HAB315S/open-1.png',
+                'products/freezers/DG-FZ-CD1HAB315S/closed-1.png',
+                'products/freezers/DG-FZ-CD1HAB315S/inside.jpg',
+            ]),
+            'product_galleries' => json_encode([
+               'Freezer with Sliding Glass Top, Fast Freeze, LED Light, Lock & Key' => 'products/freezers/DG-FZ-CD1HAB315S/gallery/DG-FZ-CD1HAB315S-1.jpg',
+               'Spacious Interior with Aluminum Cavity and Basket' => 'products/freezers/DG-FZ-CD1HAB315S/gallery/DG-FZ-CD1HAB315S-2.jpg',
             ]),
         ]);
 
@@ -500,6 +513,8 @@ class ProductSeeder extends Seeder
             'product_images' => json_encode([
                 'products/freezers/DG-FZ-CD1HAB215S/closed.png',
                 'products/freezers/DG-FZ-CD1HAB215S/open.png',
+                'products/freezers/DG-FZ-CD1HAB215S/open-1.png',
+                'products/freezers/DG-FZ-CD1HAB215S/inside.jpg',
             ]),
         ]);
 
@@ -658,6 +673,16 @@ class ProductSeeder extends Seeder
                 'Oven Lamp',
                 'Glass Cover',
                 '2-Year Warranty',
+            ]),
+            'product_images' => json_encode([
+                ''=>'products/gas-cooker/gallery/gas-cooker-silver-plates.jpg',
+                'products/gas-cooker/gallery/gas-cooker-silver-dials.jpg',
+                'products/gas-cooker/gallery/gas-cooker-silver-oven.jpg',
+            ]),
+            'product_galleries' => json_encode([
+                'Elegant Steel Finish with Durable Glass Cover' => 'products/gas-cooker/gallery/gas-cooker-silver-plates.jpg',
+                'User-Friendly Control Dials for Precise Cooking' => 'products/gas-cooker/gallery/gas-cooker-silver-dials.jpg',
+                'Spacious Electric Oven with Thermostat Control' => 'products/gas-cooker/gallery/gas-cooker-silver-oven.jpg',
             ]),
 
         ]);

@@ -138,15 +138,24 @@
                     pageLoader.classList.remove('active');
                 });
                 
-                // Show loader when clicking on navigation links
+                // Show loader when clicking on navigation links (ignore same-page hash links)
                 document.addEventListener('click', function(e) {
                     const link = e.target.closest('a');
-                    if (link && link.href && !link.href.startsWith('#') && !link.href.includes('javascript:') && !link.target) {
-                        // Check if it's an internal link
-                        const currentDomain = window.location.origin;
-                        if (link.href.startsWith(currentDomain) || link.href.startsWith('/')) {
-                            pageLoader.classList.add('active');
-                        }
+                    if (!link) return;
+
+                    const hrefAttr = link.getAttribute('href') || '';
+                    const isHashLink = hrefAttr.startsWith('#') || (link.hash && link.pathname === window.location.pathname);
+                    const isJsLink = hrefAttr.startsWith('javascript:') || (link.href && link.href.includes('javascript:'));
+                    const opensNewTab = !!link.target;
+
+                    // Do not show loader for in-page navigation or non-navigational anchors
+                    if (isHashLink || isJsLink || opensNewTab) return;
+
+                    // Only show loader for internal full page navigations
+                    const currentOrigin = window.location.origin;
+                    const isInternal = (link.href && link.href.startsWith(currentOrigin)) || hrefAttr.startsWith('/');
+                    if (isInternal) {
+                        pageLoader.classList.add('active');
                     }
                 });
                 
