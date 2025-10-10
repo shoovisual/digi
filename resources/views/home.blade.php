@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('meta')
     <meta name="description" content="Discover the latest in digital appliances and electronics at Digi. Shop our wide range of products including TVs, washing machines, refrigerators, and more. Enjoy unbeatable prices and quality service.">
-    <meta name="keywords" content="Digi, digital appliances, electronics, UHD Smart TV, washing machines, refrigerators, gas cookers, air conditioners, online shopping">
+    <meta name="keywords" content="Digi, digital appliances, electronics, UHD Smart TV, Best tv brands in tanzania, Best TV in Tanzania, TV Kali, TV Bei nafuu, washing machines, refrigerators, gas cookers, air conditioners, online shopping">
     <meta property="og:description" content="Discover the latest in digital appliances and electronics at Digi. Shop our wide range of products including TVs, washing machines, refrigerators, and more. Enjoy unbeatable prices and quality service.">
     <meta property="og:keywords" content="digi, digital appliances, umejipata, tv za bei rahisi, electronics, UHD Smart TV, washing machines, refrigerators, gas cookers, air conditioners, online shopping">
     <meta property="og:image" content="{{ asset('img/favicon.png') }}">

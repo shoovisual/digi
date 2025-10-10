@@ -31,7 +31,7 @@ class AuthController extends Controller
                 ])->onlyInput('email');
             }
 
-            return redirect()->route('admin.products.index');
+            return redirect()->route('admin.dashboard');
         }
 
         return back()->withErrors([
