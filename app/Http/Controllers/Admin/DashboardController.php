@@ -14,6 +14,8 @@ class DashboardController extends Controller
         $stats = [
             'products' => Product::count(),
             'categories' => Category::count(),
+            'total_views' => (int) Product::sum('view_count'),
+            'contact_sales' => (int) Product::sum('contact_sales_count'),
         ];
 
         // Build product view trend for the last 14 days

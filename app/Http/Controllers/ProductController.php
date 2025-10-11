@@ -107,6 +107,25 @@ class ProductController extends Controller
         return response()->json(['success' => false], 400);
     }
 
+    public function incrementContactSales(Request $request)
+    {
+        $slug = $request->input('slug');
+        $productId = $request->input('product_id');
+        $product = null;
+        if ($productId) {
+            $product = Product::find($productId);
+        } elseif ($slug) {
+            $product = Product::where('slug', $slug)->first();
+        }
+
+        if ($product) {
+            $product->increment('contact_sales_count');
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false], 400);
+    }
+
     public function search(Request $request)
     {
         $query = $request->input('q', '');

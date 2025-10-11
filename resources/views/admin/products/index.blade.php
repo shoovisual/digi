@@ -29,9 +29,9 @@
         @foreach($products as $product)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td style="width: 140px;">
+            <td>
                 @php $img = $product->image ? asset('img/' . $product->image) : asset('img/products/default.jpg'); @endphp
-                <img src="{{ $img }}" alt="{{ $product->name }}" class="w-32 h-32 object-contain rounded border border-gray-200" />
+                <img src="{{ $img }}" alt="{{ $product->name }}" class="w-20 h-20 object-contain rounded border border-gray-200" />
             </td>
             <td>
                 <div class="flex items-center gap-3">

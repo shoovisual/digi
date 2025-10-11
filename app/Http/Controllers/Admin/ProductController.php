@@ -161,10 +161,6 @@ class ProductController extends Controller
             'product_galleries_files.*' => ['nullable','image','mimes:jpg,jpeg,png,webp,avif','max:5120'],
             'product_galleries_captions' => ['nullable','array'],
             'product_galleries_captions.*' => ['nullable','string'],
-            'remove_gallery_paths' => ['nullable','array'],
-            'remove_gallery_paths.*' => ['nullable','string'],
-            'remove_product_image_paths' => ['nullable','array'],
-            'remove_product_image_paths.*' => ['nullable','string'],
             'features' => ['nullable','array'],
             'features.*' => ['nullable','string'],
             'spec_keys' => ['nullable','array'],
@@ -184,20 +180,10 @@ class ProductController extends Controller
             $data['image'] = 'products/uploads/'.$filename;
         }
 
-        // Existing product images and removals (append new uploads)
+        // Existing product images (append new uploads)
         $existingImages = is_array($product->product_images)
             ? $product->product_images
             : (json_decode($product->product_images ?? '[]', true) ?: []);
-
-        $removeImagePaths = $request->input('remove_product_image_paths', []);
-        $removeImagePaths = is_array($removeImagePaths) ? $removeImagePaths : [];
-
-        $remainingImages = [];
-        foreach ($existingImages as $path) {
-            if (!in_array($path, $removeImagePaths, true)) {
-                $remainingImages[] = $path;
-            }
-        }
 
         $newImages = [];
         if ($request->hasFile('product_images_files')) {
@@ -208,23 +194,12 @@ class ProductController extends Controller
                 $newImages[] = 'products/uploads/'.$fname;
             }
         }
-        $data['product_images'] = array_merge($remainingImages, $newImages);
+        $data['product_images'] = array_merge($existingImages, $newImages);
 
-        // Existing galleries and removals
+        // Existing galleries (append new uploads)
         $existingGalleries = is_array($product->product_galleries)
             ? $product->product_galleries
             : (json_decode($product->product_galleries ?? '{}', true) ?: []);
-
-        $removePaths = $request->input('remove_gallery_paths', []);
-        $removePaths = is_array($removePaths) ? $removePaths : [];
-
-        // Filter out removed gallery items
-        $remainingGalleries = [];
-        foreach ($existingGalleries as $caption => $path) {
-            if (!in_array($path, $removePaths, true)) {
-                $remainingGalleries[$caption] = $path;
-            }
-        }
 
         // New gallery uploads (append to remaining)
         if ($request->hasFile('product_galleries_files')) {
@@ -241,10 +216,10 @@ class ProductController extends Controller
                 $newGalleries[$caption] = 'products/uploads/'.$gname;
                 $index++;
             }
-            $data['product_galleries'] = array_merge($remainingGalleries, $newGalleries);
+            $data['product_galleries'] = array_merge($existingGalleries, $newGalleries);
         } else {
-            // No new uploads, just save remaining after removals
-            $data['product_galleries'] = $remainingGalleries;
+            // No new uploads, keep existing galleries
+            $data['product_galleries'] = $existingGalleries;
         }
 
         // Build features array
@@ -295,6 +270,52 @@ class ProductController extends Controller
             'specifications' => $specs ?: $product->specifications,
         ]);
         return redirect()->route('admin.products.index')->with('status','Product updated');
+    }
+
+    // AJAX: delete a single product image path from the set and unlink file
+    public function deleteImage(Request $request, Product $product)
+    {
+        $path = $request->input('path');
+        if (!is_string($path) || $path === '') {
+            return response()->json(['success' => false, 'message' => 'Path is required'], 422);
+        }
+
+        $images = is_array($product->product_images)
+            ? $product->product_images
+            : (json_decode($product->product_images ?? '[]', true) ?: []);
+
+        $updated = array_values(array_filter($images, fn($p) => $p !== $path));
+
+        $fullPath = public_path('img/' . $path);
+        if (file_exists($fullPath)) { @unlink($fullPath); }
+
+        $product->update(['product_images' => $updated]);
+
+        return response()->json(['success' => true]);
+    }
+
+    // AJAX: delete a gallery item by matching its path and unlink file
+    public function deleteGallery(Request $request, Product $product)
+    {
+        $path = $request->input('path');
+        if (!is_string($path) || $path === '') {
+            return response()->json(['success' => false, 'message' => 'Path is required'], 422);
+        }
+
+        $galleries = is_array($product->product_galleries)
+            ? $product->product_galleries
+            : (json_decode($product->product_galleries ?? '{}', true) ?: []);
+
+        foreach ($galleries as $caption => $p) {
+            if ($p === $path) { unset($galleries[$caption]); break; }
+        }
+
+        $fullPath = public_path('img/' . $path);
+        if (file_exists($fullPath)) { @unlink($fullPath); }
+
+        $product->update(['product_galleries' => $galleries]);
+
+        return response()->json(['success' => true]);
     }
 
     public function destroy(Product $product)

@@ -31,10 +31,6 @@
         </div>
         <div>
             <label class="block text-sm">Upload product images (multiple)</label>
-            <input name="product_images_files[]" type="file" multiple accept="image/*" class="form-control mt-1 w-full" />
-            @error('product_images_files.*')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
-            <div id="preview-product-images" class="flex flex-wrap gap-3 mt-3"></div>
-            <div id="preview-product-images-count" class="mt-3 px-3 py-2 bg-blue-50 text-gray-700 rounded hidden">0 image(s) in total</div>
             @php
                 $existingImages = is_array($product->product_images)
                     ? $product->product_images
@@ -43,24 +39,26 @@
             @if(!empty($existingImages))
                 <div class="mt-3">
                     <div class="text-xs text-gray-600 mb-2">Current Product Images</div>
-                    <p class="text-xs text-gray-500 mb-2">Click the trash icon to remove instantly; new uploads are appended.</p>
                     <div id="existing-product-images-list" class="flex flex-wrap gap-3">
-                        @foreach($existingImages as $path)
-                            <div class="existing-image-item relative gap-3">
-                                <img src="{{ asset('img/' . $path) }}" class="w-24 h-24 object-cover rounded border" alt="Product image" />
-                                <button type="button" class="remove-product-image btn btn-sm btn-danger mt-2" data-path="{{ $path }}" title="Remove">
-                                    <i class="bi bi-trash-fill mr-2"></i>Delete
-                                </button>
+                        @foreach($existingImages as $pi)
+                            <div class="existing-product-image relative">
+                                <img src="{{ asset('img/' . $pi) }}" class="w-20 h-20 object-cover rounded border" alt="Product image" />
+                                <button type="button" class="remove-product-image absolute -top-2 -right-2 bg-red-500 text-white text-xs w-6 h-6 rounded-full" data-path="{{ $pi }}" title="Remove">×</button>
                             </div>
                         @endforeach
                     </div>
                 </div>
             @endif
+            @error('product_images_files.*')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
+            <input id="product-images-input" name="product_images_files[]" type="file" accept="image/*" multiple class="hidden" />
+            <label for="product-images-input" class="btn btn-primary mt-2">Choose Images</label>
+            <div id="preview-product-images" class="flex flex-wrap gap-3 mt-3"></div>
+            <div id="preview-product-images-count" class="mt-3 px-3 py-2 bg-blue-50 text-gray-700 rounded hidden">0 image(s) in total</div>
         </div>
     </div>
     <div>
         <label class="block text-sm">Product Gallery</label>
-        <p class="text-xs text-gray-500 mt-1">Click the trash icon to remove instantly; new uploads are appended.</p>
+        <p class="text-xs text-gray-500 mt-1">Add items with caption; each row is one gallery image.</p>
         @php
             $existingGalleries = is_array($product->product_galleries)
                 ? $product->product_galleries
@@ -86,6 +84,7 @@
         <div id="gallery-list" class="space-y-4 mt-2"></div>
         <button type="button" id="add-gallery-row" class="btn btn-outline-secondary mt-3"><i class="bi bi-plus-lg"></i> Add Another Gallery</button>
     </div>
+
     <div class="grid grid-cols-3 gap-4">
         <div>
             <label class="block text-sm">Slug</label>
@@ -248,6 +247,7 @@ function setupSinglePreview(inputEl, imgEl, wrapperEl, clearBtn) {
     }
 }
 
+
 function setupMultiPreview(inputEl, listEl, countEl) {
     if (!inputEl) return;
     let dt = new DataTransfer();
@@ -284,10 +284,13 @@ function setupMultiPreview(inputEl, listEl, countEl) {
     }
 
     inputEl.addEventListener('change', () => {
-        Array.from(inputEl.files).forEach(file => dt.items.add(file));
-        inputEl.files = dt.files;
+        const newDt = new DataTransfer();
+        Array.from(inputEl.files || []).forEach(f => newDt.items.add(f));
+        dt = newDt;
         render();
     });
+
+    render();
 }
 
 // Repeatable gallery rows (caption + individual image chooser)
@@ -324,7 +327,7 @@ function initGalleryRows() {
         row.innerHTML = `
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
                 <div>
-                    <label class="block text-sm">Caption *</label>
+                    <label class="block text-sm">Caption *</u></label>
                     <input name="product_galleries_captions[]" type="text" class="form-control mt-1 w-full" placeholder="Enter caption" required />
                 </div>
                 <div>
@@ -343,42 +346,68 @@ function initGalleryRows() {
     });
 }
 
-// Existing product images instant removal (adds hidden inputs)
+// Existing product images instant removal via AJAX
 function initExistingImageRemovals() {
     const list = document.getElementById('existing-product-images-list');
-    const form = document.querySelector('form');
-    if (!list || !form) return;
+    if (!list) return;
+    const deleteImageUrl = '{{ route('admin.products.images.delete', $product) }}';
+    const csrf = '{{ csrf_token() }}';
     list.querySelectorAll('.remove-product-image').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
             const path = btn.getAttribute('data-path');
             if (!path) return;
-            const hidden = document.createElement('input');
-            hidden.type = 'hidden';
-            hidden.name = 'remove_product_image_paths[]';
-            hidden.value = path;
-            form.appendChild(hidden);
-            const item = btn.closest('.existing-image-item');
-            if (item) item.remove();
+            btn.disabled = true;
+            try {
+                const res = await fetch(deleteImageUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ path })
+                });
+                const ok = res.ok;
+                const item = btn.closest('.existing-product-image');
+                if (ok && item) item.remove();
+            } catch (e) {
+                console.error('Failed to delete image', e);
+            } finally {
+                btn.disabled = false;
+            }
         });
     });
 }
 
-// Existing gallery instant removal (adds hidden inputs)
+// Existing gallery instant removal via AJAX
 function initExistingGalleryRemovals() {
     const list = document.getElementById('existing-gallery-list');
-    const form = document.querySelector('form');
-    if (!list || !form) return;
+    if (!list) return;
+    const deleteGalleryUrl = '{{ route('admin.products.gallery.delete', $product) }}';
+    const csrf = '{{ csrf_token() }}';
     list.querySelectorAll('.remove-gallery-image').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
             const path = btn.getAttribute('data-path');
             if (!path) return;
-            const hidden = document.createElement('input');
-            hidden.type = 'hidden';
-            hidden.name = 'remove_gallery_paths[]';
-            hidden.value = path;
-            form.appendChild(hidden);
-            const item = btn.closest('.existing-gallery-item');
-            if (item) item.remove();
+            btn.disabled = true;
+            try {
+                const res = await fetch(deleteGalleryUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ path })
+                });
+                const ok = res.ok;
+                const item = btn.closest('.existing-gallery-item');
+                if (ok && item) item.remove();
+            } catch (e) {
+                console.error('Failed to delete gallery item', e);
+            } finally {
+                btn.disabled = false;
+            }
         });
     });
 }
@@ -391,12 +420,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('preview-main-image-clear')
     );
     setupMultiPreview(
-        document.querySelector('input[name="product_images_files[]"]'),
+        document.getElementById('product-images-input'),
         document.getElementById('preview-product-images'),
         document.getElementById('preview-product-images-count')
     );
-    initGalleryRows();
     initExistingImageRemovals();
+    initGalleryRows();
     initExistingGalleryRemovals();
     // Slug manual toggle
     const manualCb = document.getElementById('product-slug-manual');

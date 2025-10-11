@@ -162,5 +162,21 @@ window.whereToBuyModal = function(config) {
             window.dispatchEvent(new CustomEvent('openBuyModalEvent', {
                 detail: { name, image, slug }
             }));
+
+            // Increment contact sales count (order intent)
+            try {
+                const tokenEl = document.querySelector('meta[name="csrf-token"]');
+                const token = tokenEl ? tokenEl.getAttribute('content') : '';
+                fetch('/api/increment-contact-sales', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...(token ? { 'X-CSRF-TOKEN': token } : {})
+                    },
+                    body: JSON.stringify({ slug })
+                }).catch(() => {});
+            } catch (e) {
+                // silently ignore
+            }
         };
     });

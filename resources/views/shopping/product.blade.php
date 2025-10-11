@@ -50,8 +50,13 @@
                     $imagesArr = is_array($decoded) ? $decoded : [];
                 }
 
+                // Filter out non-existent images
+                $filteredImagesArr = array_filter($imagesArr, function($img) {
+                    return !empty($img) && file_exists(public_path('img/' . $img));
+                });
+
                 $gallery = collect([$product->image])
-                    ->merge($imagesArr)
+                    ->merge($filteredImagesArr)
                     ->filter(fn($img) => !empty($img) && file_exists(public_path('img/' . $img)))
                     ->unique()
                     ->values();

@@ -51,6 +51,7 @@ Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.in
 Route::get('/recently-viewed', [RecentlyViewedController::class, 'index'])->name('recently-viewed.index');
 Route::get('/api/recently-viewed-products', [RecentlyViewedController::class, 'getProducts'])->name('api.recently-viewed.products');
 Route::post('/api/increment-view-count', [ProductController::class, 'incrementViewCount'])->name('api.increment-view-count');
+Route::post('/api/increment-contact-sales', [ProductController::class, 'incrementContactSales'])->name('api.increment-contact-sales');
 Route::get('/api/search', [ProductController::class, 'search'])->name('api.search');
 Route::get('/new-arrivals', [NewArrivalsController::class, 'index'])->name('new-arrivals.index');
 Route::get('/most-popular', [MostPopularController::class, 'index'])->name('most-popular.index');
@@ -77,6 +78,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
             'update' => 'products.update',
             'destroy' => 'products.destroy',
         ]);
+
+        // Product media deletion endpoints (AJAX)
+        Route::post('/products/{product}/images/delete', [AdminProductController::class, 'deleteImage'])
+            ->name('products.images.delete');
+        Route::post('/products/{product}/gallery/delete', [AdminProductController::class, 'deleteGallery'])
+            ->name('products.gallery.delete');
 
         // Hero Slides
         Route::resource('hero-slides', AdminHeroSlideController::class)->names([
