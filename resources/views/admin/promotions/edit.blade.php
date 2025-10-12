@@ -72,31 +72,31 @@
             <label class="block text-sm font-medium text-gray-700 mb-2">Products in Promotion</label>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="md:col-span-2">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        @php($selected = $promotion->products->pluck('id'))
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        @php $selected = $promotion->products->pluck('id'); @endphp
                         @forelse($products as $product)
                             <div class="border rounded-lg overflow-hidden bg-white">
                                 <input type="checkbox" name="products[]" value="{{ $product->id }}" class="product-checkbox hidden"
-                                       @checked(collect(old('products', $selected))->contains($product->id)) />
+                                       @checked(collect(old('products', []))->contains($product->id)) />
                                 <div class="p-3 flex items-center gap-3">
                                     @php $pimg = $product->image ? asset('img/' . $product->image) : asset('img/products/default.jpg'); @endphp
-                                    <img src="{{ $pimg }}" alt="{{ $product->name }}" class="w-16 h-16 object-cover rounded border" />
-                                    <div class="flex-1">
-                                        <div class="font-medium text-sm text-gray-900">{{ $product->name }}</div>
-                                        @if($product->category)
-                                            <div class="text-xs text-gray-500">{{ $product->category->name }}</div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="px-3 pb-3">
                                     <button type="button"
-                                            class="add-to-promo-btn px-3 py-1.5 rounded text-white text-sm"
+                                            class="add-to-promo-btn px-2 py-1 rounded text-white text-sm"
                                             data-product-id="{{ $product->id }}"
                                             data-product-name="{{ $product->name }}"
                                             data-product-image="{{ $pimg }}"
                                             data-product-category="{{ $product->category->name ?? '' }}">
-                                        Add to promotion
+                                        <i class="bi bi-plus-lg"></i>
                                     </button>
+                                    <img src="{{ $pimg }}" alt="{{ $product->name }}" class="w-16 h-16 object-cover rounded border" />
+                                    <div class="flex-1">
+                                        <div class="font-medium text-sm text-gray-900">
+                                            {{ Str::limit($product->name, 20) }}
+                                        </div>
+                                        @if($product->category)
+                                            <div class="text-xs text-gray-500">{{ $product->category->name }}</div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         @empty
@@ -145,11 +145,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateButton(btn, checked) {
-        btn.textContent = checked ? 'Added' : 'Add to promotion';
-        btn.classList.toggle('bg-indigo-600', checked);
-        btn.classList.toggle('hover:bg-indigo-700', checked);
-        btn.classList.toggle('bg-gray-300', !checked);
-        btn.classList.toggle('text-gray-800', !checked);
+        btn.innerHTML = checked ? '<i class="bi bi-trash"></i>' : '<i class="bi bi-plus"></i>';
+        btn.classList.toggle('bg-red-600', checked);
+        btn.classList.toggle('hover:bg-red-700', checked);
+        btn.classList.toggle('bg-blue-600', !checked);
+        btn.classList.toggle('text-blue-800', !checked);
     }
 
     function renderSelected() {
@@ -165,12 +165,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const img = btn?.dataset.productImage || '';
             const cat = btn?.dataset.productCategory || '';
             return `
-                <div class="flex items-center gap-2">
-                    <img src="${img}" alt="${name}" class="w-10 h-10 object-cover rounded border" />
+                <div class="flex flex-col gap-2">
+                    <img src="${img}" alt="${name}" class="w-24 h-24 object-cover rounded border" />
                     <div>
                         <div class="text-sm font-medium text-gray-900">${name}</div>
                         ${cat ? `<div class=\"text-xs text-gray-500\">${cat}</div>` : ''}
                     </div>
+
                 </div>`;
         });
         selectedList.innerHTML = items.join('');

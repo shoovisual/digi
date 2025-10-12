@@ -8,9 +8,18 @@
         </div>
     @endif
 
-    @if($promotions->count() === 0)
-        <p class="text-gray-600">No promotions found.</p>
-    @else
+    {{-- @if($promotions->count() === 0)
+        <div class="border rounded-lg p-6 bg-white">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-lg font-semibold">Promotions</h2>
+                <a href="{{ route('admin.promotions.create') }}" class="btn btn-primary">
+                    <i class="bi bi-plus-lg"></i>
+                    <span class="ml-1">New Promotion</span>
+                </a>
+            </div>
+            <p class="text-gray-600">No promotions found.</p>
+        </div>
+    @else --}}
         <x-datatable id="admin-promotions-table"
             title="Promotions"
             searchPlaceholder="Search promotions…"
@@ -46,7 +55,7 @@
                     <td>{{ optional($promotion->start_date)->format('Y-m-d') ?? '—' }}</td>
                     <td>{{ optional($promotion->end_date)->format('Y-m-d') ?? '—' }}</td>
                     <td>
-                        @php($status = $promotion->status_label)
+                        @php $status = $promotion->status_label; @endphp
                         <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs
                             {{ $status === 'Active' ? 'bg-green-100 text-green-800' : ($status === 'Scheduled' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800') }}">
                             {{ $status }}
@@ -73,5 +82,5 @@
                 @endforeach
             </tbody>
         </x-datatable>
-    @endif
+    {{-- @endif --}}
 @endsection
