@@ -112,7 +112,7 @@ if ($activePromo) {
 
 
 {{-- =========================  HERO SLIDER  ========================= --}}
-<section class="relative overflow-hidden h-[90vh] md:h-[80vh]" id="hero-slider">
+<section class="relative overflow-hidden h-[80vh] md:h-[80vh]" id="hero-slider">
     <div class="relative h-full w-full">
         {{-- Slider Container --}}
         <div class="hero-slider relative h-full w-full">
@@ -129,17 +129,17 @@ if ($activePromo) {
                 {{-- Content --}}
                 <div class="relative z-10 flex flex-col items-start lg:justify-center h-full p-8 md:p-20 lg:p-32">
                     <p style="background-image: url(' {{ asset('img/umejipata-label-bg.png') }}'); background-size: contain; background-repeat: no-repeat; background-position: center;" class="text-white w-fit py-2 px-4 text-lg">DIGI Rafiki wa kweli</p>
-                    <h1 class="text-4xl md:text-4xl lg:text-5xl md:w-lg font-semibold leading-tight mb-4">
+                    <h1 class="text-3xl md:text-4xl lg:text-5xl md:w-lg font-semibold leading-tight mb-4">
                         {!! nl2br(e($slide['title'])) !!}
                     </h1>
-                    <p class="text-lg font-light md:text-xl mb-8">
+                    <p class="text-lg font-light md:text-xl mb-4 md:mb-8">
                         {{ $slide['subtitle'] }}
                     </p>
-                    <div class="flex space-x-4">
+                    <div class="flex space-x-2 md:space-x-4">
                         <a href="{{ $slide['primary']['url'] }}"
                            class="bg-digi-orange flex items-center text-white px-4 py-3 rounded-full text-lg font-medium
                                   hover:bg-digi-orange-dark transition-colors duration-300">
-                            {{ $slide['primary']['label'] }} <span class="hidden ml-2 px-2 py-2 md:flex items-center rounded-full border bg-white"><img src="{{ asset('img/icon_quote.svg') }}" class="inline-block w-5" alt=""></span>
+                            {{ $slide['primary']['label'] }} <span class="hidden ml-2 p-1 md:p-2 md:flex items-center rounded-full border bg-white"><img src="{{ asset('img/icon_quote.svg') }}" class="inline-block w-5" alt=""></span>
                         </a>
                         <a href="{{ $slide['secondary']['url'] }}" class="flex items-center relative overflow-hidden border border-digi-orange/70 text-gray-500 backdrop-blur-md
                                 bg-white/5 pr-4 pl-5 py-3 rounded-full text-lg font-medium
@@ -151,7 +151,7 @@ if ($activePromo) {
 
                             {{-- Moving highlight streak --}}
                             <span class="absolute top-0 left-[-50%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/40 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></span>
-                            <span class="relative z-10">{{ $slide['secondary']['label'] }}</span><span class="hidden ml-2 px-2 py-2 md:flex items-center rounded-full border bg-digi-orange"><img src="{{ asset('img/arrow.svg') }}" class="inline-block w-5" alt=""></span>
+                            <span class="relative z-10">{{ $slide['secondary']['label'] }}</span><span class="hidden ml-2 p-1 md:p-2 md:flex items-center rounded-full border bg-digi-orange"><img src="{{ asset('img/arrow.svg') }}" class="inline-block w-5" alt=""></span>
                         </a>
                     </div>
                 </div>
@@ -259,7 +259,7 @@ if ($activePromo) {
     }
 
     .slider-dots {
-        bottom: 4rem;
+        display: none;
     }
 
     .slider-dots .dot {
@@ -292,7 +292,7 @@ $(function () {
         infinite: true,
         autoplay: true,
         autoplaySpeed: 6000,
-        pauseOnHover: false,
+        pauseOnHover: true,
         speed: 300,
         arrows: false,
         rtl: false,
