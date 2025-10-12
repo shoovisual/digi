@@ -50,9 +50,9 @@
                 </div>
             @endif
             @error('product_images_files.*')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
+            <div id="preview-product-images" class="flex flex-wrap gap-3 mt-3"></div>
             <input id="product-images-input" name="product_images_files[]" type="file" accept="image/*" multiple class="hidden" />
             <label for="product-images-input" class="btn btn-primary mt-2">Choose Images</label>
-            <div id="preview-product-images" class="flex flex-wrap gap-3 mt-3"></div>
             <div id="preview-product-images-count" class="mt-3 px-3 py-2 bg-blue-50 text-gray-700 rounded hidden">0 image(s) in total</div>
         </div>
     </div>

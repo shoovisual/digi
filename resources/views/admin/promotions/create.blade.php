@@ -65,19 +65,45 @@
 
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Products in Promotion</label>
-            <div class="max-h-64 overflow-y-auto border rounded p-3">
-                @forelse($products as $product)
-                    <label class="flex items-center gap-2 py-1">
-                        <input type="checkbox" name="products[]" value="{{ $product->id }}" class="rounded"
-                               @checked(collect(old('products', []))->contains($product->id)) />
-                        <span class="text-sm text-gray-900">{{ $product->name }}</span>
-                        @if($product->category)
-                            <span class="text-xs text-gray-500">({{ $product->category->name }})</span>
-                        @endif
-                    </label>
-                @empty
-                    <p class="text-sm text-gray-600">No products available.</p>
-                @endforelse
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="md:col-span-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @forelse($products as $product)
+                            <div class="border rounded-lg overflow-hidden bg-white">
+                                <input type="checkbox" name="products[]" value="{{ $product->id }}" class="product-checkbox hidden"
+                                       @checked(collect(old('products', []))->contains($product->id)) />
+                                <div class="p-3 flex items-center gap-3">
+                                    @php $pimg = $product->image ? asset('img/' . $product->image) : asset('img/products/default.jpg'); @endphp
+                                    <img src="{{ $pimg }}" alt="{{ $product->name }}" class="w-16 h-16 object-cover rounded border" />
+                                    <div class="flex-1">
+                                        <div class="font-medium text-sm text-gray-900">{{ $product->name }}</div>
+                                        @if($product->category)
+                                            <div class="text-xs text-gray-500">{{ $product->category->name }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="px-3 pb-3">
+                                    <button type="button"
+                                            class="add-to-promo-btn px-3 py-1.5 rounded text-white text-sm"
+                                            data-product-id="{{ $product->id }}"
+                                            data-product-name="{{ $product->name }}"
+                                            data-product-image="{{ $pimg }}"
+                                            data-product-category="{{ $product->category->name ?? '' }}">
+                                        Add to promotion
+                                    </button>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-sm text-gray-600">No products available.</p>
+                        @endforelse
+                    </div>
+                </div>
+                <div>
+                    <div class="border rounded-lg p-3 bg-gray-50">
+                        <div class="text-sm font-medium mb-2">Selected Products</div>
+                        <div id="selected-products-list" class="space-y-2"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -89,9 +115,10 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Slug toggle
     const cb = document.getElementById('promotion-slug-manual');
     const input = document.getElementById('promotion-slug-input');
-    function sync() {
+    function syncSlug() {
         const en = !!(cb && cb.checked);
         if (input) {
             input.disabled = !en;
@@ -99,9 +126,64 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     if (cb) {
-        cb.addEventListener('change', sync);
-        sync();
+        cb.addEventListener('change', syncSlug);
+        syncSlug();
     }
+
+    // Product selection UI
+    const selectedList = document.getElementById('selected-products-list');
+    const buttons = document.querySelectorAll('.add-to-promo-btn');
+
+    function checkboxFor(id) {
+        return document.querySelector(`input.product-checkbox[value="${id}"]`);
+    }
+
+    function updateButton(btn, checked) {
+        btn.textContent = checked ? 'Added' : 'Add to promotion';
+        btn.classList.toggle('bg-indigo-600', checked);
+        btn.classList.toggle('hover:bg-indigo-700', checked);
+        btn.classList.toggle('bg-gray-300', !checked);
+        btn.classList.toggle('text-gray-800', !checked);
+    }
+
+    function renderSelected() {
+        if (!selectedList) return;
+        const selected = Array.from(document.querySelectorAll('input.product-checkbox:checked'));
+        if (selected.length === 0) {
+            selectedList.innerHTML = '<p class="text-xs text-gray-500">No products selected.</p>';
+            return;
+        }
+        const items = selected.map(cb => {
+            const btn = document.querySelector(`.add-to-promo-btn[data-product-id="${cb.value}"]`);
+            const name = btn?.dataset.productName || 'Unknown';
+            const img = btn?.dataset.productImage || '';
+            const cat = btn?.dataset.productCategory || '';
+            return `
+                <div class="flex items-center gap-2">
+                    <img src="${img}" alt="${name}" class="w-10 h-10 object-cover rounded border" />
+                    <div>
+                        <div class="text-sm font-medium text-gray-900">${name}</div>
+                        ${cat ? `<div class=\"text-xs text-gray-500\">${cat}</div>` : ''}
+                    </div>
+                </div>`;
+        });
+        selectedList.innerHTML = items.join('');
+    }
+
+    buttons.forEach(btn => {
+        const id = btn.dataset.productId;
+        const cbx = checkboxFor(id);
+        const checked = !!(cbx && cbx.checked);
+        updateButton(btn, checked);
+        btn.addEventListener('click', () => {
+            if (!cbx) return;
+            cbx.checked = !cbx.checked;
+            updateButton(btn, cbx.checked);
+            renderSelected();
+        });
+    });
+
+    renderSelected();
 });
 </script>
 @endpush

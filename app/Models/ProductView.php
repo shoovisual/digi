@@ -9,7 +9,9 @@ class ProductView extends Model
 {
     protected $fillable = [
         'product_id',
-        'ip_address'
+        'ip_address',
+        'country_code',
+        'country_name'
     ];
 
     /**

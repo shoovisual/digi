@@ -10,8 +10,10 @@
     title="Hero Slides"
     searchPlaceholder="Search slides…"
     :addRoute="route('admin.hero-slides.create')"
+    buttonIcon="bi bi-plus-lg"
     addText="Add Slide"
-    export="false">
+    {{-- export="false" --}}
+    >
     <thead>
         <tr class="text-uppercase text-nowrap">
             <th>SN</th>

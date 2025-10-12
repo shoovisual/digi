@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('categoryRelation')->latest()->paginate(15);
+        $products = Product::with('categoryRelation')->orderBy('updated_at', 'desc')->paginate(15);
         return view('admin.products.index', compact('products'));
     }
 
@@ -43,7 +43,7 @@ class ProductController extends Controller
             'spec_values.*' => ['nullable','string'],
             'manual_slug' => ['nullable'],
         ]);
-        
+
         // Handle uploads
         $mainImagePath = $data['image'] ?? null;
         $productImages = [];
@@ -169,7 +169,7 @@ class ProductController extends Controller
             'spec_values.*' => ['nullable','string'],
             'manual_slug' => ['nullable'],
         ]);
-        
+
         // Handle uploads (replace sets if new files provided)
         \Illuminate\Support\Facades\File::ensureDirectoryExists(public_path('img/products/uploads'));
 

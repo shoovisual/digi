@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductView;
 use App\Models\Promotion;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class ProductController extends Controller
 {
@@ -89,10 +91,32 @@ class ProductController extends Controller
 
             // Only increment if this is a new view from this IP
             if (!$existingView) {
-                // Create a new view record
+                // Resolve country from IP (cached to reduce lookups)
+                $geo = Cache::remember('geoip:'.$ipAddress, 60 * 60 * 24, function () use ($ipAddress) {
+                    try {
+                        // ip-api.com is free and simple; no key required
+                        $resp = Http::timeout(3)->get('http://ip-api.com/json/'.$ipAddress.'?fields=status,country,countryCode');
+                        if ($resp->ok()) {
+                            $data = $resp->json();
+                            if (($data['status'] ?? '') === 'success') {
+                                return [
+                                    'country_code' => $data['countryCode'] ?? null,
+                                    'country_name' => $data['country'] ?? null,
+                                ];
+                            }
+                        }
+                    } catch (\Throwable $e) {
+                        // ignore failures
+                    }
+                    return ['country_code' => null, 'country_name' => null];
+                });
+
+                // Create a new view record with country info
                 ProductView::create([
                     'product_id' => $productId,
-                    'ip_address' => $ipAddress
+                    'ip_address' => $ipAddress,
+                    'country_code' => $geo['country_code'] ?? null,
+                    'country_name' => $geo['country_name'] ?? null,
                 ]);
 
                 // Increment the product's view count

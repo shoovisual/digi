@@ -32,7 +32,10 @@ class PromotionController extends Controller
      */
     public function create(): View
     {
-        $products = Product::query()->with('category')->orderBy('name')->get();
+        $products = Product::query()
+            ->with('category')
+            ->orderByDesc('updated_at')
+            ->get();
         return view('admin.promotions.create', compact('products'));
     }
 
@@ -160,7 +163,10 @@ class PromotionController extends Controller
     public function edit(Promotion $promotion): View
     {
         $promotion->load('products');
-        $products = Product::query()->with('category')->orderBy('name')->get();
+        $products = Product::query()
+            ->with('category')
+            ->orderByDesc('updated_at')
+            ->get();
         return view('admin.promotions.edit', compact('promotion', 'products'));
     }
 

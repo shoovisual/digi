@@ -11,8 +11,10 @@
     title="Products List"
     searchPlaceholder="Search products…"
     :addRoute="route('admin.products.create')"
+    buttonIcon="bi bi-plus-lg"
     addText="Add Product"
-    export="false">
+    {{-- export="false" --}}
+    >
     <thead>
         <tr class="text-uppercase text-nowrap">
             <th>SN</th>
@@ -29,7 +31,7 @@
         @foreach($products as $product)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>
+            <td class="w-20">
                 @php $img = $product->image ? asset('img/' . $product->image) : asset('img/products/default.jpg'); @endphp
                 <img src="{{ $img }}" alt="{{ $product->name }}" class="w-20 h-20 object-contain rounded border border-gray-200" />
             </td>

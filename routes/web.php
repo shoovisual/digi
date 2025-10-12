@@ -96,8 +96,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
             'destroy' => 'hero-slides.destroy',
         ]);
 
-        // Categories (index for now)
-        Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
+        // Categories
+        Route::resource('categories', AdminCategoryController::class)
+            ->only(['index','create','store','show','edit','update','destroy'])
+            ->names([
+                'index' => 'categories.index',
+                'create' => 'categories.create',
+                'store' => 'categories.store',
+                'show' => 'categories.show',
+                'edit' => 'categories.edit',
+                'update' => 'categories.update',
+                'destroy' => 'categories.destroy',
+            ]);
 
         // Settings
         Route::get('/settings', [AdminSettingsController::class, 'index'])->name('settings.index');

@@ -41,12 +41,33 @@ class DashboardController extends Controller
         }
         $trendData = array_values($days);
 
+        // Demographics by country (last 30 days)
+        $geoStart = now()->subDays(29)->startOfDay();
+        $geoRows = ProductView::where('created_at', '>=', $geoStart)
+            ->whereNotNull('country_name')
+            ->selectRaw('country_name, COUNT(*) as c')
+            ->groupBy('country_name')
+            ->orderByDesc('c')
+            ->take(6)
+            ->get();
+        $geoTotal = (int) ProductView::where('created_at', '>=', $geoStart)->count();
+
+        $geoStats = $geoRows->map(function ($row) use ($geoTotal) {
+            $count = (int) $row->c;
+            $pct = $geoTotal > 0 ? round(($count / $geoTotal) * 100) : 0;
+            return [
+                'country' => $row->country_name,
+                'count' => $count,
+                'percent' => $pct,
+            ];
+        });
+
         // Latest products
         $latestProducts = Product::with('categoryRelation')
             ->latest()
             ->take(8)
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'trendLabels', 'trendData', 'latestProducts'));
+        return view('admin.dashboard', compact('stats', 'trendLabels', 'trendData', 'latestProducts', 'geoStats'));
     }
 }

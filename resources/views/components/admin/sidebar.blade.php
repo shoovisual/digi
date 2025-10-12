@@ -1,8 +1,8 @@
-<aside class="w-64 border-r border-gray-200 fixed bg-off-white h-full z-50 text-sm" x-data="{ openPM: true }">
-    <div class="flex items-center justify-center py-10 border-b border-gray-800 space-x-2">
+<aside class="w-64 border-r border-gray-200 fixed bg-white h-full z-50 px-3 text-sm" x-data="{ openPM: true }">
+    <div class="flex items-center justify-center py-12 space-x-2">
         <a href="/"><img src="{{ asset('img/digi-logo.svg') }}" alt="DIGI Logo" class="h-10 w-auto" /></a>
     </div>
-    <nav class="flex flex-col text-[16px] admin-nav text-gray-700 gap-2 px-3 mt-4">
+    <nav class="flex flex-col text-[16px] admin-nav text-gray-700 gap-2 mt-4">
         <a href="{{ route('admin.dashboard') }}" class="menu-link p-3 hover:bg-black hover:text-white transition-all duration-300 {{ request()->routeIs('admin.dashboard') ? 'bg-black text-white' : '' }}">
             <span>Dashboard</span>
         </a>

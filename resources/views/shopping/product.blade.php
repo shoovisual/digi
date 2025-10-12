@@ -91,10 +91,6 @@
                                 <i class="bi bi-tag-fill mr-2"></i>
                                 On Offer: {{ $activePromotion->name }}
                             </div>
-                        @else
-                            <div class="mt-2 inline-flex items-center bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
-                                No current offer
-                            </div>
                         @endif
                     </div>
 

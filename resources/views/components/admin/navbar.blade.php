@@ -1,8 +1,14 @@
-<header class="sticky top-0 bg-white border-b border-gray-200 z-40 py-2">
+<header class="sticky top-0 bg-white/80 backdrop-blur-md border-b border-gray-200 z-40 py-2">
     <div class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-4">
 
         <!-- Search -->
         <div class="flex justify-end w-full items-center">
+            <div class="relative mr-3">
+                <button class="flex text-left items-center space-x-4 border border-gray-200 h-8 w-8 rounded-full text-gray-700 hover:text-gray-900 focus:outline-none">
+                    <i class="bi bi-bell text-2xl"></i>
+                    {{-- <span class="absolute top-0 right-4 p-2 text-xs font-semibold leading-none h-2 w-2 flex items-center justify-center text-digi-orange bg-digi-orange rounded-full"></span> --}}
+                </button>
+            </div>
             <!-- Topbar actions -->
             <div class="flex items-center gap-2">
                  <div x-data="{ open: false }" class="relative">
