@@ -112,7 +112,7 @@ if ($activePromo) {
 
 
 {{-- =========================  HERO SLIDER  ========================= --}}
-<section class="relative overflow-hidden h-[80vh] md:h-[80vh]" id="hero-slider">
+<section class="relative overflow-hidden h-[75vh] md:h-[80vh]" id="hero-slider">
     <div class="relative h-full w-full">
         {{-- Slider Container --}}
         <div class="hero-slider relative h-full w-full">
