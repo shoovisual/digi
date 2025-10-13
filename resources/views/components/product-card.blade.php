@@ -6,6 +6,15 @@
         $decoded = json_decode($product->product_images ?? '[]', true);
         $images = is_array($decoded) ? $decoded : [];
     }
+    // Ensure the admin-defined main image is the first displayed image
+    $images = collect([$product->image])
+        ->merge($images)
+        ->filter(function ($img) {
+            return !empty($img);
+        })
+        ->unique()
+        ->values()
+        ->toArray();
 @endphp
 
 <div class="bg-white slide rounded-2xl p-5 flex flex-col justify-between hover:shadow-lg transition duration-300 w-full max-w-sm mx-auto">

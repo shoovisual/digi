@@ -71,9 +71,16 @@
                     @foreach($existingGalleries as $caption => $path)
                         <div class="existing-gallery-item relative border rounded p-3 flex items-start gap-3">
                             <img src="{{ asset('img/' . $path) }}" class="w-20 h-20 object-cover rounded border" alt="{{ $caption }}" />
-                            <div>
-                                <div class="font-medium">{{ $caption }}</div>
-                                <div class="text-xs text-gray-500 break-all">{{ $path }}</div>
+                            <div class="flex-1">
+                                <label class="block text-sm">Caption</label>
+                                <input name="existing_gallery_captions[]" type="text" value="{{ $caption }}" class="form-control mt-1 w-full" />
+                                <input type="hidden" name="existing_gallery_paths[]" value="{{ $path }}" />
+                                <div class="mt-2">
+                                    @php $fid = 'existing-gallery-file-'.$loop->index; @endphp
+                                    <input id="{{ $fid }}" name="existing_gallery_files[]" type="file" accept="image/*" class="hidden" />
+                                    <label for="{{ $fid }}" class="btn btn-outline-secondary">Replace Image</label>
+                                </div>
+                                <div class="text-xs text-gray-500 break-all mt-1">Current path: {{ $path }}</div>
                             </div>
                             <button type="button" class="remove-gallery-image absolute -top-2 -right-2 bg-red-500 text-white text-xs w-6 h-6 rounded-full" data-path="{{ $path }}" title="Remove">×</button>
                         </div>

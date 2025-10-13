@@ -161,6 +161,12 @@ class ProductController extends Controller
             'product_galleries_files.*' => ['nullable','image','mimes:jpg,jpeg,png,webp,avif','max:5120'],
             'product_galleries_captions' => ['nullable','array'],
             'product_galleries_captions.*' => ['nullable','string'],
+            // Existing gallery edit/replace
+            'existing_gallery_captions' => ['nullable','array'],
+            'existing_gallery_captions.*' => ['nullable','string'],
+            'existing_gallery_paths' => ['nullable','array'],
+            'existing_gallery_paths.*' => ['nullable','string'],
+            'existing_gallery_files.*' => ['nullable','image','mimes:jpg,jpeg,png,webp,avif','max:5120'],
             'features' => ['nullable','array'],
             'features.*' => ['nullable','string'],
             'spec_keys' => ['nullable','array'],
@@ -196,15 +202,55 @@ class ProductController extends Controller
         }
         $data['product_images'] = array_merge($existingImages, $newImages);
 
-        // Existing galleries (append new uploads)
+        // Existing galleries map
         $existingGalleries = is_array($product->product_galleries)
             ? $product->product_galleries
             : (json_decode($product->product_galleries ?? '{}', true) ?: []);
 
-        // New gallery uploads (append to remaining)
+        // Process edits/replacements for existing gallery items
+        $updatedGalleries = [];
+        $existingCaps = $request->input('existing_gallery_captions', []);
+        $existingPaths = $request->input('existing_gallery_paths', []);
+        if (is_array($existingPaths) && count($existingPaths)) {
+            foreach ($existingPaths as $i => $oldPath) {
+                $rawCap = $existingCaps[$i] ?? '';
+                $newCaption = is_string($rawCap) ? trim($rawCap) : '';
+                if ($newCaption === '') {
+                    // Fallback to previous caption matched by path
+                    $prevCaption = null;
+                    foreach ($existingGalleries as $cap => $p) {
+                        if ($p === $oldPath) { $prevCaption = $cap; break; }
+                    }
+                    $newCaption = $prevCaption ?: ('Image '.($i+1));
+                }
+                // Check for replacement file at same index
+                $fileAtIndex = null;
+                if ($request->hasFile('existing_gallery_files.'.$i)) {
+                    $files = $request->file('existing_gallery_files');
+                    $fileAtIndex = is_array($files) ? ($files[$i] ?? null) : $files;
+                } elseif ($request->file('existing_gallery_files')) {
+                    $files = $request->file('existing_gallery_files');
+                    $fileAtIndex = is_array($files) ? ($files[$i] ?? null) : null;
+                }
+                $finalPath = $oldPath;
+                if ($fileAtIndex) {
+                    $gname = time().'_'.\Illuminate\Support\Str::random(8).'.'.$fileAtIndex->getClientOriginalExtension();
+                    $fileAtIndex->move(public_path('img/products/uploads'), $gname);
+                    $finalPath = 'products/uploads/'.$gname;
+                    // Optionally unlink old file
+                    $fullOld = public_path('img/' . $oldPath);
+                    if (file_exists($fullOld)) { @unlink($fullOld); }
+                }
+                $updatedGalleries[$newCaption] = $finalPath;
+            }
+        } else {
+            // No posted existing items; use current stored galleries
+            $updatedGalleries = $existingGalleries;
+        }
+
+        // Handle newly added gallery uploads (append to updated set)
         if ($request->hasFile('product_galleries_files')) {
             $captions = $request->input('product_galleries_captions', []);
-            $newGalleries = [];
             $index = 0;
             foreach ($request->file('product_galleries_files') as $gf) {
                 if (!$gf) { $index++; continue; }
@@ -213,14 +259,12 @@ class ProductController extends Controller
                 $captionRaw = $captions[$index] ?? '';
                 $caption = is_string($captionRaw) ? trim($captionRaw) : '';
                 if ($caption === '') { $caption = 'Image '.($index+1); }
-                $newGalleries[$caption] = 'products/uploads/'.$gname;
+                $updatedGalleries[$caption] = 'products/uploads/'.$gname;
                 $index++;
             }
-            $data['product_galleries'] = array_merge($existingGalleries, $newGalleries);
-        } else {
-            // No new uploads, keep existing galleries
-            $data['product_galleries'] = $existingGalleries;
         }
+
+        $data['product_galleries'] = $updatedGalleries;
 
         // Build features array
         $features = collect($request->input('features', []))
