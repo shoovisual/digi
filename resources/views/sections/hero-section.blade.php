@@ -119,9 +119,9 @@ if ($activePromo) {
             @foreach($heroSlides as $index => $slide)
             <div class="slide" data-slide="{{ $index }}">
                 {{-- Background image --}}
-                <div class="absolute hidden lg:block inset-0 bg-contain bg-no-repeat bg-top transition-all duration-1000" style="background-image:url('{{ $slide['image'] }}');"></div>
-                <div class="absolute lg:hidden md:block inset-0 bg-cover bg-center transition-all duration-1000" style="background-image:url('{{ $slide['tabletImage'] }}');"></div>
-                <div class="absolute md:hidden block inset-0 bg-contain bg-no-repeat bg-top transition-all duration-1000" style="background-image:url('{{ $slide['mobileImage'] }}');"></div>
+                <div class="absolute hidden lg:block inset-0 bg-cover bg-bottom transition-all duration-1000" style="background-image:url('{{ $slide['image'] }}');"></div>
+                <div class="absolute lg:hidden md:block inset-0 bg-cover bg-bottom transition-all duration-1000" style="background-image:url('{{ $slide['tabletImage'] }}');"></div>
+                <div class="absolute md:hidden block inset-0 bg-cover bg-bottom transition-all duration-1000" style="background-image:url('{{ $slide['mobileImage'] }}');"></div>
 
                 {{-- Overlay --}}
                 {{-- <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30"></div> --}}

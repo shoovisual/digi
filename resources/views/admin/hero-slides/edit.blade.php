@@ -24,23 +24,35 @@
         <div>
             <label class="block text-sm">Desktop Image</label>
             <input name="image_file" type="file" accept="image/*" class="form-control mt-1 w-full" />
-            <input name="image" type="text" value="{{ old('image', $slide->image) }}" placeholder="hero/uploads/xxx.jpg" class="form-control mt-1 w-full" />
+            <input name="image" type="hidden" value="{{ old('image', $slide->image) }}" />
             <div class="mt-2">
                 @php $img = $slide->image ? asset('img/' . $slide->image) : null; @endphp
                 @if($img)
-                    <img src="{{ $img }}" alt="Current" class="w-32 h-20 object-cover rounded border" />
+                    <img src="{{ $img }}" alt="Current Desktop" class="w-32 h-20 object-cover rounded border" />
                 @endif
             </div>
         </div>
         <div>
             <label class="block text-sm">Tablet Image</label>
             <input name="tablet_image_file" type="file" accept="image/*" class="form-control mt-1 w-full" />
-            <input name="tablet_image" type="text" value="{{ old('tablet_image', $slide->tablet_image) }}" placeholder="hero/uploads/xxx.jpg" class="form-control mt-1 w-full" />
+            <input name="tablet_image" type="hidden" value="{{ old('tablet_image', $slide->tablet_image) }}" />
+            <div class="mt-2">
+                @php $timg = $slide->tablet_image ? asset('img/' . $slide->tablet_image) : null; @endphp
+                @if($timg)
+                    <img src="{{ $timg }}" alt="Current Tablet" class="w-32 h-20 object-cover rounded border" />
+                @endif
+            </div>
         </div>
         <div>
             <label class="block text-sm">Mobile Image</label>
             <input name="mobile_image_file" type="file" accept="image/*" class="form-control mt-1 w-full" />
-            <input name="mobile_image" type="text" value="{{ old('mobile_image', $slide->mobile_image) }}" placeholder="hero/uploads/xxx.jpg" class="form-control mt-1 w-full" />
+            <input name="mobile_image" type="hidden" value="{{ old('mobile_image', $slide->mobile_image) }}" />
+            <div class="mt-2">
+                @php $mimg = $slide->mobile_image ? asset('img/' . $slide->mobile_image) : null; @endphp
+                @if($mimg)
+                    <img src="{{ $mimg }}" alt="Current Mobile" class="w-32 h-20 object-cover rounded border" />
+                @endif
+            </div>
         </div>
     </div>
 
