@@ -18,7 +18,7 @@
 <div class="bg-white">
     <!-- Sticky Navigation Bar -->
     <div id="product-nav" class="bg-[#f2f0ec] border-b border-gray-200 transition-all duration-300">
-        <div class="md:max-w-7xl overflow-x-scroll mx-auto px-4 py-3">
+        <div class="md:max-w-7xl overflow-x-scroll lg:overflow-auto mx-auto px-4 py-3">
             <div class="flex items-center justify-between">
                 <!-- Product Navigation Tabs -->
                 <div class="flex justify-between items-center space-x-8">
