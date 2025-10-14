@@ -74,6 +74,11 @@
         @error('serial')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
     </div>
     <div>
+        <label class="block text-sm">Price</label>
+        <input name="price" type="number" step="0.01" min="0" value="{{ old('price') }}" class="form-control mt-1 w-full" />
+        @error('price')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
+    </div>
+    <div>
         <label class="block text-sm">Category</label>
         <select name="category_id" class="form-select mt-1 w-full" required>
             <option value="">Select category</option>

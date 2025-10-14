@@ -13,7 +13,19 @@
     :addRoute="route('admin.products.create')"
     buttonIcon="bi bi-plus-lg"
     addText="Add Product"
-    {{-- export="false" --}}
+    :export="true"
+    :options="[
+        'ordering' => true,
+        'buttons' => [
+            [
+                'extend' => 'excel',
+                'exportOptions' => ['columns' => [0,2,3,4,5,6,8]]
+            ]
+        ],
+        'columnDefs' => [
+            ['targets' => [8], 'visible' => false]
+        ]
+    ]"
     >
     <thead>
         <tr class="text-uppercase text-nowrap">
@@ -25,6 +37,7 @@
             <th>Views</th>
             <th>Created At</th>
             <th class="text-right">Actions</th>
+            <th>Frontend Link</th>
         </tr>
     </thead>
     <tbody>
@@ -64,6 +77,7 @@
                     </button>
                 </form>
             </td>
+            <td class="text-nowrap">{{ route('products.show', $product) }}</td>
         </tr>
         @endforeach
     </tbody>

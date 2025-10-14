@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'category_id', 'image', 'serial', 'product_short', 'slug', 'product_images', 'product_galleries', 'features', 'specifications'];
+    protected $fillable = ['name', 'description', 'category_id', 'image', 'serial', 'product_short', 'slug', 'product_images', 'product_galleries', 'features', 'specifications', 'price'];
 
     protected $casts = [
         'product_images' => 'array',
         'product_galleries' => 'array',
         'features' => 'array',
         'specifications' => 'array',
+        'price' => 'decimal:2',
     ];
 
     public function getRouteKeyName()

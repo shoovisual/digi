@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
 use App\Http\Controllers\Admin\HeroSlideController as AdminHeroSlideController;
 use App\Http\Controllers\Admin\PromotionController as AdminPromotionController;
+use App\Http\Controllers\Admin\ReturnReasonController as AdminReturnReasonController;
 use App\Http\Controllers\PromotionPublicController;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
@@ -39,6 +40,9 @@ Route::get('/careers', [CareersController::class, 'index'])->name('careers');
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy-policy');
 Route::get('/terms-conditions', [HomeController::class, 'terms'])->name('terms-conditions');
 Route::get('/return-policy', [HomeController::class, 'returns'])->name('return-policy');
+// Order Return Request
+Route::get('/order-return', [HomeController::class, 'returnRequest'])->name('return-request');
+Route::post('/order-return', [HomeController::class, 'submitReturnRequest'])->name('return-request.submit');
 
 Route::get('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
@@ -124,6 +128,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 'edit' => 'promotions.edit',
                 'update' => 'promotions.update',
                 'destroy' => 'promotions.destroy',
+            ]);
+
+        // Return Reasons
+        Route::resource('return-reasons', AdminReturnReasonController::class)
+            ->only(['index','create','store','edit','update','destroy'])
+            ->names([
+                'index' => 'return-reasons.index',
+                'create' => 'return-reasons.create',
+                'store' => 'return-reasons.store',
+                'edit' => 'return-reasons.edit',
+                'update' => 'return-reasons.update',
+                'destroy' => 'return-reasons.destroy',
             ]);
     });
 });

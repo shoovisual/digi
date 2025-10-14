@@ -11,6 +11,11 @@
         <input name="name" type="text" value="{{ old('name', $product->name) }}" class="form-control mt-1 w-full" required />
         @error('name')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
     </div>
+    <div>
+        <label class="block text-sm">Price</label>
+        <input name="price" type="number" step="0.01" min="0" value="{{ old('price', $product->price) }}" class="form-control mt-1 w-full" />
+        @error('price')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
             <label class="block text-sm">Upload main image</label>
