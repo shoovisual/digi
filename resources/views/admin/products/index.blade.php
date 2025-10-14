@@ -19,11 +19,11 @@
         'buttons' => [
             [
                 'extend' => 'excel',
-                'exportOptions' => ['columns' => [0,2,3,4,5,6,8]]
+                'exportOptions' => ['columns' => [0,2,3,4,5,6,8,9,10]]
             ]
         ],
         'columnDefs' => [
-            ['targets' => [8], 'visible' => false]
+            ['targets' => [8,9,10], 'visible' => false]
         ]
     ]"
     >
@@ -38,6 +38,8 @@
             <th>Created At</th>
             <th class="text-right">Actions</th>
             <th>Frontend Link</th>
+            <th>Image URL</th>
+            <th>Price</th>
         </tr>
     </thead>
     <tbody>
@@ -78,6 +80,8 @@
                 </form>
             </td>
             <td class="text-nowrap">{{ route('products.show', $product) }}</td>
+            <td class="text-nowrap">{{ $product->image ? asset('img/' . $product->image) : asset('img/products/default.jpg') }}</td>
+            <td class="text-nowrap">{{ $product->price }}</td>
         </tr>
         @endforeach
     </tbody>
