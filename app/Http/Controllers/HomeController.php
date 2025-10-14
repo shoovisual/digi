@@ -30,4 +30,9 @@ class HomeController extends Controller
         $categories = Category::all();
         return view('legal.terms-conditions', compact('categories'));
     }
+    public function returns()
+    {
+        $categories = Category::all();
+        return view('legal.return-policy', compact('categories'));
+    }
 }

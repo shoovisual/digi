@@ -38,6 +38,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/careers', [CareersController::class, 'index'])->name('careers');
 Route::get('/privacy-policy', [HomeController::class, 'privacy'])->name('privacy-policy');
 Route::get('/terms-conditions', [HomeController::class, 'terms'])->name('terms-conditions');
+Route::get('/return-policy', [HomeController::class, 'returns'])->name('return-policy');
 
 Route::get('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');

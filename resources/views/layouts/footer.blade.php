@@ -80,6 +80,8 @@
         <a href="{{ route('terms-conditions') }}" class="hover:underline">Terms and Conditions</a>
         <span class="hidden sm:inline-block">|</span>
         <a href="{{ route('privacy-policy') }}" class="hover:underline">Privacy &amp; Policies</a>
+        <span class="hidden sm:inline-block">|</span>
+        <a href="{{ route('return-policy') }}" class="hover:underline">Return &amp; Exchange Policy</a>
       </nav>
     </div>
   </div>
