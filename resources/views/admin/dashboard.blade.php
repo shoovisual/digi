@@ -43,67 +43,173 @@
 </div>
 
 <!-- Demographics + Recent Orders -->
-<div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
     <!-- Customers Demographic -->
-    <div class="lg:col-span-1 bg-white border rounded-xl p-6">
+    <div class=" bg-white border rounded-xl p-6">
         <div class="flex items-center justify-between mb-4">
             <div class="text-sm font-semibold">Customers Demographic</div>
             <button class="text-gray-400"><i class="bi bi-three-dots"></i></button>
         </div>
-        <div class="h-48 bg-gray-100 rounded border flex items-center justify-center text-gray-400">World Map Placeholder</div>
+        <div class="text-xs text-gray-500 mb-2">Number of customer based on country</div>
+
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+              integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+              crossorigin=""/>
+
+        <!-- Interactive OpenStreetMap -->
+        <div id="customerMap" class="h-48 bg-gray-50 rounded border relative overflow-hidden"></div>
+
         <div class="mt-6 space-y-3 text-sm">
             @php
                 $colors = ['bg-blue-500','bg-indigo-500','bg-teal-500','bg-rose-500','bg-amber-500','bg-purple-500'];
+                $flagEmojis = [
+                    'United States' => '🇺🇸',
+                    'USA' => '🇺🇸',
+                    'France' => '🇫🇷',
+                    'Germany' => '🇩🇪',
+                    'United Kingdom' => '🇬🇧',
+                    'UK' => '🇬🇧',
+                    'Canada' => '🇨🇦',
+                    'Australia' => '🇦🇺',
+                    'Japan' => '🇯🇵',
+                    'China' => '🇨🇳',
+                    'India' => '🇮🇳',
+                    'Brazil' => '🇧🇷',
+                    'Russia' => '🇷🇺',
+                    'South Africa' => '🇿🇦',
+                    'Mexico' => '🇲🇽',
+                    'Italy' => '🇮🇹',
+                    'Spain' => '🇪🇸',
+                    'Netherlands' => '🇳🇱',
+                    'Sweden' => '🇸🇪',
+                    'Norway' => '🇳🇴',
+                    'Tanzania' => '🇹🇿',
+                    'Kenya' => '🇰🇪',
+                    'Uganda' => '🇺🇬',
+                    'Rwanda' => '🇷🇼',
+                    'Burundi' => '🇧🇮',
+                ];
             @endphp
             @if(isset($geoStats) && count($geoStats) > 0)
                 @foreach($geoStats as $i => $g)
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full {{ $colors[$i % count($colors)] }}"></span> {{ $g['country'] ?? 'Unknown' }}</div>
-                        <div class="text-xs text-gray-500">{{ number_format($g['count']) }} Customers</div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">{{ $flagEmojis[$g['country']] ?? '🌍' }}</span>
+                            <span class="font-medium">{{ $g['country'] ?? 'Unknown' }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500">{{ number_format($g['count']) }} Customers</span>
+                            <span class="font-semibold">{{ $g['percent'] }}%</span>
+                        </div>
                     </div>
-                    <div class="w-full h-2 bg-gray-100 rounded"><div class="h-2 {{ $colors[$i % count($colors)] }} rounded" style="width:{{ max(0, min(100, $g['percent'])) }}%"></div></div>
+                    <div class="w-full h-2 bg-gray-100 rounded">
+                        <div class="h-2 {{ $colors[$i % count($colors)] }} rounded transition-all duration-500"
+                             style="width:{{ max(0, min(100, $g['percent'])) }}%"></div>
+                    </div>
                 @endforeach
             @else
-                <div class="text-xs text-gray-500">No location data yet. Views will populate this chart.</div>
+                <div class="text-center py-8">
+                    <div class="text-gray-400 mb-2">
+                        <i class="bi bi-globe text-3xl"></i>
+                    </div>
+                    <div class="text-xs text-gray-500">No location data yet. Views will populate this chart.</div>
+                </div>
             @endif
         </div>
     </div>
 
     <!-- Recently Added Products -->
-    <div class="lg:col-span-2">
-        <x-datatable id="admin-recent-products"
-            title="Recently Added Products"
-            searchPlaceholder="Search products…"
-            :addRoute="null"
-            :export="false"
-            :options="['ordering' => true]">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Category</th>
-                    <th>Added</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse(($latestProducts ?? []) as $p)
-                    <tr>
-                        <td>{{ $p->name ?? ('Product #' . ($p->id ?? '')) }}</td>
-                        <td>{{ $p->categoryRelation->name ?? '—' }}</td>
-                        <td class="text-nowrap">{{ optional($p->created_at)->format('M d, Y') ?? '—' }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="3" class="px-3 py-4 text-gray-500">No products added yet.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </x-datatable>
+    <div class="card border-0">
+        @forelse(($latestProducts ?? []) as $p)
+            <div class="flex items-start gap-x-4 text-xs border p-2 border-gray-200 mb-3">
+                <p>{{ $loop->iteration }}</p>
+                <p class="">{{ $p->name }}</p>
+            </div>
+        @empty
+            <tr>
+                <td colspan="3" class="px-3 py-4 text-gray-500">No products added yet.</td>
+            </tr>
+        @endforelse
     </div>
 </div>
+
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize OpenStreetMap
+    const mapElement = document.getElementById('customerMap');
+    if (mapElement) {
+        // Initialize the map centered on the world
+        const map = L.map('customerMap').setView([20, 0], 2);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+        }).addTo(map);
+
+        // Country coordinates for markers
+        const countryCoordinates = {
+            'United States': [39.8283, -98.5795],
+            'USA': [39.8283, -98.5795],
+            'France': [46.2276, 2.2137],
+            'Germany': [51.1657, 10.4515],
+            'United Kingdom': [55.3781, -3.4360],
+            'UK': [55.3781, -3.4360],
+            'Canada': [56.1304, -106.3468],
+            'Australia': [-25.2744, 133.7751],
+            'Japan': [36.2048, 138.2529],
+            'China': [35.8617, 104.1954],
+            'India': [20.5937, 78.9629],
+            'Brazil': [-14.2350, -51.9253],
+            'Russia': [61.5240, 105.3188],
+            'South Africa': [-30.5595, 22.9375],
+            'Mexico': [23.6345, -102.5528],
+            'Italy': [41.8719, 12.5674],
+            'Spain': [40.4637, -3.7492],
+            'Netherlands': [52.1326, 5.2913],
+            'Sweden': [60.1282, 18.6435],
+            'Norway': [60.4720, 8.4689],
+            'Tanzania': [-6.3690, 34.8888],
+            'Kenya': [-0.0236, 37.9062],
+            'Uganda': [1.3733, 32.2903],
+            'Rwanda': [-1.9403, 29.8739],
+            'Burundi': [-3.3731, 29.9189],
+        };
+
+        // Add markers for countries with customer data
+        @if(isset($geoStats) && count($geoStats) > 0)
+            @foreach($geoStats as $i => $g)
+                @php
+                    $country = $g['country'] ?? 'Unknown';
+                    $count = $g['count'] ?? 0;
+                    $percent = $g['percent'] ?? 0;
+                @endphp
+
+                @if(isset($countryCoordinates[$country]))
+                    const coords{{ $i }} = {{ json_encode($countryCoordinates[$country]) }};
+                    const marker{{ $i }} = L.marker(coords{{ $i }}).addTo(map);
+                    marker{{ $i }}.bindPopup(`
+                        <div class="text-center">
+                            <div class="font-semibold text-lg">{{ $country }}</div>
+                            <div class="text-sm text-gray-600">{{ number_format($count) }} Customers</div>
+                            <div class="text-sm font-medium text-blue-600">{{ $percent }}%</div>
+                        </div>
+                    `);
+                @endif
+            @endforeach
+        @endif
+
+        // Disable zoom control for cleaner look (optional)
+        map.zoomControl.setPosition('bottomright');
+    }
+
     // Removed gauge chart as per new KPI requirements
 
     // Monthly Sales Bar

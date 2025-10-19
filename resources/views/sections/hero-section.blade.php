@@ -112,16 +112,16 @@ if ($activePromo) {
 
 
 {{-- =========================  HERO SLIDER  ========================= --}}
-<section class="relative overflow-hidden h-[85vh] md:h-[80vh]" id="hero-slider">
+<section class="relative overflow-hidden h-[80vh]" id="hero-slider">
     <div class="relative h-full w-full">
         {{-- Slider Container --}}
         <div class="hero-slider relative h-full w-full">
             @foreach($heroSlides as $index => $slide)
             <div class="slide" data-slide="{{ $index }}">
                 {{-- Background image --}}
-                <div class="absolute hidden lg:block inset-0 bg-cover bg-bottom transition-all duration-1000" style="background-image:url('{{ $slide['image'] }}');"></div>
-                <div class="absolute lg:hidden md:block inset-0 bg-cover bg-bottom transition-all duration-1000" style="background-image:url('{{ $slide['tabletImage'] }}');"></div>
-                <div class="absolute md:hidden block inset-0 bg-cover bg-bottom transition-all duration-1000" style="background-image:url('{{ $slide['mobileImage'] }}');"></div>
+                <div class="absolute hidden lg:block inset-0 bg-cover bg-center transition-all duration-1000" style="background-image:url('{{ $slide['image'] }}');"></div>
+                <div class="absolute lg:hidden md:block inset-0 bg-cover bg-center transition-all duration-1000" style="background-image:url('{{ $slide['tabletImage'] }}');"></div>
+                <div class="absolute md:hidden block inset-0 bg-cover bg-center transition-all duration-1000" style="background-image:url('{{ $slide['mobileImage'] }}');"></div>
 
                 {{-- Overlay --}}
                 {{-- <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30"></div> --}}
@@ -184,12 +184,12 @@ if ($activePromo) {
 /* Hero Slider Styles */
 .hero-slider {
     position: relative;
-    height: 100vh;
+    height: 80vh;
 }
 
 .hero-slider .slide {
     position: relative;
-    height: 100vh;
+    height: 80vh;
     width: 100%;
 }
 
