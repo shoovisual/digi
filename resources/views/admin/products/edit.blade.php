@@ -12,6 +12,12 @@
         @error('name')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
     </div>
     <div>
+        <label class="block text-sm">Product Short</label>
+        <input name="product_short" type="text" value="{{ old('product_short', $product->product_short) }}" class="form-control mt-1 w-full" id="product-short-input" />
+        <p class="text-xs text-gray-500 mt-1">Auto-generated from product name (text before first "-" or "–"). You can override this manually.</p>
+        @error('product_short')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
+    </div>
+    <div>
         <label class="block text-sm">Price</label>
         <input name="price" type="number" step="0.01" min="0" value="{{ old('price', $product->price) }}" class="form-control mt-1 w-full" />
         @error('price')<p class="text-sm text-red-600">{{ $message }}</p>@enderror
@@ -485,6 +491,36 @@ document.addEventListener('DOMContentLoaded', () => {
         nameInput.addEventListener('change', updateSlugPreview);
         // Initialize on load
         updateSlugPreview();
+    }
+
+    // Auto-generate product_short from product name
+    const productShortInput = document.getElementById('product-short-input');
+    function generateProductShort(name) {
+        if (!name) return '';
+        // Check for em dash first, then regular dash
+        if (name.includes('–')) {
+            return name.split('–')[0].trim();
+        } else if (name.includes('-')) {
+            return name.split('-')[0].trim();
+        }
+        return name;
+    }
+    function updateProductShort() {
+        if (!productShortInput || !nameInput) return;
+        // Only auto-generate if the field is empty or hasn't been manually edited
+        if (productShortInput.value === '' || !productShortInput.dataset.manuallyEdited) {
+            productShortInput.value = generateProductShort(nameInput.value);
+        }
+    }
+    if (nameInput && productShortInput) {
+        nameInput.addEventListener('input', updateProductShort);
+        nameInput.addEventListener('change', updateProductShort);
+        // Mark as manually edited when user types in product_short field
+        productShortInput.addEventListener('input', function() {
+            productShortInput.dataset.manuallyEdited = 'true';
+        });
+        // Initialize on load
+        updateProductShort();
     }
 });
 </script>

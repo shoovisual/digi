@@ -25,6 +25,7 @@ class ProductController extends Controller
     {
         $data = $request->validate([
             'name' => ['required','string','max:255'],
+            'product_short' => ['nullable','string','max:255'],
             'slug' => ['nullable','string','max:255'],
             'serial' => ['required','string','max:255','unique:products,serial'],
             'category_id' => ['required','exists:categories,id'],
@@ -121,6 +122,17 @@ class ProductController extends Controller
         }
         $finalSlug = $slug;
 
+        // Auto-generate product_short from product name (text before first dash) if not manually provided
+        $productShort = $data['product_short'] ?? null;
+        if (empty($productShort)) {
+            $productShort = $data['name'];
+            if (strpos($data['name'], '–') !== false) {
+                $productShort = trim(explode('–', $data['name'])[0]);
+            } elseif (strpos($data['name'], '-') !== false) {
+                $productShort = trim(explode('-', $data['name'])[0]);
+            }
+        }
+
         $product = Product::create([
             'name' => $data['name'],
             'slug' => $finalSlug,
@@ -128,6 +140,7 @@ class ProductController extends Controller
             'category_id' => $data['category_id'],
             'price' => $data['price'] ?? null,
             'description' => $data['description'] ?? null,
+            'product_short' => $productShort,
             'image' => $mainImagePath,
             'product_images' => count($productImages) ? $productImages : null,
             'product_galleries' => count($galleriesMap) ? $galleriesMap : null,
@@ -153,6 +166,7 @@ class ProductController extends Controller
     {
         $data = $request->validate([
             'name' => ['required','string','max:255'],
+            'product_short' => ['nullable','string','max:255'],
             'slug' => ['nullable','string','max:255','unique:products,slug,'.$product->id],
             'serial' => ['required','string','max:255','unique:products,serial,'.$product->id],
             'category_id' => ['required','exists:categories,id'],
@@ -304,6 +318,14 @@ class ProductController extends Controller
             $finalSlug = $slug;
         }
 
+        // Auto-generate product_short from product name (text before first dash)
+        $productShort = $data['name'];
+        if (strpos($data['name'], '–') !== false) {
+            $productShort = trim(explode('–', $data['name'])[0]);
+        } elseif (strpos($data['name'], '-') !== false) {
+            $productShort = trim(explode('-', $data['name'])[0]);
+        }
+
         $product->update([
             'name' => $data['name'],
             'slug' => $finalSlug,
@@ -311,6 +333,7 @@ class ProductController extends Controller
             'category_id' => $data['category_id'],
             'price' => $data['price'] ?? $product->price,
             'description' => $data['description'] ?? null,
+            'product_short' => $productShort,
             'image' => $data['image'] ?? $product->image,
             'product_images' => $data['product_images'] ?? $product->product_images,
             'product_galleries' => $data['product_galleries'] ?? $product->product_galleries,

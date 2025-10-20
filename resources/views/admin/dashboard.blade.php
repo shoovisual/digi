@@ -29,23 +29,20 @@
     </div>
 </div>
 
-<!-- Monthly Sales -->
-<div class="mt-6 bg-white border rounded-xl p-6">
-    <div class="flex items-center justify-between">
-        <div>
-            <div class="text-sm font-semibold">Monthly Sales</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Monthly Sales -->
+    <div class="mt-6 bg-white border rounded-xl p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <div class="text-sm font-semibold">Monthly Sales</div>
+            </div>
+            <button class="text-gray-400"><i class="bi bi-three-dots"></i></button>
         </div>
-        <button class="text-gray-400"><i class="bi bi-three-dots"></i></button>
+        <div class="mt-4">
+            <canvas id="monthlySalesChart" ></canvas>
+        </div>
     </div>
-    <div class="mt-4">
-        <canvas id="monthlySalesChart" height="100"></canvas>
-    </div>
-</div>
-
-<!-- Demographics + Recent Orders -->
-<div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <!-- Customers Demographic -->
-    <div class=" bg-white border rounded-xl p-6">
+    <div class="mt-6 bg-white border rounded-xl p-6">
         <div class="flex items-center justify-between mb-4">
             <div class="text-sm font-semibold">Customers Demographic</div>
             <button class="text-gray-400"><i class="bi bi-three-dots"></i></button>
@@ -54,8 +51,8 @@
 
         <!-- Leaflet CSS -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-              integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-              crossorigin=""/>
+                integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+                crossorigin=""/>
 
         <!-- Interactive OpenStreetMap -->
         <div id="customerMap" class="h-48 bg-gray-50 rounded border relative overflow-hidden"></div>
@@ -105,7 +102,7 @@
                     </div>
                     <div class="w-full h-2 bg-gray-100 rounded">
                         <div class="h-2 {{ $colors[$i % count($colors)] }} rounded transition-all duration-500"
-                             style="width:{{ max(0, min(100, $g['percent'])) }}%"></div>
+                                style="width:{{ max(0, min(100, $g['percent'])) }}%"></div>
                     </div>
                 @endforeach
             @else
@@ -118,6 +115,12 @@
             @endif
         </div>
     </div>
+</div>
+
+<!-- Demographics + Recent Orders -->
+<div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Customers Demographic -->
+
 
     <!-- Recently Added Products -->
     <div class="card border-0">
@@ -210,8 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
         map.zoomControl.setPosition('bottomright');
     }
 
-    // Removed gauge chart as per new KPI requirements
-
     // Monthly Sales Bar
     const salesEl = document.getElementById('monthlySalesChart');
     if (salesEl) {
@@ -225,7 +226,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     label: 'Sales',
                     data,
                     backgroundColor: '#4F46E5',
-                    borderRadius: 6,
+                    borderRadius: 3,
+                    barPercentage: 0.7,
                 }]
             },
             options: {
