@@ -11,11 +11,18 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // Calculate returning customers (customers who viewed products on different days)
+        $returningCustomers = ProductView::selectRaw('ip_address, COUNT(DISTINCT DATE(created_at)) as visit_days')
+            ->groupBy('ip_address')
+            ->havingRaw('COUNT(DISTINCT DATE(created_at)) > 1')
+            ->count();
+
         $stats = [
             'products' => Product::count(),
             'categories' => Category::count(),
             'total_views' => (int) Product::sum('view_count'),
             'contact_sales' => (int) Product::sum('contact_sales_count'),
+            'returning_customers' => $returningCustomers,
         ];
 
         // Build product view trend for the last 14 days

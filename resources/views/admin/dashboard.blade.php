@@ -2,30 +2,38 @@
 
 @section('content')
 <!-- Top KPIs -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
     <!-- KPI: Total Views -->
-    <div class="bg-white border rounded-xl p-6 flex items-start justify-between">
+    <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white border rounded-lg p-6 flex items-start justify-between">
         <div>
-            <div class="text-xs text-gray-500">Total Views</div>
+            <div class="text-xs text-blue-100">Total Views</div>
             <div class="mt-1 text-3xl font-semibold">{{ number_format($stats['total_views'] ?? 0) }}</div>
         </div>
-        <div class="text-gray-400"><i class="bi bi-eye-fill text-2xl"></i></div>
+        <div class="text-blue-200"><i class="bi bi-eye-fill text-2xl"></i></div>
     </div>
     <!-- KPI: Contact Sales Clicks -->
-    <div class="bg-white border rounded-xl p-6 flex items-start justify-between">
+    <div class="bg-gradient-to-br from-green-500 to-green-600 text-white border rounded-lg p-6 flex items-start justify-between">
         <div>
-            <div class="text-xs text-gray-500">Contact Sales Clicks</div>
+            <div class="text-xs text-green-100">Contact Sales Clicks</div>
             <div class="mt-1 text-3xl font-semibold">{{ number_format($stats['contact_sales'] ?? 0) }}</div>
         </div>
-        <div class="text-gray-400"><i class="bi bi-telephone-fill text-2xl"></i></div>
+        <div class="text-green-200"><i class="bi bi-telephone-fill text-2xl"></i></div>
     </div>
     <!-- KPI: Products In Stock -->
-    <div class="bg-white border rounded-xl p-6 flex items-start justify-between">
+    <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white border rounded-lg p-6 flex items-start justify-between">
         <div>
-            <div class="text-xs text-gray-500">Products In Stock</div>
+            <div class="text-xs text-purple-100">Products In Stock</div>
             <div class="mt-1 text-3xl font-semibold">{{ number_format($stats['products'] ?? 0) }}</div>
         </div>
-        <div class="text-gray-400"><i class="bi bi-box-seam text-2xl"></i></div>
+        <div class="text-purple-200"><i class="bi bi-box-seam text-2xl"></i></div>
+    </div>
+    <!-- KPI: Returning Customers -->
+    <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white border rounded-lg p-6 flex items-start justify-between">
+        <div>
+            <div class="text-xs text-orange-100">Returning Customers</div>
+            <div class="mt-1 text-3xl font-semibold">{{ number_format($stats['returning_customers'] ?? 0) }}</div>
+        </div>
+        <div class="text-orange-200"><i class="bi bi-arrow-repeat text-2xl"></i></div>
     </div>
 </div>
 
