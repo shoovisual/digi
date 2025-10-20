@@ -72,7 +72,7 @@ class DashboardController extends Controller
         // Latest products
         $latestProducts = Product::with('categoryRelation')
             ->latest()
-            ->take(8)
+            ->take(5)
             ->get();
 
         return view('admin.dashboard', compact('stats', 'trendLabels', 'trendData', 'latestProducts', 'geoStats'));

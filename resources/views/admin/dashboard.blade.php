@@ -125,13 +125,10 @@
     </div>
 </div>
 
-<!-- Demographics + Recent Orders -->
-<div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <!-- Customers Demographic -->
-
+<div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
 
     <!-- Recently Added Products -->
-    <div class="bg-white border rounded-xl p-6 shadow-sm">
+    <div class="bg-white col-span-2 border rounded-xl p-6 shadow-sm">
         <div class="flex items-center justify-between mb-6">
             <div>
                 <h3 class="text-lg font-semibold text-gray-900">Recently Added Products</h3>
@@ -149,19 +146,26 @@
 
         <div class="space-y-4">
             @forelse(($latestProducts ?? []) as $p)
-                <div class="flex items-center gap-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group">
-                    <!-- Product Image Placeholder -->
+                <div class="flex items-start gap-4 p-3 bg-gray-100 rounded-lg hover:bg-gray-100 transition-colors group">
+                    <!-- Product Image -->
                     <div class="flex-shrink-0">
-                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-semibold text-sm shadow-sm">
-                            {{ strtoupper(substr($p->name, 0, 2)) }}
-                        </div>
+                        @php $img = $p->image ? asset('img/' . $p->image) : asset('img/products/default.jpg'); @endphp
+                        @if($p->image)
+                            <img src="{{ $img }}"
+                                 alt="{{ $p->name }}"
+                                 class="w-24 h-24 object-cover p-2 rounded-lg bg-white shadow-sm">
+                        @else
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-semibold text-sm shadow-sm">
+                                {{ strtoupper(substr($p->name, 0, 2)) }}
+                            </div>
+                        @endif
                     </div>
-                    
+
                     <!-- Product Info -->
                     <div class="flex-1 min-w-0">
-                        <h4 class="text-sm font-medium text-gray-900 truncate group-hover:text-blue-600 transition-colors">
+                        <p class="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
                             {{ $p->name }}
-                        </h4>
+                        </p>
                         <div class="flex items-center gap-2 mt-1">
                             @if($p->categoryRelation)
                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
@@ -174,25 +178,25 @@
                             </span>
                         </div>
                     </div>
-                    
+
                     <!-- Product Stats -->
                     <div class="flex-shrink-0 text-right">
                         <div class="flex items-center gap-3 text-xs text-gray-500">
-                            <div class="flex items-center gap-1">
-                                <i class="bi bi-eye text-blue-500"></i>
+                            <div class="flex text-white px-3 py-3 items-center bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg gap-1">
+                                <i class="bi bi-eye-fill"></i>
                                 <span>{{ number_format($p->view_count ?? 0) }}</span>
                             </div>
                             @if($p->price)
                                 <div class="text-sm font-semibold text-gray-900">
-                                    ${{ number_format($p->price, 2) }}
+                                    TZS{{ number_format($p->price, 2) }}
                                 </div>
                             @endif
                         </div>
                     </div>
-                    
+
                     <!-- Action Button -->
                     <div class="flex-shrink-0">
-                        <a href="{{ route('admin.products.show', $p->id) }}" 
+                        <a href="{{ route('admin.products.show', $p->id) }}"
                            class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-blue-600">
                             <i class="bi bi-arrow-right text-lg"></i>
                         </a>
@@ -205,7 +209,7 @@
                     </div>
                     <h4 class="text-lg font-medium text-gray-900 mb-2">No products yet</h4>
                     <p class="text-sm text-gray-500 mb-6">Get started by adding your first product to the inventory.</p>
-                    <a href="{{ route('admin.products.create') }}" 
+                    <a href="{{ route('admin.products.create') }}"
                        class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
                         <i class="bi bi-plus-circle mr-2"></i>
                         Add Product
@@ -216,7 +220,7 @@
 
         @if(count($latestProducts ?? []) > 0)
             <div class="mt-6 pt-4 border-t border-gray-200">
-                <a href="{{ route('admin.products.index') }}" 
+                <a href="{{ route('admin.products.index') }}"
                    class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors">
                     View all products
                     <i class="bi bi-arrow-right ml-1"></i>
