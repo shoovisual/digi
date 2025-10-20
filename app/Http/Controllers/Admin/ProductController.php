@@ -389,6 +389,52 @@ class ProductController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function duplicate(Product $product)
+    {
+        // Generate a unique serial number for the duplicated product
+        $baseSerial = $product->serial;
+        $counter = 1;
+        $newSerial = $baseSerial . '-COPY';
+        
+        // Ensure the serial is unique
+        while (Product::where('serial', $newSerial)->exists()) {
+            $counter++;
+            $newSerial = $baseSerial . '-COPY' . $counter;
+        }
+
+        // Generate a unique slug for the duplicated product
+        $baseName = $product->name . ' (Copy)';
+        $baseSlug = \Illuminate\Support\Str::slug($baseName);
+        $newSlug = $baseSlug;
+        $slugCounter = 1;
+        
+        while (Product::where('slug', $newSlug)->exists()) {
+            $slugCounter++;
+            $newSlug = $baseSlug . '-' . $slugCounter;
+        }
+
+        // Create the duplicated product
+        $duplicatedProduct = Product::create([
+            'name' => $baseName,
+            'slug' => $newSlug,
+            'serial' => $newSerial,
+            'category_id' => $product->category_id,
+            'price' => $product->price,
+            'description' => $product->description,
+            'product_short' => $product->product_short,
+            'image' => $product->image,
+            'product_images' => $product->product_images,
+            'product_galleries' => $product->product_galleries,
+            'features' => $product->features,
+            'specifications' => $product->specifications,
+            'view_count' => 0, // Reset view count for new product
+            'contact_sales_count' => 0, // Reset contact sales count for new product
+        ]);
+
+        return redirect()->route('admin.products.index')
+            ->with('status', 'Product "' . $product->name . '" has been successfully duplicated as "' . $duplicatedProduct->name . '"');
+    }
+
     public function destroy(Product $product)
     {
         $product->delete();

@@ -84,6 +84,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             'destroy' => 'products.destroy',
         ]);
 
+        // Product duplication endpoint
+        Route::post('/products/{product}/duplicate', [AdminProductController::class, 'duplicate'])
+            ->name('products.duplicate');
+
         // Product media deletion endpoints (AJAX)
         Route::post('/products/{product}/images/delete', [AdminProductController::class, 'deleteImage'])
             ->name('products.images.delete');

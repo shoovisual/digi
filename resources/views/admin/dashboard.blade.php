@@ -131,17 +131,98 @@
 
 
     <!-- Recently Added Products -->
-    <div class="card border-0">
-        @forelse(($latestProducts ?? []) as $p)
-            <div class="flex items-start gap-x-4 text-xs border p-2 border-gray-200 mb-3">
-                <p>{{ $loop->iteration }}</p>
-                <p class="">{{ $p->name }}</p>
+    <div class="bg-white border rounded-xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900">Recently Added Products</h3>
+                <p class="text-sm text-gray-500">Latest products added to your inventory</p>
             </div>
-        @empty
-            <tr>
-                <td colspan="3" class="px-3 py-4 text-gray-500">No products added yet.</td>
-            </tr>
-        @endforelse
+            <div class="flex items-center gap-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    {{ count($latestProducts ?? []) }} items
+                </span>
+                <button class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="bi bi-three-dots text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            @forelse(($latestProducts ?? []) as $p)
+                <div class="flex items-center gap-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group">
+                    <!-- Product Image Placeholder -->
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-semibold text-sm shadow-sm">
+                            {{ strtoupper(substr($p->name, 0, 2)) }}
+                        </div>
+                    </div>
+                    
+                    <!-- Product Info -->
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-sm font-medium text-gray-900 truncate group-hover:text-blue-600 transition-colors">
+                            {{ $p->name }}
+                        </h4>
+                        <div class="flex items-center gap-2 mt-1">
+                            @if($p->categoryRelation)
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                    <i class="bi bi-tag-fill mr-1"></i>
+                                    {{ $p->categoryRelation->name }}
+                                </span>
+                            @endif
+                            <span class="text-xs text-gray-500">
+                                Added {{ $p->created_at->diffForHumans() }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Stats -->
+                    <div class="flex-shrink-0 text-right">
+                        <div class="flex items-center gap-3 text-xs text-gray-500">
+                            <div class="flex items-center gap-1">
+                                <i class="bi bi-eye text-blue-500"></i>
+                                <span>{{ number_format($p->view_count ?? 0) }}</span>
+                            </div>
+                            @if($p->price)
+                                <div class="text-sm font-semibold text-gray-900">
+                                    ${{ number_format($p->price, 2) }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <!-- Action Button -->
+                    <div class="flex-shrink-0">
+                        <a href="{{ route('admin.products.show', $p->id) }}" 
+                           class="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-blue-600">
+                            <i class="bi bi-arrow-right text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            @empty
+                <div class="text-center py-12">
+                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="bi bi-box-seam text-2xl text-gray-400"></i>
+                    </div>
+                    <h4 class="text-lg font-medium text-gray-900 mb-2">No products yet</h4>
+                    <p class="text-sm text-gray-500 mb-6">Get started by adding your first product to the inventory.</p>
+                    <a href="{{ route('admin.products.create') }}" 
+                       class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="bi bi-plus-circle mr-2"></i>
+                        Add Product
+                    </a>
+                </div>
+            @endforelse
+        </div>
+
+        @if(count($latestProducts ?? []) > 0)
+            <div class="mt-6 pt-4 border-t border-gray-200">
+                <a href="{{ route('admin.products.index') }}" 
+                   class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors">
+                    View all products
+                    <i class="bi bi-arrow-right ml-1"></i>
+                </a>
+            </div>
+        @endif
     </div>
 </div>
 

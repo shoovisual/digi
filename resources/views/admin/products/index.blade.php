@@ -71,6 +71,12 @@
                 <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-sm btn-warning mr-1">
                     <i class="bi bi-pencil-square"></i>
                 </a>
+                <form action="{{ route('admin.products.duplicate', $product) }}" method="POST" class="inline mr-1" onsubmit="return confirm('Duplicate this product as a new product?');">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-info" title="Duplicate Product">
+                        <i class="bi bi-files"></i>
+                    </button>
+                </form>
                 <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="inline" onsubmit="return confirm('Delete this product?');">
                     @csrf
                     @method('DELETE')
