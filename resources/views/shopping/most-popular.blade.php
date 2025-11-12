@@ -65,9 +65,9 @@
                                         <i class="bi bi-eye-fill mr-1"></i>
                                         {{ number_format($product->view_count) }} views
                                     </span>
-                                    @if($product->price)
+                                    {{-- @if($product->price)
                                         <span class="text-gray-900 font-bold">${{ number_format($product->price, 2) }}</span>
-                                    @endif
+                                    @endif --}}
                                 </div>
 
                                 <!-- Category -->

@@ -95,13 +95,13 @@
                     </div>
 
                     <!-- Price Section -->
-                    <div class="mt-4 lg:mt-0 text-right">
+                    {{-- <div class="mt-4 lg:mt-0 text-right">
                         @if($product->price)
-                            <div class="text-3xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</div>
+                            <div class="text-3xl font-bold text-gray-900">TZS{{ number_format($product->price, 2) }}</div>
                             <div class="text-sm text-gray-500">MRP (Incl. of taxes)</div>
-                            <div class="text-sm text-green-600 font-medium">Save ₹6609</div>
+                            <div class="text-sm text-green-600 font-medium">Save TZS {{ number_format(6609) }}</div>
                         @endif
-                    </div>
+                    </div> --}}
                 </div>
 
                 <!-- Rating and Reviews -->
