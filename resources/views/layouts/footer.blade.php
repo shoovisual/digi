@@ -61,6 +61,11 @@
                     </a>
                 </li>
                 <li >
+                    <a href="https://www.tiktok.com/@digi_tanzania" target="_blank">
+                        <i class="bi bi-tiktok"></i>
+                    </a>
+                </li>
+                <li >
                     <a href="https://youtube.com/@digi_tanzania?si=atTe-OGoDBLNMe7_" target="_blank">
                         <i class="bi bi-youtube"></i>
                     </a>

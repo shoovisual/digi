@@ -49,18 +49,23 @@
 
                                 <!-- Refrigerators Column -->
                                 <div class="mega-menu-column">
-                                    <h3 class="mega-menu-title">Kitchen Appliances</h3>
+                                    <h3 class="mega-menu-title">Home Appliances</h3>
                                     <a href="{{ url('/categories/digi-gas-cookers') }}" class="mega-menu-link">DIGI Gas Cookers</a>
                                     <a href="{{ url('/categories/digi-refrigerators') }}" class="mega-menu-link">DIGI Fridges</a>
                                     <a href="{{ url('/categories/digi-freezers') }}" class="mega-menu-link">DIGI Freezers</a>
+                                    <a href="{{ url('/categories/digi-washing-machine') }}" class="mega-menu-link">Washing Machines</a>
                                 </div>
 
                                 <!-- Freezers Column -->
                                 <div class="mega-menu-column">
-                                    <h3 class="mega-menu-title">General Appliances</h3>
+                                    <h3 class="mega-menu-title">Home entertainment</h3>
                                     <a href="{{ url('/categories/digi-tvs') }}" class="mega-menu-link">DIGI TVs</a>
+                                </div>
+
+                                <!-- Freezers Column -->
+                                <div class="mega-menu-column">
+                                    <h3 class="mega-menu-title">Air Conditioners</h3>
                                     <a href="{{ url('/categories/digi-acs') }}" class="mega-menu-link">DIGI Air Conditioners</a>
-                                    <a href="{{ url('/categories/digi-washing-machine') }}" class="mega-menu-link">Washing Machines</a>
                                 </div>
 
                             </div>

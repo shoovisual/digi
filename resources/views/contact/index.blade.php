@@ -181,10 +181,19 @@
                         <h3 class="text-4xl font-semibold mb-2">FOLLOW US ON SOCIAL MEDIA</h3>
                         <p class="text-md font-medium text-white/80">Get in touch with us and we’re looking forward to you.</p>
                     </div>
-                    <div class="mt-8 absolute bottom-10 flex space-x-3">
-                        <a href="https://www.instagram.com/digi_tanzania/" target="_blank" class="block hover:underline">@Instagram</a>
-                        <a href="https://www.facebook.com/people/DIGI-Tanzania/61573040064155/" target="_blank" class="block hover:underline">@Facebook</a>
-                        <a href="https://www.linkedin.com/company/digi-tanzania" target="_blank" class="block hover:underline">@LinkedIn</a>
+                    <div class="mt-8 absolute text-2xl bottom-10 flex space-x-4">
+                        <a href="https://www.instagram.com/digi_tanzania/" target="_blank" class="block py-2 px-3 border border-white rounded-xl hover:bg-white hover:text-black transition-all duration-300">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/people/DIGI-Tanzania/61573040064155/" target="_blank" class="block py-2 px-3 border border-white rounded-xl hover:bg-white hover:text-black transition-all duration-300">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@digi_tanzania" target="_blank" class="block py-2 px-3 border border-white rounded-xl hover:bg-white hover:text-black transition-all duration-300">
+                            <i class="bi bi-tiktok"></i>
+                        </a>
+                        <a href="https://youtube.com/@digi_tanzania?si=atTe-OGoDBLNMe7_" target="_blank" class="block py-2 px-3 border border-white rounded-xl hover:bg-white hover:text-black transition-all duration-300">
+                            <i class="bi bi-youtube"></i>
+                        </a>
                     </div>
                 </div>
             </div>

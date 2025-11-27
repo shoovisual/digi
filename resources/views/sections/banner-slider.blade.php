@@ -7,7 +7,7 @@
                 'url' => '/categories/digi-washing-machine',
             ],
             [
-                'title' => 'Enjoy in Every Pixel',
+                'title' => 'Enjoy Every Moment',
                 'subtitle' => 'With our affordable UHD Smart TV',
                 'image' => 'img/products/tvs/tv-featured.jpg',
                 'url' => '/categories/digi-tvs',
